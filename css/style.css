@@ -1,0 +1,956 @@
+@font-face 
+{
+  font-family: BoldFont;
+  src: url("../fonts/boldfont.ttf");
+}
+
+*{
+    margin: 0;
+    font-family: BoldFont;
+    overflow-x: hidden;
+}
+
+body{
+  background: linear-gradient(#2a2f3b, #334342);
+}
+
+
+
+h1{
+    text-align: center;
+    color: white;
+}
+/**************/
+
+footer{
+  bottom: 0%;
+  height: 25vw;
+  width: 100vw;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonFoot{
+  font-size: 3vh;
+  cursor: pointer;
+  padding: 1vw;
+}
+
+/**************/
+.filmTab{
+  position: relative;
+  padding-top: 5%;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: hidden;
+  perspective: 900px;
+  align-items: center;
+  align-content: center;
+}
+
+#filmTabDivRow2{
+  padding-top: 0%;
+}
+#filmTabDivRow3{
+  padding-top: 0%;
+}
+#filmTabDivRow4{
+  padding-top: 0%;
+}
+#filmTabDivRow5{
+  padding-top: 0%;
+  margin-bottom:10%;
+}
+
+/*****FILM CASE*****/
+
+.filmCase{
+  width: 10vw;
+  height: 15vw;
+  margin: 2vh;
+  background-color: rgb(12, 12, 12);
+  background-image: url(https://resize-europe1.lanmedia.fr/img/var/europe1/storage/images/media/images/leon/15796682-1-fre-FR/Leon_reference.jpg);
+  background-size: 110% 115%;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0px 2vh black;
+  transition: all 0.5s;
+  cursor: pointer;
+  overflow: hidden;
+  animation: come 1s;
+}
+
+
+.filmCase:hover{
+  transition: all 3s;
+  background-size: 130% 130%;
+}
+
+.filmCase:hover .gradient{
+  opacity: 100%;
+  position: absolute;
+  transition: all 1s;
+  background: linear-gradient(rgba(0, 0, 255, 0), rgb(0, 0, 0));
+  pointer-events:none;
+  z-index: 101212;
+}
+
+.filmCase.active:hover .gradient{
+  opacity: 100%;
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  transition: all 1s;
+  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+  pointer-events:none;
+  z-index: 101212;
+}
+
+.titleMoviePrev{
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 1vh;
+  left: 0;
+  transition: all 1s;
+  font-size: 2vh;
+}
+
+.filmCase.active{
+  background-size: cover;
+}
+
+.filmCase.active .titleMoviePrev{
+  display: none;
+}
+
+.filmCase:hover .titleMoviePrev{
+  opacity: 100%;
+  position: absolute;
+  color: white;
+  bottom: 3vh;
+  transition: all 2s;
+  z-index: 854848454;
+}
+
+@keyframes come {
+  from{
+    transform: translateY(-5vh);
+    opacity: 0;
+  }to{
+    opacity: 100;
+  }
+}
+
+.filmCase:hover{
+  transition: all 0.5s;
+}
+
+.filmCase.active{
+  pointer-events: none;
+  position: relative;
+  transition: all 1s;
+  width: 35vw;
+  height: 20vw;
+  background-image: none;
+  cursor:auto;
+  z-index: 100;
+}
+
+.gradient{
+  pointer-events: none;
+  opacity: 0%;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+  background-size: cover;
+  transition: all 1s;
+  z-index: 101212;
+}
+
+.filmCase.active .gradient{
+  opacity: 100%;
+  position: absolute;
+  transition: all 1s;
+  pointer-events:none;
+  z-index: 101212;
+}
+
+.titleMovie{
+  opacity: 0%;
+  pointer-events: none;
+  position: absolute;
+  top: 1vh;
+  left: 1.5vh;
+  font-size: 1.5vw;
+  color: white;
+  filter: drop-shadow(0px 0.33vh 0px rgba(0, 0, 0, 0.466)) drop-shadow(0px 0px 5vh black);
+}
+
+.filmCase.active .titleMovie{
+  opacity: 100%;
+  position: absolute;
+  top: 1vh;
+  left: 1.5vh;
+  color: white;
+  transition: all 2s;
+  z-index: 854848454;
+}
+
+.descriptionMovie{
+  pointer-events: none;
+  opacity: 0%;
+  position: absolute;
+  bottom: 1vh;
+  width: 70%;
+  right: 1.5vh;
+  font-size: 1.5vh;
+  color: white;
+}
+
+.titleMovie span{
+  font-size: 2vh;
+  margin: 0;
+}
+
+.titleMovie .Category{
+  font-size: 1.5vh;
+}
+
+.filmCase.active .descriptionMovie{
+  opacity: 100%;
+  position: absolute;
+  bottom: 1vh;
+  width: 50%;
+  right: 1.5vh;
+  transition: all 2s;
+  text-align: right;
+  color: white;
+  z-index: 854848454;
+}
+
+.likeButton{
+  position: absolute;
+  pointer-events:visible;
+  opacity: 0;
+  bottom: 0%;
+  width: 5vh;
+  height: 5vh;
+  background-image: url(../img/EmojiLike.webp);
+  background-size: cover;
+  z-index: 545456465456654654;
+}
+
+.likeButton:hover{
+  transition: all 1s;
+  transform: translateY(-0.5vh);
+  filter: drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
+}
+
+.filmCase.active .likeButton{
+  pointer-events: all;
+  opacity: 100;
+  transition: all 1s;
+  cursor: pointer;
+  bottom: 1vh;
+  left: 1vh;
+}
+
+.likeButton.active{
+  filter: drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
+}
+
+.dislikeButton{
+  position: absolute;
+  pointer-events: none;
+  filter: hue-rotate(125deg);
+  opacity: 0;
+  bottom: 0%;
+  width: 5vh;
+  height: 5vh;
+  background-image: url(../img/EmojiLike.webp);
+  background-size: cover;
+  transform: rotateX(180deg);
+  z-index: 545456465456654654;
+}
+
+.dislikeButton:hover{
+  transition: all 1s;
+  transform: rotateX(180deg) translateY(0.5vh);
+  filter: hue-rotate(125deg) drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
+}
+
+.dislikeButton.active{
+  filter: hue-rotate(125deg) drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
+}
+
+.filmCase.active .dislikeButton{
+  pointer-events: all;
+  cursor: pointer;
+  opacity: 100;
+  transition: all 1s;
+  bottom: 1vh;
+  left: 8vh;
+}
+
+.percentOfLike{
+  pointer-events: none;
+  position: absolute;
+  bottom: 6.5vh;
+  font-size: 3.5vh;
+  width: 14vh;
+  text-align: center;
+  color: white;
+  opacity: 0;
+}
+
+.filmCase.active .percentOfLike{
+  opacity: 100;
+  transition: all 1s;
+  z-index: 1002151;
+}
+
+.embedYT{
+  pointer-events: none;
+  opacity: 0%;
+  display: none;
+  position: absolute;
+  width: 15vw;
+  height: 8vw;
+  right: 2vh;
+  top: 2vh;
+}
+
+.filmCase.active .embedYT{
+  pointer-events: all;
+  display: block;
+  opacity: 100;
+  transition: all 1s;
+  z-index: 1002151;
+  box-shadow: 0vh 0vh 1vh black;
+  border-style: solid;
+}
+
+.percentOfLikePreview{
+  overflow: hidden;
+  display: block;
+  line-height: 1.5vw;
+  pointer-events: none;
+  width: 10vw;
+  height: 4vh;
+  position: relative;
+  text-align: center;
+  color: aliceblue;
+  padding-top: 12vw;
+  transform: translateY(-15vw);
+  z-index: 212121212221211464546468468468648;
+  font-size: 2vw;
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.25vh 1vh black);
+  text-shadow: 0px 0.3vh 0.1vh rgba(0, 0, 0, 0.514);
+}
+
+.percentOfLikePreview span{
+  display: none;
+  font-size: 1vw;
+}
+
+.filmCase:hover .percentOfLikePreview span{
+  display: block;
+  font-size: 1vw;
+}
+
+.filmCase:hover .percentOfLikePreview{
+  width: 10vw;
+  height: 15vw;
+  padding-top: 2vw;
+  transition: all 1s;
+  transform: translateY(0vw);
+}
+
+.filmCase.active .percentOfLikePreview{
+  display: none;
+}
+
+.searchBar{
+  position: fixed;
+  top: 0%;
+  left: 10%;
+  width: 40vh;
+  height: 7.5vh;
+  border-bottom-right-radius: 6vh;
+  border-bottom-left-radius: 6vh;
+  background-color: rgb(36, 36, 39);
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 15454684686888678767868677867868776766768787687;
+  padding-bottom: 1vh;
+  box-shadow: 0px 0px 1vh black;
+}
+
+form{
+  margin-top: 1vh;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+#searchValue{
+  font-size: 1.5vh;
+  padding: 1vh;
+  margin-right: 1.5vh;
+}
+
+.searchIcon{
+  cursor: pointer;
+  width: 5vh;
+  height: 5vh;
+  filter: invert(1);
+}
+
+.exitButton{
+  display: none;
+  position: absolute;
+  background-color: wheat;
+  top: 10%;
+  left: 10%;
+  width: 10vh;
+  height: 10vh;
+}
+
+.exitButton:hover{
+  background-color: aqua;
+}
+
+#goBackPage{
+  display: none;
+}
+
+.filmCase.active .exitButton{
+  display: block;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 10000000000000000;
+}
+
+/*DELETE MODIFY*/
+
+.deleteButton{
+  display: none;
+  position: absolute;
+  bottom: 1.3vh;
+  left: 14vh;
+  width: 4vh;
+  height: 4vh;
+  filter: invert(1);
+  background-image: url(https://cdn-icons-png.flaticon.com/512/1017/1017479.png);
+  background-size: cover;
+  z-index: 1000000000;
+}
+
+.modifyButtonIn{
+  display: none;
+  position: absolute;
+  bottom: 1.3vh;
+  left: 19vh;
+  width: 4vh;
+  height: 4vh;
+  filter: invert(1);
+  background-image: url(http://cdn.onlinewebfonts.com/svg/img_548271.png);
+  background-size: cover;
+  z-index: 1000000000;
+}
+
+.filmCase.active .deleteButton{
+  cursor: pointer;
+  pointer-events: all;
+  display: block;
+  z-index: 1000000000;
+}
+
+.filmCase.active .modifyButtonIn{
+  cursor: pointer;
+  pointer-events: all;
+  display: block;
+  z-index: 1000000000;
+}
+
+.addToCollection{
+  display: none;
+  position: absolute;
+  bottom: 1.3vh;
+  left: 24vh;
+  width: 4vh;
+  height: 4vh;
+  filter: invert(1);
+  background-image: url(../img/59836.png);
+  background-size: cover;
+  z-index: 1000000000;
+  transform: scale(0.75) rotateZ(45deg);
+}
+
+.filmCase.active .addToCollection{
+  cursor: pointer;
+  pointer-events: all;
+  display: block;
+  z-index: 1000000000;
+}
+
+/*DELETE MODIFY*/
+
+.deleteThisFilm{
+  
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0));
+  background-size: cover;
+  z-index: 545454545454545454545454545;
+  transition: all 0s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filmCase.active .deleteThisFilm.active{
+  pointer-events: all;
+  transition: all 0.5s;
+  opacity: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+}
+
+.deleteChoice{
+  display: flex;
+  justify-content: center;
+}
+.yesChoice{
+  padding: 1vh;
+  margin: 1vh;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 3vh;
+  transition: all 1s;
+}
+.yesChoice:hover{
+  transition: all 1s;
+  background-color: white;
+  color: black;
+}
+.noChoice{
+  padding: 1vh;
+  margin: 1vh;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 3vh;
+  transition: all 1s;
+}
+.noChoice:hover{
+  transition: all 1s;
+  background-color: white;
+  color: black;
+}
+
+/**********ADD**********/
+
+.buttonDiv{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  right: 1%;
+  bottom: 1%;
+  overflow-y: hidden;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.addFilm{
+  right: 1%;
+  width: 7vh;
+  height: 7vh;
+  bottom: 1%;
+  border-radius: 3.5vh;
+  background-color: aliceblue;
+  overflow: hidden;
+  transition: all 1s;
+  margin-top: 1vh;
+}
+
+.crossAdd{
+  background-image: url(../img/59836.png);
+  width: 7vh;
+  background-size: 50%;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 7vh;
+  position: relative;
+  transform: rotateZ(45deg);
+  cursor: pointer;
+  transition: all 1s;
+  right: 0%;
+  bottom: 0%;
+  transition: all 1s;
+  margin: 0;
+}
+
+.addFilm.active{
+  width: 35vh;
+  height: 50vh;
+  border-radius: 5vh;
+  transition: all 1s;
+  background-color: rgb(37, 37, 37);
+  border-style: solid;
+  border-color: rgb(20, 20, 20);
+  box-shadow: 0vh 0vh 1vh black;
+}
+
+.addFilm.active .crossAdd{
+  transition: all 1s;
+  margin-top: 1.5vh;
+  margin-left: 1.5vh;
+  transform: rotateZ(0deg);
+  transition: all 1s;
+  right:1vh;
+  bottom: 1vh;
+  filter: invert(1);
+}
+
+#formAddFilm{
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  opacity: 0;
+  transition: all 1s;
+  width: 100%;
+  height: 70%;
+  display: none;
+  overflow: hidden;
+}
+
+.addFilm.active #formAddFilm{
+  display: flex;
+  opacity: 100;
+  transition: all 1s;
+}
+
+.filmTextInput{
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
+
+.filmCategory{
+  padding: 0.25vh;
+  padding-left: 1vh;
+  padding-right: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 1.5vh;
+}
+
+#submitCreate{
+  font-size: 2.5vh;
+}
+
+/**********ADD**********/
+
+/**********SEARCH SPECIFIC MENU**********/
+
+.specificSearch{
+  width: 7vh;
+  height: 7vh;
+  border-radius: 3.5vh;
+  background-color: aliceblue;
+  overflow: hidden;
+  transition: all 1s;
+  margin-top: 1vh;
+}
+
+#openSearchMenu{
+  background-image: url(../img/icons8-search-more-90.png);
+  transform: rotate(0deg);
+}
+
+.specificSearch.active{
+  width: 35vh;
+  height: 50vh;
+  border-radius: 5vh;
+  transition: all 1s;
+  background-color: rgb(37, 37, 37);
+  border-style: solid;
+  border-color: rgb(20, 20, 20);
+  box-shadow: 0vh 0vh 1vh black;
+}
+
+.specificSearch.active #openSearchMenu{
+  filter: invert(1);
+}
+
+#formSearchFilm{
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  opacity: 0;
+  transition: all 1s;
+  width: 100%;
+  height: 75%;
+  display: none;
+  overflow: hidden;
+}
+
+.specificSearch.active #formSearchFilm{
+  display: flex;
+  opacity: 100;
+  transition: all 1s;
+}
+
+.filmTextInput{
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
+
+.filmCategoryToSearch{
+  padding: 0.25vh;
+  padding-left: 1vh;
+  padding-right: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 1.5vh;
+}
+
+.triageCategory{
+  padding: 0.25vh;
+  padding-left: 1vh;
+  padding-right: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 1.5vh;
+}
+
+#submitSearchSpec{
+  font-size: 2.5vh;
+}
+
+/**********SEARCH SPECIFIC MENU**********/
+
+/**********MODIFY MENU**********/
+
+.modifyFilm{
+  width: 7vh;
+  height: 7vh;
+  border-radius: 3.5vh;
+  background-color: aliceblue;
+  overflow: hidden;
+  transition: all 1s;
+  margin-top: 1vh;
+}
+
+#openModifyMenu{
+  background-image: url(http://cdn.onlinewebfonts.com/svg/img_548271.png);
+  transform: rotate(0deg);
+}
+
+.modifyFilm.active{
+  width: 35vh;
+  height: 50vh;
+  border-radius: 5vh;
+  transition: all 1s;
+  background-color: rgb(37, 37, 37);
+  border-style: solid;
+  border-color: rgb(20, 20, 20);
+  box-shadow: 0vh 0vh 1vh black;
+}
+
+.modifyFilm.active #openModifyMenu{
+  filter: invert(1);
+}
+
+#formModifyFilm{
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  opacity: 0;
+  transition: all 1s;
+  width: 100%;
+  height: 75%;
+  display: none;
+  overflow: hidden;
+}
+
+.modifyFilm.active #formModifyFilm{
+  display: flex;
+  opacity: 100;
+  transition: all 1s;
+}
+
+.filmTextInput{
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
+
+.filmCategoryToModify{
+  padding: 0.25vh;
+  padding-left: 1vh;
+  padding-right: 3vh;
+  margin-bottom: 1.5vh;
+  font-size: 1.5vh;
+}
+
+#submitModify{
+  font-size: 2.5vh;
+}
+
+/**********MODIFY MENU**********/
+
+/**********CATEGORY MENU**********/
+
+.addCategory{
+  width: 7vh;
+  height: 7vh;
+  border-radius: 3.5vh;
+  background-color: aliceblue;
+  overflow: hidden;
+  transition: all 1s;
+  margin-top: 1vh;
+}
+
+#openCategoryMenu{
+  background-image: url(https://assets.stickpng.com/images/580b57fcd9996e24bc43c4c8.png);
+  transform: rotate(0deg);
+}
+
+.addCategory.active #openCategoryMenu{
+  filter: invert(1);
+}
+
+.addCategory.active{
+  width: 35vh;
+  height: 22vh;
+  border-radius: 5vh;
+  transition: all 1s;
+  background-color: rgb(37, 37, 37);
+  border-style: solid;
+  border-color: rgb(20, 20, 20);
+  box-shadow: 0vh 0vh 1vh black;
+}
+
+.addCategory.active #formCategoryFilm{
+  display: flex;
+  opacity: 100;
+  transition: all 1s;
+}
+
+#formCategoryFilm{
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  opacity: 0;
+  transition: all 1s;
+  width: 100%;
+  height: 40%;
+  display: none;
+  overflow: hidden;
+}
+
+#submitCategory{
+  font-size: 2.5vh;
+}
+
+
+/**********CATEGORY MENU**********/
+
+
+.noResultText{
+  position: absolute;
+  top: 5vw;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+  display: none;
+  font-size: 2vw;
+  color: white;
+}
+
+#createYourOwn{
+  font-size: 1vw;
+  pointer-events: all;
+  cursor: pointer;
+  text-decoration: solid;
+}
+
+#resultText{
+  position: absolute;
+  top: 5.75vw;
+  font-size: 1.25vw;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.loadingPage{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  transition: all 2s;
+  z-index: 545454968486546848646848649875757575755454;
+}
+
+.loadingPage.disapear{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  transition: all 2s;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/****************/
+
+.NumberPage{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  align-content: center ;
+  justify-content: center;
+  width: 100%;
+  z-index: 15;
+  top: 2vw;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
+}
+
+#goBackPage{
+  display: none;
+}
+
+.goPage{
+  width: 2vh;
+  fill: white;
+  cursor: pointer;
+  margin: 1vh;
+  margin-top: 1.5vh;
+}

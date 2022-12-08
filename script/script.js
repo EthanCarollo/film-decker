@@ -1,0 +1,778 @@
+"use strict"
+
+window.onload=(event) => {
+    document.getElementById("loadingPage").classList.add("disapear");
+};
+
+const strNoAccent = (a) => {
+    var b="áàâäãåçèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
+        c="aaaaaaceeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
+        d="";
+    for(var i = 0, j = a.length; i < j; i++) {
+      var e = a.substr(i, 1);
+      d += (b.indexOf(e) !== -1) ? c.substr(b.indexOf(e), 1) : e;
+    }
+    return d;
+  }
+
+const divTabFilm = document.getElementById("filmTabDivRow1")
+const divTabFilm2 = document.getElementById("filmTabDivRow2")
+const divTabFilm3 = document.getElementById("filmTabDivRow3")
+const divTabFilm4 = document.getElementById("filmTabDivRow4")
+const divTabFilm5 = document.getElementById("filmTabDivRow5")
+
+
+let tabFilm = [
+    {
+        id:"Yzr28IxMyqdPEOC4Ez4r",
+        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
+        category :"qWvkRkXKisovrRkQWEaQ",
+        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
+        name: "Kaamelott (2021)",
+        likes :48,
+        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
+        dislikes:2,
+        author:"Alexandre Astierr"
+    },
+    {
+        id:"Yzr28IxMyqdPEOC4Ez4r",
+        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
+        category :"qWvkRkXKisovrRkQWEaQ",
+        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
+        name: "Kaamelott (2021)",
+        likes :48,
+        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
+        dislikes:2,
+        author:"Alexandre Astierr"
+    },
+    {
+        id:"Yzr28IxMyqdPEOC4Ez4r",
+        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
+        category :"qWvkRkXKisovrRkQWEaQ",
+        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
+        name: "Kaamelott (2021)",
+        likes :48,
+        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
+        dislikes:2,
+        author:"Alexandre Astierr"
+    }
+];
+
+if(localStorage.getItem("tabAPI")!==null)
+{
+    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
+}
+let tabDiv = [
+    
+];
+let displayTab = [...tabFilm];
+let categoryFilm = [
+
+] 
+if(localStorage.getItem("categoryAPI")!==null)
+{
+    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
+}
+let likedFilm = [];
+if(localStorage.getItem("likeTab")!==null){
+    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
+}
+let dislikedFilm = [];
+if(localStorage.getItem("dislikeTab")!==null){
+    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
+}
+let actualPage =0;
+
+let userCollection = [];
+
+
+//#region  // ? Creation de la liste de film
+
+const createTable = (tab) => {
+    divTabFilm.innerHTML = "";
+    divTabFilm2.innerHTML = "";
+    divTabFilm3.innerHTML = "";
+    divTabFilm4.innerHTML = "";
+    divTabFilm5.innerHTML = "";
+    tabDiv = [];
+    for(let i = 0+(25*actualPage); i < 5+(25*actualPage); i++)
+    {
+        if(tab[i]!==undefined){
+            AddInRow(tab[i], i, divTabFilm);
+        }else{
+            break;
+        }
+    }
+    for(let k = 5+(25*actualPage); k < 10+(25*actualPage); k++)
+    {
+        if(tab[k]!==undefined){
+            AddInRow(tab[k], k, divTabFilm2);
+        }else{
+            break;
+        }
+    }
+    for(let l = 10+(25*actualPage); l < 15+(25*actualPage); l++)
+    {
+        if(tab[l]!==undefined){
+            AddInRow(tab[l], l, divTabFilm3);
+        }else{
+            break;
+        }
+    }
+    for(let m = 15+(25*actualPage); m < 20+(25*actualPage); m++)
+    {
+        if(tab[m]!==undefined){
+            AddInRow(tab[m], m, divTabFilm4);
+        }else{
+            break;
+        }
+    }
+    for(let y = 20+(25*actualPage); y < 25+(25*actualPage); y++)
+    {
+        if(tab[y]!==undefined){
+            AddInRow(tab[y], y, divTabFilm5);
+        }else{
+            break;
+        }
+    }
+}
+
+//#region //* Navigation
+
+const refreshNavpage = () => {
+    actualPage = 0;
+    if(displayTab.length>25)
+    {
+        document.getElementById("goNextPage").style.display = "initial";
+        document.getElementById("goBackPage").style.display = "none";
+    }else{
+        document.getElementById("goNextPage").style.display = "none";
+        document.getElementById("goBackPage").style.display = "none";
+    }
+}
+
+const goNextPage = () => {
+    if(displayTab.length>(25+(25*actualPage))){
+        actualPage += 1;
+        createTable(displayTab);
+        document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+        document.getElementById("goBackPage").style.display = "initial";
+        if(displayTab.length<(25+(25*actualPage))){
+            document.getElementById("goNextPage").style.display = "none";
+            document.getElementById("goBackPage").style.display = "initial";
+        }
+    }else{
+        document.getElementById("goNextPage").style.display = "none";
+    }
+}
+
+const goBackPage = () => {
+    actualPage -= 1;
+    if(actualPage<=0){
+        actualPage = 0;
+        document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+        createTable(displayTab);
+        document.getElementById("goBackPage").style.display = "none";
+        document.getElementById("goNextPage").style.display = "initial";
+    }else{
+        document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+        createTable(displayTab);
+        document.getElementById("goNextPage").style.display = "initial";
+    }
+
+}
+
+const goPage1 = () => {
+    actualPage = 0;
+    document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+}
+
+document.getElementById("goNextPage").addEventListener("click", goNextPage);
+document.getElementById("goBackPage").addEventListener("click", goBackPage);
+
+//#endregion //* Navigation
+
+const urlEmbed = (i) => {
+    let newUrl = displayTab[i].video.slice(tabFilm[i].video.length-11,tabFilm[i].video.length);
+    return "https://www.youtube.com/embed/" + newUrl;
+}
+
+const obtainCategory = (tab) => {
+    for(let i = 0; i < categoryFilm.length;i++)
+    {
+        if(tab.category == categoryFilm[i].id)
+        {
+            return categoryFilm[i].name;
+        }
+    }
+}
+
+const setActiveTab = (filmCard, i) => {
+    let limit = document.documentElement.clientHeight;
+            let offSetTop = filmCard.offsetTop / limit * 100;
+            filmCard.style.top = offSetTop+"%";
+            for(let j = 0; j<tabDiv.length;j++){
+                if(j !== i){
+                    tabDiv[j].classList.remove("active")
+                }
+            }
+            filmCard.addEventListener('click', function specEvent(e){
+                if(e.target === filmCard){
+                    setActiveTab(filmCard,i);
+                    filmCard.removeEventListener("click", specEvent);
+                }
+            })
+            filmCard.classList.toggle("active");
+            
+}
+
+const deleteFilm = (tabMovie) => {
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + tabMovie.id;
+    axios.delete(url)
+        .then(res => {
+            fetchTable();
+        })
+        .catch(error =>{
+            console.log(error);
+          })
+   
+
+   
+}
+
+//#region // * Like Region
+
+const likeFilm = (movieID) => {
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID+"/like";
+    axios.patch(url)
+        .then(res => {
+            fetchTable();
+        })
+        .catch(error =>{
+            console.log(error);
+          })
+}
+
+const dislikeFilm = (movieID) => {
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID +"/dislike";
+    axios.patch(url)
+        .then(res => {
+            fetchTable();
+        })
+        .catch(error =>{
+            console.log(error);
+          })
+}
+
+const setLikeRatio = (like, dislike) => {
+    if(like>dislike){
+        return Math.floor((like - dislike)/like*100);
+    }else if(like<dislike){
+        let temp = Math.floor(((dislike - like)/dislike)*100);
+        temp = -temp;
+        return temp;
+    }
+    return 0   
+}
+
+//#endregion // * Like Region
+
+const AddInRow=(tabMovie, i, divTab)=>{
+    let filmCard = divTab.appendChild(document.createElement("div"));
+        filmCard.classList.add("filmCase");
+        filmCard.style.backgroundImage = "url(" + tabMovie.img + ")";
+        filmCard.addEventListener('mousemove', (e) => {
+            if(!filmCard.classList.contains("active")){
+                let offYTemp = filmCard.getBoundingClientRect().top
+                let offXTemp = filmCard.getBoundingClientRect().left
+                let filmCardWidth = filmCard.clientWidth;
+                let filmCardHeight = filmCard.clientHeight;
+                var mouseX = (e.clientX-offXTemp) / filmCardWidth * 100;
+                var mouseY = (e.clientY-offYTemp) / filmCardHeight *100;
+                mouseX = mouseX -50;
+                mouseY = mouseY - 50;
+                filmCard.style.transition = "transform 0s all 1s";
+                
+                filmCard.style.transform = "rotateY("+mouseY/4+"deg)" + " rotateX("+mouseX/4+"deg)";
+            }
+        });
+        filmCard.addEventListener('mouseout', (event) => {
+            filmCard.style.transition = "transform 1s all 1s";
+            filmCard.style.transform = "rotateY("+0+"deg)" + " rotateX("+0+"deg)";
+            
+        });
+        let embed = filmCard.appendChild(document.createElement("iframe"));
+        embed.allowFullscreen = "true";
+        embed.classList.add("embedYT");
+        filmCard.addEventListener('click', function specEvent(e){
+            if(e.target === filmCard){
+                embed.src = urlEmbed(i);
+                
+                embed.frameBorder = "0px";
+                //embed.onload = (e) => {
+                    setActiveTab(filmCard,i);
+                    filmCard.removeEventListener("click", specEvent);
+                //}
+            }
+        })
+        tabDiv.push(filmCard);
+        let gradientCard = filmCard.appendChild(document.createElement("div"));
+        gradientCard.classList.add("gradient");
+        let titlePrevu = filmCard.appendChild(document.createElement("div"));
+        titlePrevu.classList.add("titleMoviePrev");
+        titlePrevu.innerHTML = strNoAccent(tabMovie.name);
+        let title = filmCard.appendChild(document.createElement("div"));
+        title.classList.add("titleMovie");
+        title.innerHTML = strNoAccent(tabMovie.name) + "<br><span> un film de " + tabMovie.author + "</span>" + "<br><span class= \u0022Category\u0022 >" + obtainCategory(tabMovie) + "</span>";
+        let description = filmCard.appendChild(document.createElement("div"));
+        description.classList.add("descriptionMovie");
+        description.innerHTML = strNoAccent(tabMovie.description);
+        let likeButton = filmCard.appendChild(document.createElement("div"));
+        likeButton.classList.add("likeButton");
+        let dislikeButton = filmCard.appendChild(document.createElement("div"));
+        dislikeButton.classList.add("dislikeButton");
+        let percentOfLike = filmCard.appendChild(document.createElement("div"));
+        percentOfLike.classList.add("percentOfLike");
+        percentOfLike.innerHTML = setLikeRatio(tabMovie.likes, tabMovie.dislikes) +" %";
+        let percentOfLikePreview = filmCard.appendChild(document.createElement("div"));
+        percentOfLikePreview.classList.add("percentOfLikePreview");
+        percentOfLikePreview.innerHTML = setLikeRatio(tabMovie.likes, tabMovie.dislikes) +" % <br><span>LIKE RATIO</span>";
+        if(setLikeRatio(tabMovie.likes, tabMovie.dislikes) < 0){
+            percentOfLikePreview.style.color = "rgb(255,100,100)";
+        }else if(setLikeRatio(tabMovie.likes, tabMovie.dislikes) > 0){
+            percentOfLikePreview.style.color = "rgb(80,80,255)";
+        }else{
+            percentOfLikePreview.style.color = "rgb(255,255,255)";
+        }
+
+        if(likedFilm.includes(tabMovie.id) === true)
+        {
+            likeButton.classList.add("active");
+        }else {
+            likeButton.addEventListener("click", (e)=>{
+                if(dislikedFilm.includes(tabMovie.id) === true)
+                {
+                    return;
+                }
+                likedFilm.push(tabMovie.id);
+                likeButton.classList.add("active");
+                likeFilm(tabMovie.id);
+                localStorage.setItem("likeTab", JSON.stringify(likedFilm))
+            })
+        }
+        if(dislikedFilm.includes(tabMovie.id) === true)
+            {
+                dislikeButton.classList.add("active");
+            }else{
+                dislikeButton.addEventListener("click", (e)=>{
+                    if(likedFilm.includes(tabMovie.id) === true)
+                    {
+                        return;
+                    }
+                    dislikedFilm.push(tabMovie.id);
+                    dislikeButton.classList.add("active");
+                    dislikeFilm(tabMovie.id);
+                    localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
+                })
+            }
+    
+
+        let deleteMenu = filmCard.appendChild(document.createElement("div"));
+        deleteMenu.classList.add("deleteThisFilm");
+        let doYouWantTo = deleteMenu.appendChild(document.createElement("h1"));
+        doYouWantTo.innerHTML = "Voulez vous vraiment supprimer " + tabMovie.name;
+
+        let deleteChoice = deleteMenu.appendChild(document.createElement("div"));
+        deleteChoice.classList.add("deleteChoice");
+        let yesChoice = deleteChoice.appendChild(document.createElement("div"));
+        yesChoice.classList.add("yesChoice");
+        yesChoice.innerHTML = "oui";
+        yesChoice.addEventListener("click", (e) => {
+            deleteFilm(tabMovie);
+        })
+        let noChoice = deleteChoice.appendChild(document.createElement("div"));
+        noChoice.classList.add("noChoice");
+        noChoice.innerHTML = "non";
+        noChoice.addEventListener("click", (e) => {
+            deleteMenu.classList.toggle("active");
+        })
+        
+        let deleteButton = filmCard.appendChild(document.createElement("div"));
+        deleteButton.classList.add("deleteButton");
+        deleteButton.addEventListener("click", (e) => {
+            deleteMenu.classList.toggle("active");
+        })
+
+        let modifyButton = filmCard.appendChild(document.createElement("div"));
+        modifyButton.classList.add("modifyButtonIn");
+        modifyButton.addEventListener("click", (e) => {
+            document.getElementById("filmIDToModify").value = tabMovie.id;
+            document.getElementById("filmNameToModify").value = tabMovie.name;
+            document.getElementById("filmAuthorToModify").value = tabMovie.author;
+            document.getElementById("filmCategoryToModify").value = tabMovie.category;
+            document.getElementById("filmDescToModify").value = tabMovie.description;
+            document.getElementById("filmTrailerToModify").value = tabMovie.video;
+            document.getElementById("filmImageToModify").value = tabMovie.img;
+            openModify2();
+        })
+
+        let addToCollection = filmCard.appendChild(document.createElement("div"));
+        addToCollection.classList.add("addToCollection");
+
+}
+
+//#endregion // ? Creation de la liste de film
+
+//#region // ! AddFilm
+
+document.getElementById("submitCreate").addEventListener("click", (e)=>{
+    
+    if(!document.getElementById("filmTrailer").value.includes("youtube") && document.getElementById("filmTrailer").value.slice(0,5) !== "https"){
+        return;
+    }
+    if(!document.getElementById("filmImage").value.slice(0,5) === "https"){
+        return;
+    }
+    axios.post("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies", {
+        name: document.getElementById("filmNameToAdd").value,
+        author: document.getElementById("filmAuthor").value,
+        img: document.getElementById("filmImage").value,
+        category : document.getElementById("filmCategory").value,
+        description: document.getElementById("filmDescToAdd").value,
+        video: document.getElementById("filmTrailer").value
+      })
+      .then(res => {
+        actualPage = 0;
+        fetchTable();
+        document.getElementById("filmTrailer").value = "";
+        document.getElementById("filmDescToAdd").value = "";
+        document.getElementById("filmCategory").value = "";
+        document.getElementById("filmImage").value = "";
+        document.getElementById("filmAuthor").value = "";
+        document.getElementById("filmNameToAdd").value = "";
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+})
+
+document.getElementById("openAddMenu").addEventListener("click", (e)=>{
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addFilmMenu").classList.toggle("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+})
+
+document.getElementById("createYourOwn").addEventListener("click", (e)=>{
+    document.getElementById("addFilmMenu").classList.toggle("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+})
+
+const addSubCategoryToCreateFilm = () => {
+    let filmCategorOption = document.getElementById("filmCategory");
+    let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
+    let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
+    filmCategorOption.innerHTML = "";
+    filmCategorOptionSearch.innerHTML = "";
+    filmCategorOptionModify.innerHTML = "";
+    let OptionAll2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
+    OptionAll2.value = "all";
+    OptionAll2.innerHTML = "Everything";
+    for(let i = 0; i< categoryFilm.length;i++)
+    {
+        let Option = filmCategorOption.appendChild(document.createElement("option"));
+        Option.value = categoryFilm[i].id;
+        Option.innerHTML = categoryFilm[i].name;
+        let Option2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
+        Option2.value = categoryFilm[i].id;
+        Option2.innerHTML = categoryFilm[i].name;
+        let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
+        Option3.value = categoryFilm[i].id;
+        Option3.innerHTML = categoryFilm[i].name;
+    }
+}
+
+//#endregion // ! AddFilm
+
+//#region // Modify Film
+
+const ModifyFilm = () => {
+    if(!document.getElementById("filmIDToModify").length > 8){
+        return;
+    }
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + document.getElementById("filmIDToModify").value;
+    axios.patch(url, {
+        name: document.getElementById("filmNameToModify").value,
+        author: document.getElementById("filmAuthorToModify").value,
+        img: document.getElementById("filmImageToModify").value,
+        category : document.getElementById("filmCategoryToModify").value,
+        description: document.getElementById("filmDescToModify").value,
+        video: document.getElementById("filmTrailerToModify").value
+      })
+      .then(res => {
+        fetchTable();
+        document.getElementById("filmTrailerToModify").value = "";
+        document.getElementById("filmDescToModify").value = "";
+        document.getElementById("filmCategoryToModify").value = "";
+        document.getElementById("filmImageToModify").value = "";
+        document.getElementById("filmAuthorToModify").value = "";
+        document.getElementById("filmNameToModify").value = "";
+        openModify();
+      })
+      .catch(error =>{
+        console.log(error);
+      })
+}
+
+const openModify = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.toggle("active");
+}
+
+const openModify2 = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.add("active");
+}
+
+const createCategory = () => {
+    let newCat = document.getElementById("filmCategoryToAdd").value;
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories";
+        
+    console.log(typeof newCat)
+        axios.post(url, {
+            name: newCat })
+            .then(res => {
+                fetchTable();
+                document.getElementById("filmCategoryToAdd").value = " ";
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+    
+    
+}
+
+const openModifyCat = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.toggle("active");
+}
+
+document.getElementById("submitModify").addEventListener("click", ModifyFilm)
+document.getElementById("openModifyMenu").addEventListener("click", openModify)
+document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
+document.getElementById("submitCategory").addEventListener("click", createCategory);
+
+
+
+//#endregion // Modify Film
+
+//#region // TODO search bar
+
+const sortArrayByRatio = (array) => {
+    return array.sort((a, b) => {
+        if (setLikeRatio(a.likes, a.dislikes) < setLikeRatio(b.likes, b.dislikes))
+        {
+            return 1;
+        }
+        if (setLikeRatio(a.likes, a.dislikes) > setLikeRatio(b.likes, b.dislikes))
+        {
+            return -1;
+        }
+        return 0;
+      });
+}
+
+const sortArray = (array) => {
+    return array.sort((a, b) => {
+        if (a.name < b.name)
+           return -1;
+        if (a.name > b.name )
+           return 1;
+        return 0;
+      });
+}
+
+const Search = () => {
+    let tempTab = [];
+        for(let i = 0; i < tabFilm.length;i++){
+            if(tabFilm[i].name.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase()) 
+            || tabFilm[i].author.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
+            || tabFilm[i].description.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
+            ){
+                tempTab.push(tabFilm[i]);
+            }
+        }
+        goPage1();
+        displayTab = tempTab;
+        if(displayTab.length === 0)
+        {
+            noResult();
+        }else{
+            document.getElementById("resultText").style.display = "initial";
+            document.getElementById("resultText").innerHTML = displayTab.length + " results";
+            document.getElementById("noResult").style.display = "none";
+        }
+        if(document.getElementById("searchValue").value === ""){
+            displayTab = [...tabFilm];
+            document.getElementById("noResult").style.display = "none";
+            document.getElementById("resultText").style.display = "none";
+        }
+        refreshNavpage();
+        createTable(displayTab);
+}
+
+const SpecificSearch = () => {
+    let resultTab = [];
+    let checkCategory = sortEverything(document.getElementById("filmCategoryToSearch").value.toLowerCase());
+    for(let i = 0; i < tabFilm.length;i++){
+        if(tabFilm[i].name.toLowerCase().includes(document.getElementById("filmNameToSearch").value.toLowerCase()) 
+            && checkCategory
+            && tabFilm[i].author.toLowerCase().includes(document.getElementById("filmAuthorToSearch").value.toLowerCase())
+            && tabFilm[i].description.toLowerCase().includes(document.getElementById("filmDescToSearch").value.toLowerCase())
+        ){
+            resultTab.push(tabFilm[i]);
+        }else if(
+            tabFilm[i].name.toLowerCase().includes(document.getElementById("filmNameToSearch").value.toLowerCase()) 
+            && tabFilm[i].category.toLowerCase().includes(document.getElementById("filmCategoryToSearch").value.toLowerCase())
+            && tabFilm[i].author.toLowerCase().includes(document.getElementById("filmAuthorToSearch").value.toLowerCase())
+            && tabFilm[i].description.toLowerCase().includes(document.getElementById("filmDescToSearch").value.toLowerCase())
+            && !checkCategory
+        ){
+            resultTab.push(tabFilm[i]);
+        }
+        
+    }
+
+    resultTab = TriageSearch(resultTab, document.getElementById("Triage").value);
+    document.getElementById("searchValue").value = " ";
+    document.getElementById("resultText").style.display = "none";
+    console.log(resultTab.length);
+    displayTab = [...resultTab];
+    goPage1();
+    refreshNavpage();
+    createTable(displayTab);
+}
+
+const sortEverything = (value) => {
+    if(value === "all"){
+        return true
+    }else{
+        return false
+    }
+}
+
+const TriageSearch=(tab, triage)=>{
+    if(triage ==="A - Z"){
+        return sortArray(tab);
+    }else if(triage === "Z - A"){
+        return sortArray(tab).reverse();
+    }else if(triage === "like"){
+        console.log("here");
+        return sortArrayByRatio(tab);
+    }else if(triage === "dislike"){
+        return sortArrayByRatio(tab).reverse();
+    }else if(triage === "none"){
+
+    }
+    return tab;
+}
+
+const noResult = () => {
+    document.getElementById("resultText").style.display = "none";
+    document.getElementById("noResult").style.display = "initial";
+    document.getElementById("createYourOwn").style.display = "initial";
+}
+
+document.getElementById("openSearchMenu").addEventListener("click", (e)=>{
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.toggle("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+})
+
+document.getElementById("searchValue").addEventListener("input", () => {
+    Search();
+})
+
+document.getElementById("submitSearchSpec").addEventListener("click", SpecificSearch)
+document.getElementById("submitSearch").addEventListener("click", Search)
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    Search();
+})
+
+//#endregion // TODO search bar
+
+//#region // ! set the tab in the local storage 
+
+const fetchTable = () => {
+    fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies")
+        .then(res => res.json())
+        .then(res => JSON.stringify(res))
+        .then(res => 
+        {
+            localStorage.setItem("tabAPI", res);
+            setTable();
+        })
+        .catch(error => {
+            console.log(error);
+            getFileJSON();
+        })
+    fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories")
+        .then(res => res.json())
+        .then(res => JSON.stringify(res))
+       .then(res => 
+        {
+            
+            localStorage.setItem("categoryAPI", res);
+        })
+}
+
+const setTable = () => {
+    let tempTab = JSON.parse(localStorage.getItem("tabAPI"));
+    tabFilm = tempTab;
+    displayTab = [...tabFilm]
+    goPage1();
+    refreshNavpage();
+    createTable(displayTab);
+}
+
+let fileURL = "./json/movies.json";
+
+const readFileJSON = () => {
+    let arrayPromise = [];
+    const testString = JSON.stringify({
+        id:"Yzr28IxMyqdPEOC4Ez4r",
+        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
+        category :"qWvkRkXKisovrRkQWEaQ",
+        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
+        name: "Kaamelott (2021)",
+        likes :48,
+        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
+        dislikes:2,
+        author:"Alexandre Astierr"
+    })
+
+    axios.get(fileURL)
+        .then(res => {
+            return res.data;
+        })
+        .then(res => {
+            tabFilm = JSON.parse(res);
+        })
+        .catch(error => {
+            console.log("error")
+        })  
+}
+
+//#endregion // ! set the tab in the local storage 
+
+// Init Void
+
+document.getElementById("buttonRefresh").addEventListener("click", fetchTable)
+addSubCategoryToCreateFilm();
+createTable(tabFilm);
+
+// Init Void
