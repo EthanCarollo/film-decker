@@ -58,33 +58,41 @@ let tabFilm = [
     }
 ];
 
-if(localStorage.getItem("tabAPI")!==null)
-{
-    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
-}
+
 let tabDiv = [
     
 ];
-let displayTab = [...tabFilm];
 let categoryFilm = [
 
 ] 
-if(localStorage.getItem("categoryAPI")!==null)
-{
-    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
-}
 let likedFilm = [];
-if(localStorage.getItem("likeTab")!==null){
-    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
-}
+
 let dislikedFilm = [];
-if(localStorage.getItem("dislikeTab")!==null){
-    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
-}
+
 let actualPage =0;
 
 let userCollection = [];
 
+
+const setTab = () => {
+    if(localStorage.getItem("tabAPI")!==null)
+{
+    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
+}
+    if(localStorage.getItem("categoryAPI")!==null)
+{
+    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
+}
+if(localStorage.getItem("likeTab")!==null){
+    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
+}
+if(localStorage.getItem("dislikeTab")!==null){
+    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
+}
+}
+setTab();
+
+let displayTab = [...tabFilm];
 
 //#region  // ? Creation de la liste de film
 
@@ -143,11 +151,11 @@ const refreshNavpage = () => {
     actualPage = 0;
     if(displayTab.length>25)
     {
-        document.getElementById("goNextPage").style.display = "initial";
-        document.getElementById("goBackPage").style.display = "none";
+        document.getElementById("goNextPage").classList.remove("disappear")
+        document.getElementById("goBackPage").classList.add("disappear")
     }else{
-        document.getElementById("goNextPage").style.display = "none";
-        document.getElementById("goBackPage").style.display = "none";
+        document.getElementById("goNextPage").classList.add("disappear")
+        document.getElementById("goBackPage").classList.add("disappear")
     }
 }
 
@@ -156,13 +164,13 @@ const goNextPage = () => {
         actualPage += 1;
         createTable(displayTab);
         document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
-        document.getElementById("goBackPage").style.display = "initial";
+        document.getElementById("goBackPage").classList.remove("disappear")
         if(displayTab.length<(25+(25*actualPage))){
-            document.getElementById("goNextPage").style.display = "none";
-            document.getElementById("goBackPage").style.display = "initial";
+            document.getElementById("goNextPage").classList.add("disappear")
+            document.getElementById("goBackPage").classList.remove("disappear")
         }
     }else{
-        document.getElementById("goNextPage").style.display = "none";
+        document.getElementById("goNextPage").classList.add("disappear")
     }
 }
 
@@ -172,12 +180,12 @@ const goBackPage = () => {
         actualPage = 0;
         document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
         createTable(displayTab);
-        document.getElementById("goBackPage").style.display = "none";
-        document.getElementById("goNextPage").style.display = "initial";
+        document.getElementById("goBackPage").classList.add("disappear")
+        document.getElementById("goNextPage").classList.remove("disappear")
     }else{
         document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
         createTable(displayTab);
-        document.getElementById("goNextPage").style.display = "initial";
+        document.getElementById("goNextPage").classList.remove("disappear")
     }
 
 }
@@ -460,6 +468,7 @@ document.getElementById("openAddMenu").addEventListener("click", (e)=>{
     document.getElementById("modifyFilmMenu").classList.remove("active");
     document.getElementById("addFilmMenu").classList.toggle("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
 })
 
 document.getElementById("createYourOwn").addEventListener("click", (e)=>{
@@ -468,6 +477,7 @@ document.getElementById("createYourOwn").addEventListener("click", (e)=>{
 })
 
 const addSubCategoryToCreateFilm = () => {
+    checkDelCategory();
     let filmCategorOption = document.getElementById("filmCategory");
     let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
     let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
@@ -518,6 +528,9 @@ const ModifyFilm = () => {
         document.getElementById("filmNameToModify").value = "";
         openModify();
       })
+      .then(res =>{
+        addSubCategoryToCreateFilm();
+      })
       .catch(error =>{
         console.log(error);
       })
@@ -527,12 +540,21 @@ const openModify = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.toggle("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
 }
 
 const openModify2 = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.add("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
+}
+
+const openDelCategory = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.toggle("active");
 }
 
 const createCategory = () => {
@@ -553,6 +575,46 @@ const createCategory = () => {
     
 }
 
+const checkDelCategory = () => {
+    let filmCategoryToDeleteSelector = document.getElementById("filmCategoryToDelete");
+    let categoryFilmID = categoryFilm.map(n => n.id)
+    filmCategoryToDeleteSelector.innerHTML = " ";
+    console.log(filmCategoryToDeleteSelector.innerHTML)
+    let categoryUsed = [];
+    let awayCat = [];
+    console.log("im in");
+    for(let k = 0;k<tabFilm.length;k++)
+    {
+        if(!categoryUsed.includes(tabFilm[k].category)){
+            categoryUsed.push(tabFilm[k].category)
+        }
+    }
+    for(let i = 0;i<categoryFilm.length;i++)
+    {
+        if(!categoryUsed.some((e) => e === categoryFilm[i].id)){
+            let deleteCat = filmCategoryToDeleteSelector.appendChild(document.createElement("option"));
+            deleteCat.value = categoryFilm[i].id;
+            deleteCat.innerHTML = categoryFilm[i].name;
+        }
+    }
+    console.log(filmCategoryToDeleteSelector.innerHTML)
+}
+
+const delCategory = () => {
+    let deletecat = document.getElementById("filmCategoryToDelete").value;
+    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + deletecat;
+    console.log(url);
+    axios.delete(url)
+        .then(e => {
+            document.getElementById("filmCategoryToDelete").value = " ";
+            fetchTable();
+            console.log("delete success");
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
 const openModifyCat = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
@@ -563,7 +625,9 @@ const openModifyCat = () => {
 document.getElementById("submitModify").addEventListener("click", ModifyFilm)
 document.getElementById("openModifyMenu").addEventListener("click", openModify)
 document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
+document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
 document.getElementById("submitCategory").addEventListener("click", createCategory);
+document.getElementById("deleteCategory").addEventListener("click", delCategory);
 
 
 
@@ -714,6 +778,7 @@ const fetchTable = () => {
         .then(res => 
         {
             localStorage.setItem("tabAPI", res);
+            setTab();
             setTable();
         })
         .catch(error => {
@@ -725,8 +790,13 @@ const fetchTable = () => {
         .then(res => JSON.stringify(res))
        .then(res => 
         {
-            
             localStorage.setItem("categoryAPI", res);
+        })
+        .then(res => {
+            setTab();
+        })
+        .then(res => {
+            addSubCategoryToCreateFilm();
         })
 }
 
@@ -773,6 +843,7 @@ const readFileJSON = () => {
 
 document.getElementById("buttonRefresh").addEventListener("click", fetchTable)
 addSubCategoryToCreateFilm();
-createTable(tabFilm);
+createTable(displayTab);
+refreshNavpage();
 
 // Init Void

@@ -22,8 +22,9 @@
                 <img src = "img/icons8-search-more-90.png" class ="searchIcon" id ="submitSearch">
             </form>
         </div>
-
-        <h1>VIENS ICI QUE JTE CASTAGNE</h1>
+        <div class = "centering">
+            <img src ="img/FilmDecker logo.png" class = "logoTop">
+        </div>
         <div id = "resultText"></div>
         <div class = "noResultText" id ="noResult">NO RESULT<br><span id = "createYourOwn">Do you want to create your film ?</span></div>
         <div class = "NumberPage">
@@ -45,6 +46,16 @@
         <div class = "filmTab" id = "filmTabDivRow5"></div>
 
         <div class = "buttonDiv">
+
+            <div class = "deleteCategory" id ="deleteCategoryMenu">
+                <div class ="crossAdd" id="openDeleteCategoryMenu"></div>
+                <div id="formDeleteCategoryFilm">
+                    <select name="filmCategory" id="filmCategoryToDelete" class = "filmCategory">        
+                    </select>
+                    <button id = "deleteCategory">DELETE CATEGORY</button>
+                </div>
+            </div>
+
             <div class = "addCategory" id ="addCategoryMenu">
                 <div class ="crossAdd" id="openCategoryMenu"></div>
                 <div id="formCategoryFilm">
