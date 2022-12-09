@@ -71,28 +71,14 @@ let dislikedFilm = [];
 
 let actualPage =0;
 
-let userCollection = [];
+let userCollection = [
+    
+];
 
+// Tableau qui sera affiché dans 99% des cas
+let displayTab = []
+// Tableau qui sera affiché dans 99% des cas
 
-const setTab = () => {
-    if(localStorage.getItem("tabAPI")!==null)
-{
-    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
-}
-    if(localStorage.getItem("categoryAPI")!==null)
-{
-    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
-}
-if(localStorage.getItem("likeTab")!==null){
-    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
-}
-if(localStorage.getItem("dislikeTab")!==null){
-    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
-}
-}
-setTab();
-
-let displayTab = [...tabFilm];
 
 //#region  // ? Creation de la liste de film
 
@@ -103,6 +89,7 @@ const createTable = (tab) => {
     divTabFilm4.innerHTML = "";
     divTabFilm5.innerHTML = "";
     tabDiv = [];
+    checkDelCategory();
     for(let i = 0+(25*actualPage); i < 5+(25*actualPage); i++)
     {
         if(tab[i]!==undefined){
@@ -215,6 +202,10 @@ const obtainCategory = (tab) => {
     }
 }
 
+// Special factorisation Monsieur LaGoutte industry
+let durationAnim = 750;
+// Special factorisation Monsieur LaGoutte industry
+
 const setActiveTab = (filmCard, i) => {
     let limit = document.documentElement.clientHeight;
             let offSetTop = filmCard.offsetTop / limit * 100;
@@ -230,6 +221,7 @@ const setActiveTab = (filmCard, i) => {
                     filmCard.removeEventListener("click", specEvent);
                 }
             })
+            filmCard.style.transitionDuration = durationAnim +"ms";
             filmCard.classList.toggle("active");
             
 }
@@ -314,7 +306,10 @@ const AddInRow=(tabMovie, i, divTab)=>{
         embed.classList.add("embedYT");
         filmCard.addEventListener('click', function specEvent(e){
             if(e.target === filmCard){
-                embed.src = urlEmbed(i);
+                setTimeout(() => {
+                    embed.src = urlEmbed(i);
+                }, durationAnim);
+                
                 
                 embed.frameBorder = "0px";
                 //embed.onload = (e) => {
@@ -426,6 +421,10 @@ const AddInRow=(tabMovie, i, divTab)=>{
 
         let addToCollection = filmCard.appendChild(document.createElement("div"));
         addToCollection.classList.add("addToCollection");
+        addToCollection.addEventListener("click", (e) => {
+            document.getElementById("collectionListSpec").classList.add("active")
+            addInColl(tabMovie);
+        })
 
 }
 
@@ -797,6 +796,7 @@ const fetchTable = () => {
         })
         .then(res => {
             addSubCategoryToCreateFilm();
+            checkDelCategory();
         })
 }
 
@@ -839,11 +839,90 @@ const readFileJSON = () => {
 
 //#endregion // ! set the tab in the local storage 
 
-// Init Void
+//#region // * Collection
+
+
+const createCollection = () => {
+    let displayColl = document.getElementById("collectionContent");
+    displayColl.innerHTML = " ";
+    for(let i = 0; i < userCollection.length;i++)
+    {
+        let newFrame = displayColl.appendChild(document.createElement("div"));
+        newFrame.classList.add("frameColl");
+        newFrame.style.backgroundImage = "url(" + userCollection[i].img + ")";
+        newFrame.addEventListener("click", (e) => {
+            if(e.target === newFrame){
+                SearchCollection(userCollection[i].name);
+            }
+        })
+        let gradient = newFrame.appendChild(document.createElement("div"));
+        gradient.classList.add("gradientFrame");
+        let titleFilm = gradient.appendChild(document.createElement("h1"));
+        titleFilm.classList.add("title");
+        titleFilm.innerHTML = userCollection[i].name;
+        let crossRetire = gradient.appendChild(document.createElement("div"));
+        crossRetire.classList.add("crossRetire");
+        crossRetire.addEventListener("click", (e) => {
+            retireOfCollection(i);
+        })
+    }
+}
+
+const addInColl = (array) => {
+    if(userCollection.some((element) => element.id === array.id))
+    {
+        return;
+    }else{
+        userCollection.push(array);
+        createCollection()
+    }
+}
+
+const SearchCollection = (name) => {
+    document.getElementById("searchValue").value = name;
+    Search();
+}
+
+const retireOfCollection = (i) => {
+    console.log("test");
+    userCollection.splice(i,1);
+    createCollection()
+}
+
+document.getElementById("showColl").addEventListener("click", ()=>{
+    document.getElementById("collectionListSpec").classList.toggle("active")
+})
+
+createCollection();
+
+//#endregion // * Collection
+
+//#region // Init Void
+
+const setTab = () => {
+    if(localStorage.getItem("tabAPI")!==null)
+{
+    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
+    displayTab = [...tabFilm];
+}
+    if(localStorage.getItem("categoryAPI")!==null)
+{
+    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
+}
+if(localStorage.getItem("likeTab")!==null){
+    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
+}
+if(localStorage.getItem("dislikeTab")!==null){
+    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
+}
+}
+setTab();
 
 document.getElementById("buttonRefresh").addEventListener("click", fetchTable)
 addSubCategoryToCreateFilm();
 createTable(displayTab);
 refreshNavpage();
 
-// Init Void
+//#endregion // Init Void
+
+

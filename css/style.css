@@ -22,7 +22,8 @@ body{
 }
 
 .logoTop{
-  width: 40vh;
+  filter: invert(1) drop-shadow(0 0vh 1vh black);
+  width: 18vw;
 }
 
 h1{
@@ -34,8 +35,9 @@ h1{
 footer{
   bottom: 0%;
   height: 25vw;
+  box-shadow: 0 0 5vh black;
   width: 100vw;
-  background-color: aliceblue;
+  background-color: rgb(42, 48, 53);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -398,7 +400,7 @@ footer{
   height: 7.5vh;
   border-bottom-right-radius: 6vh;
   border-bottom-left-radius: 6vh;
-  background-color: rgb(36, 36, 39);
+  background-color: #334342;
   display: flex;
   overflow: hidden;
   align-items: center;
@@ -948,25 +950,43 @@ form{
 
 .noResultText{
   position: absolute;
-  top: 5vw;
+  top: 9.5vw;
   text-align: center;
   width: 100%;
   pointer-events: none;
   display: none;
   font-size: 2vw;
+  padding-bottom: 3vh;
+  overflow-y: hidden;
   color: white;
 }
 
 #createYourOwn{
+  padding: 0.25vw;
+  padding-bottom: 0.25vw;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  
+  height: 6vh;
+  background-color: #334342;
   font-size: 1vw;
   pointer-events: all;
   cursor: pointer;
   text-decoration: solid;
+  transition: all 1s;
+  box-shadow: 0 0 1vh #334342;
+}
+
+#createYourOwn:hover{
+  background-color: #dbe6e5;
+  color: #2a2f3b;
+  transition: all 1s;
+  box-shadow: 0 0 1.5vh #dbe6e5;
 }
 
 #resultText{
   position: absolute;
-  top: 5.75vw;
+  top: 9.5vw;
   font-size: 1.25vw;
   width: 100%;
   text-align: center;
@@ -1002,7 +1022,7 @@ form{
   justify-content: center;
   width: 100%;
   z-index: 15;
-  top: 6vw;
+  top: 5vw;
   filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
 }
 
@@ -1019,3 +1039,150 @@ form{
   margin: 1vh;
   margin-top: 1.5vh;
 }
+
+/****************COLLECTION********************/
+
+.collectionList{
+  transform: translateX(-100%);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  height: 80%;
+  top: 10%;
+  background-color: #334342;
+  left: 0%;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  overflow: visible;
+  transition: all 1s;
+  box-shadow: 0vh 0vh 1vw black;
+  z-index: 5648486648846468468684;
+}
+
+.collectionList.active{
+  transform: translateX(00%);
+  transition: all 1s;
+}
+
+.collectionList h1{
+  margin-top: 1vh;
+  text-shadow: 0 0.25vh 0 rgba(0, 0, 0, 0.267);
+  overflow: hidden;
+  font-size: 3vh;
+  height: 6vh;
+}
+
+.collectionList .collection{
+  z-index: 100;
+  pointer-events: all;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.frameColl{
+  width: 80%;
+  height: 12.5vh;
+
+  background-size: cover;
+  margin: 10%;
+  margin-top: 5%;
+  background-position: center;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1000;
+  box-shadow: 0 0 2vh black;
+}
+
+.frameColl .title{
+  width: 100%;
+  position: absolute;
+  font-size: 2vh;
+  z-index: 23;
+  pointer-events: none;
+}
+
+.frameColl .gradientFrame{
+  opacity: 0;
+  z-index: 20;
+  pointer-events: none;
+  transition: all 1s;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+}
+
+.frameColl:hover .gradientFrame{
+  opacity: 100;
+  pointer-events: none;
+  transition: all 1s;
+  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+}
+
+.crossRetire{
+  position: absolute;
+  height: 2vh;
+  width: 2vh;
+  bottom: 0.75vh;
+  right: 0.75vh;
+  background-image: url(../img/59836.png);
+  filter: invert(1);
+  background-size: cover;
+  pointer-events: all;
+  z-index: 51545465464646;
+}
+
+
+
+.showColl{
+  position: absolute;
+  width: 5vh;
+  height: 6vh;
+  top: 38vh;
+  right: -5vh;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  background-color: aliceblue;
+  overflow: hidden;
+  z-index: -1;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.collectionList.active .showColl{
+  background-color: #334342;
+  transition: all 1s;
+}
+
+.collectionList.active .arrowCollection{
+  transform: rotateZ(180deg) translateX(0.25vh);
+  transition: all 1s;
+  fill: white;
+}
+
+.arrowCollection{
+  width: 5vh;
+  height: 6vh;
+  pointer-events: none;
+  transition: all 1s;
+}
+
+
+/****************COLLECTION********************/
+
+/****************FANCY HALFTONE********************/
+
+.halftone1{
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  right: 0;
+  background-size: cover;
+  pointer-events: none;
+  transform: translateY(180deg);
+  background-image: url(../img/halftone/2.png);
+}
+
+/****************FANCY HALFTONE********************/

@@ -14,8 +14,7 @@
     </head>
 
     <body>
-        <div class = "halfTone1"></div>
-        <div class = "loadingPage" id = "loadingPage"></div>
+        <div class = "halftone1"></div>
         <div class ="searchBar">
             <form>     
                 <input type="text"name="search"id="searchValue" placeholder="FILM NAME:" maxLength = 40/>
@@ -23,7 +22,7 @@
             </form>
         </div>
         <div class = "centering">
-            <img src ="img/FilmDecker logo.png" class = "logoTop">
+            <img src ="img/FilmDecker logo2.png" class = "logoTop">
         </div>
         <div id = "resultText"></div>
         <div class = "noResultText" id ="noResult">NO RESULT<br><span id = "createYourOwn">Do you want to create your film ?</span></div>
@@ -37,7 +36,16 @@
             </svg>
         </div>
 
-        
+        <div class = "collectionList" id="collectionListSpec">
+            <div class ="showColl" id ="showColl">
+                <svg viewBox="0 0 256 512" width="100%" title="angle-right" class ="arrowCollection">
+                    <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z" />
+                  </svg>
+            </div>
+            <h1> COLLECTION </h1>
+            <div class ="collection" id ="collectionContent">
+            </div>
+        </div>
 
         <div class = "filmTab" id = "filmTabDivRow1"></div>
         <div class = "filmTab" id = "filmTabDivRow2"></div>
@@ -113,7 +121,7 @@
         <footer>
             <button class ="buttonFoot" id ="buttonRefresh">REFRESH API</button>
         </footer>
-
+        <div class = "loadingPage" id = "loadingPage"></div>
         <script type="text/javascript" src="script/script.js"></script>
 
     </body>
