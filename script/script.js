@@ -219,7 +219,8 @@ const deleteFilm = (tabMovie) => {
 
 //#region // * Like Region
 
-const likeFilm = (movieID, i) => {
+const likeFilm = (movieID) => {
+    likedFilm.push(movieID);
     if(onlineMode === true){
     let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID+"/like";
     axios.patch(url)
@@ -239,9 +240,11 @@ const likeFilm = (movieID, i) => {
         setTable();
         saveOfflineTab();
     }
+    localStorage.setItem("likeTab", JSON.stringify(likedFilm))
 }
 
-const dislikeFilm = (movieID, i) => {
+const dislikeFilm = (movieID) => {
+    dislikedFilm.push(movieID);
     if(onlineMode === true){
     let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID +"/dislike";
     axios.patch(url)
@@ -255,13 +258,13 @@ const dislikeFilm = (movieID, i) => {
         for(let k = 0; k<tabFilm.length ;k++)
         {
             if(tabFilm[k].id === movieID){
-                console.log("yey");
                 tabFilm[k].dislikes++;
             }
         }
         setTable();
         saveOfflineTab();
     }
+    localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
 }
 
 const setLikeRatio = (like, dislike) => {
@@ -357,10 +360,8 @@ const AddInRow=(tabMovie, i, divTab)=>{
                 {
                     return;
                 }
-                likedFilm.push(tabMovie.id);
                 likeButton.classList.add("active");
-                likeFilm(tabMovie.id, i);
-                localStorage.setItem("likeTab", JSON.stringify(likedFilm))
+                likeFilm(tabMovie.id);
             })
         }
         if(dislikedFilm.includes(tabMovie.id) === true)
@@ -372,10 +373,8 @@ const AddInRow=(tabMovie, i, divTab)=>{
                     {
                         return;
                     }
-                    dislikedFilm.push(tabMovie.id);
                     dislikeButton.classList.add("active");
-                    dislikeFilm(tabMovie.id, i);
-                    localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
+                    dislikeFilm(tabMovie.id);
                 })
             }
     
@@ -496,11 +495,15 @@ document.getElementById("openAddMenu").addEventListener("click", (e)=>{
     document.getElementById("addFilmMenu").classList.toggle("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
 })
 
 document.getElementById("createYourOwn").addEventListener("click", (e)=>{
-    document.getElementById("addFilmMenu").classList.toggle("active");
+    document.getElementById("addFilmMenu").classList.add("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
 })
 
 const addSubCategoryToCreateFilm = () => {
@@ -525,7 +528,6 @@ const addSubCategoryToCreateFilm = () => {
         let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
         Option3.value = categoryFilm[i].id;
         Option3.innerHTML = categoryFilm[i].name;
-        console.log(categoryFilm[i].name)
     }
 }
 
@@ -606,6 +608,7 @@ const openModify = () => {
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.toggle("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
 const openModify2 = () => {
@@ -619,6 +622,7 @@ const openDelCategory = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("deleteCategoryMenu").classList.toggle("active");
 }
 
@@ -650,10 +654,8 @@ const createCategory = () => {
 
 const checkDelCategory = () => {
     let filmCategoryToDeleteSelector = document.getElementById("filmCategoryToDelete");
-    let categoryFilmID = categoryFilm.map(n => n.id)
     filmCategoryToDeleteSelector.innerHTML = " ";
     let categoryUsed = [];
-    let awayCat = [];
     for(let k = 0;k<tabFilm.length;k++)
     {
         if(!categoryUsed.includes(tabFilm[k].category)){
@@ -702,6 +704,7 @@ const openModifyCat = () => {
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
     document.getElementById("addCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
 document.getElementById("submitModify").addEventListener("click", ModifyFilm)

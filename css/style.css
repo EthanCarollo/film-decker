@@ -273,7 +273,7 @@ h1{
 
 .likeButton{
   position: absolute;
-  pointer-events:visible;
+  pointer-events:none;
   opacity: 0;
   bottom: 0%;
   width: 5vh;
