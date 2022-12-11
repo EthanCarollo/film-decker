@@ -21,42 +21,9 @@ const divTabFilm3 = document.getElementById("filmTabDivRow3")
 const divTabFilm4 = document.getElementById("filmTabDivRow4")
 const divTabFilm5 = document.getElementById("filmTabDivRow5")
 
+let onlineMode = false;
 
-let tabFilm = [
-    {
-        id:"Yzr28IxMyqdPEOC4Ez4r",
-        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
-        category :"qWvkRkXKisovrRkQWEaQ",
-        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
-        name: "Kaamelott (2021)",
-        likes :48,
-        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
-        dislikes:2,
-        author:"Alexandre Astierr"
-    },
-    {
-        id:"Yzr28IxMyqdPEOC4Ez4r",
-        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
-        category :"qWvkRkXKisovrRkQWEaQ",
-        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
-        name: "Kaamelott (2021)",
-        likes :48,
-        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
-        dislikes:2,
-        author:"Alexandre Astierr"
-    },
-    {
-        id:"Yzr28IxMyqdPEOC4Ez4r",
-        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
-        category :"qWvkRkXKisovrRkQWEaQ",
-        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
-        name: "Kaamelott (2021)",
-        likes :48,
-        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
-        dislikes:2,
-        author:"Alexandre Astierr"
-    }
-];
+let tabFilm = [];
 
 
 let tabDiv = [
@@ -64,9 +31,8 @@ let tabDiv = [
 ];
 let categoryFilm = [
 
-] 
+];
 let likedFilm = [];
-
 let dislikedFilm = [];
 
 let actualPage =0;
@@ -88,6 +54,7 @@ const createTable = (tab) => {
     divTabFilm3.innerHTML = "";
     divTabFilm4.innerHTML = "";
     divTabFilm5.innerHTML = "";
+    refreshNavpage();
     tabDiv = [];
     checkDelCategory();
     for(let i = 0+(25*actualPage); i < 5+(25*actualPage); i++)
@@ -180,6 +147,7 @@ const goBackPage = () => {
 const goPage1 = () => {
     actualPage = 0;
     document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+    refreshNavpage();
 }
 
 document.getElementById("goNextPage").addEventListener("click", goNextPage);
@@ -227,6 +195,7 @@ const setActiveTab = (filmCard, i) => {
 }
 
 const deleteFilm = (tabMovie) => {
+    if(onlineMode === true){
     let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + tabMovie.id;
     axios.delete(url)
         .then(res => {
@@ -235,14 +204,23 @@ const deleteFilm = (tabMovie) => {
         .catch(error =>{
             console.log(error);
           })
-   
+    }else{
+        for(let i = 0; i<tabFilm.length;i++){
+            if(tabFilm[i].id === tabMovie.id){
+                    tabFilm.splice(i,1);
+            }
+        }
+        saveOfflineTab();
+        setTab();
+    }
 
    
 }
 
 //#region // * Like Region
 
-const likeFilm = (movieID) => {
+const likeFilm = (movieID, i) => {
+    if(onlineMode === true){
     let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID+"/like";
     axios.patch(url)
         .then(res => {
@@ -251,9 +229,20 @@ const likeFilm = (movieID) => {
         .catch(error =>{
             console.log(error);
           })
+    }else{
+        for(let k = 0; k<tabFilm.length ;k++)
+        {
+            if(tabFilm[k].id === movieID){
+                tabFilm[k].likes++;
+            }
+        }
+        setTable();
+        saveOfflineTab();
+    }
 }
 
-const dislikeFilm = (movieID) => {
+const dislikeFilm = (movieID, i) => {
+    if(onlineMode === true){
     let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID +"/dislike";
     axios.patch(url)
         .then(res => {
@@ -262,6 +251,17 @@ const dislikeFilm = (movieID) => {
         .catch(error =>{
             console.log(error);
           })
+    }else{
+        for(let k = 0; k<tabFilm.length ;k++)
+        {
+            if(tabFilm[k].id === movieID){
+                console.log("yey");
+                tabFilm[k].dislikes++;
+            }
+        }
+        setTable();
+        saveOfflineTab();
+    }
 }
 
 const setLikeRatio = (like, dislike) => {
@@ -359,7 +359,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
                 }
                 likedFilm.push(tabMovie.id);
                 likeButton.classList.add("active");
-                likeFilm(tabMovie.id);
+                likeFilm(tabMovie.id, i);
                 localStorage.setItem("likeTab", JSON.stringify(likedFilm))
             })
         }
@@ -374,7 +374,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
                     }
                     dislikedFilm.push(tabMovie.id);
                     dislikeButton.classList.add("active");
-                    dislikeFilm(tabMovie.id);
+                    dislikeFilm(tabMovie.id, i);
                     localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
                 })
             }
@@ -432,36 +432,64 @@ const AddInRow=(tabMovie, i, divTab)=>{
 
 //#region // ! AddFilm
 
-document.getElementById("submitCreate").addEventListener("click", (e)=>{
-    
+const addFilm = () => {
+
     if(!document.getElementById("filmTrailer").value.includes("youtube") && document.getElementById("filmTrailer").value.slice(0,5) !== "https"){
         return;
     }
     if(!document.getElementById("filmImage").value.slice(0,5) === "https"){
         return;
     }
-    axios.post("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies", {
-        name: document.getElementById("filmNameToAdd").value,
-        author: document.getElementById("filmAuthor").value,
-        img: document.getElementById("filmImage").value,
-        category : document.getElementById("filmCategory").value,
-        description: document.getElementById("filmDescToAdd").value,
-        video: document.getElementById("filmTrailer").value
-      })
-      .then(res => {
-        actualPage = 0;
-        fetchTable();
+
+    if(onlineMode === true){
+
+        axios.post("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies", {
+            name: document.getElementById("filmNameToAdd").value,
+            author: document.getElementById("filmAuthor").value,
+            img: document.getElementById("filmImage").value,
+            category : document.getElementById("filmCategory").value,
+            description: document.getElementById("filmDescToAdd").value,
+            video: document.getElementById("filmTrailer").value
+        })
+        .then(res => {
+            actualPage = 0;
+            fetchTable();
+            document.getElementById("filmTrailer").value = "";
+            document.getElementById("filmDescToAdd").value = "";
+            document.getElementById("filmCategory").value = "";
+            document.getElementById("filmImage").value = "";
+            document.getElementById("filmAuthor").value = "";
+            document.getElementById("filmNameToAdd").value = "";
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }else{
+        let tempFilm = {
+            id: setRandomID(),
+            name: document.getElementById("filmNameToAdd").value,
+            author: document.getElementById("filmAuthor").value,
+            img: document.getElementById("filmImage").value,
+            category : document.getElementById("filmCategory").value,
+            description: document.getElementById("filmDescToAdd").value,
+            video: document.getElementById("filmTrailer").value,
+            likes : 0,
+            dislikes : 0
+        }
+        console.log(tempFilm);
+        tabFilm.push(tempFilm);
+        saveOfflineTab();
         document.getElementById("filmTrailer").value = "";
         document.getElementById("filmDescToAdd").value = "";
         document.getElementById("filmCategory").value = "";
         document.getElementById("filmImage").value = "";
         document.getElementById("filmAuthor").value = "";
         document.getElementById("filmNameToAdd").value = "";
-      })
-      .catch(error =>{
-        console.log(error);
-      })
-})
+
+    }
+}
+
+document.getElementById("submitCreate").addEventListener("click", addFilm)
 
 document.getElementById("openAddMenu").addEventListener("click", (e)=>{
     document.getElementById("modifyFilmMenu").classList.remove("active");
@@ -504,35 +532,48 @@ const addSubCategoryToCreateFilm = () => {
 
 //#region // Modify Film
 
-const ModifyFilm = () => {
-    if(!document.getElementById("filmIDToModify").length > 8){
-        return;
+const setRandomID = () => {
+    let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let tempID;
+    for ( let i = 0; i < 20; i++ ) {
+        tempID += characters.charAt(Math.floor(Math.random() * (characters.length-1)));
     }
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + document.getElementById("filmIDToModify").value;
-    axios.patch(url, {
-        name: document.getElementById("filmNameToModify").value,
-        author: document.getElementById("filmAuthorToModify").value,
-        img: document.getElementById("filmImageToModify").value,
-        category : document.getElementById("filmCategoryToModify").value,
-        description: document.getElementById("filmDescToModify").value,
-        video: document.getElementById("filmTrailerToModify").value
-      })
-      .then(res => {
-        fetchTable();
-        document.getElementById("filmTrailerToModify").value = "";
-        document.getElementById("filmDescToModify").value = "";
-        document.getElementById("filmCategoryToModify").value = "";
-        document.getElementById("filmImageToModify").value = "";
-        document.getElementById("filmAuthorToModify").value = "";
-        document.getElementById("filmNameToModify").value = "";
-        openModify();
-      })
-      .then(res =>{
-        addSubCategoryToCreateFilm();
-      })
-      .catch(error =>{
-        console.log(error);
-      })
+    return tempID;
+}
+
+const ModifyFilm = () => {
+    if(onlineMode === true){
+        if(!document.getElementById("filmIDToModify").length > 8){
+            return;
+        }
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + document.getElementById("filmIDToModify").value;
+        axios.patch(url, {
+            name: document.getElementById("filmNameToModify").value,
+            author: document.getElementById("filmAuthorToModify").value,
+            img: document.getElementById("filmImageToModify").value,
+            category : document.getElementById("filmCategoryToModify").value,
+            description: document.getElementById("filmDescToModify").value,
+            video: document.getElementById("filmTrailerToModify").value
+        })
+        .then(res => {
+            fetchTable();
+            document.getElementById("filmTrailerToModify").value = "";
+            document.getElementById("filmDescToModify").value = "";
+            document.getElementById("filmCategoryToModify").value = "";
+            document.getElementById("filmImageToModify").value = "";
+            document.getElementById("filmAuthorToModify").value = "";
+            document.getElementById("filmNameToModify").value = "";
+            openModify();
+        })
+        .then(res =>{
+            addSubCategoryToCreateFilm();
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }else{
+        
+    }
 }
 
 const openModify = () => {
@@ -578,10 +619,8 @@ const checkDelCategory = () => {
     let filmCategoryToDeleteSelector = document.getElementById("filmCategoryToDelete");
     let categoryFilmID = categoryFilm.map(n => n.id)
     filmCategoryToDeleteSelector.innerHTML = " ";
-    console.log(filmCategoryToDeleteSelector.innerHTML)
     let categoryUsed = [];
     let awayCat = [];
-    console.log("im in");
     for(let k = 0;k<tabFilm.length;k++)
     {
         if(!categoryUsed.includes(tabFilm[k].category)){
@@ -596,7 +635,6 @@ const checkDelCategory = () => {
             deleteCat.innerHTML = categoryFilm[i].name;
         }
     }
-    console.log(filmCategoryToDeleteSelector.innerHTML)
 }
 
 const delCategory = () => {
@@ -801,8 +839,10 @@ const fetchTable = () => {
 }
 
 const setTable = () => {
-    let tempTab = JSON.parse(localStorage.getItem("tabAPI"));
-    tabFilm = tempTab;
+    if(onlineMode === true){
+        let tempTab = JSON.parse(localStorage.getItem("tabAPI"));
+        tabFilm = tempTab;
+    }
     displayTab = [...tabFilm]
     goPage1();
     refreshNavpage();
@@ -900,27 +940,63 @@ createCollection();
 //#region // Init Void
 
 const setTab = () => {
-    if(localStorage.getItem("tabAPI")!==null)
+    if(localStorage.getItem("tabAPI")!==null && onlineMode === true)
 {
     tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
     displayTab = [...tabFilm];
+}else{
+    if(localStorage.getItem("offlineTabAPI")===null)
+    {
+        localStorage.setItem("offlineTabAPI", JSON.stringify(offlineTab));
+    }
+    tabFilm=JSON.parse(localStorage.getItem("offlineTabAPI"));
+    displayTab = [...tabFilm];
 }
-    if(localStorage.getItem("categoryAPI")!==null)
+
+    if(localStorage.getItem("categoryAPI")!==null && onlineMode === true)
 {
     categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
+}else{
+    categoryFilm = [...categoryTab];
 }
+
 if(localStorage.getItem("likeTab")!==null){
     likedFilm=JSON.parse(localStorage.getItem("likeTab"));
 }
 if(localStorage.getItem("dislikeTab")!==null){
     dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
 }
+
+createTable(displayTab);
+
 }
+
+const setMode = () => {
+    if(onlineMode === true){
+        document.getElementById("sliderOnline").classList.add("active");
+    }else{
+        document.getElementById("sliderOnline").classList.remove("active");
+    }
+}
+
+const saveOfflineTab = () => {
+    localStorage.setItem("offlineTabAPI", JSON.stringify(tabFilm));
+}   
+
+document.getElementById("sliderOnline").addEventListener("click", () => {
+    if(onlineMode === true){
+        onlineMode = false;
+        setTab()
+    }else{
+        onlineMode = true;
+        fetchTable();
+    }
+    setMode()
+})
+
 setTab();
 
-document.getElementById("buttonRefresh").addEventListener("click", fetchTable)
 addSubCategoryToCreateFilm();
-createTable(displayTab);
 refreshNavpage();
 
 //#endregion // Init Void

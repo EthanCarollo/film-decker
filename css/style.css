@@ -11,7 +11,9 @@
 }
 
 body{
-  background: linear-gradient(#2a2f3b, #334342);
+  min-height: 100vh;
+  background-image: linear-gradient(#2a2f3b, #334342);
+  background-size: cover;
 }
 
 .centering{
@@ -32,21 +34,41 @@ h1{
 }
 /**************/
 
-footer{
-  bottom: 0%;
-  height: 25vw;
-  box-shadow: 0 0 5vh black;
-  width: 100vw;
-  background-color: rgb(42, 48, 53);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.sliderOnline{
+  position: fixed;
+  bottom: 2%;
+  left: 2%;
+  width: 3vw;
+  height: 1.5vw;
+  background-color:#2a2f3b;
+  box-shadow: 0vh 0vh 1vh black;
+  border-radius: 0.75vw;
+  cursor: pointer;
+  transition: all 1s;
 }
 
-.buttonFoot{
-  font-size: 3vh;
-  cursor: pointer;
-  padding: 1vw;
+.sliderOnline.active{
+  background-color:aliceblue;
+  transition: all 1s;
+}
+
+.buttonSlide{
+  top: 0.25vw;
+  left: 0.25vw;
+  position: absolute;
+  width: 1vw;
+  height: 1vw;
+  background-color:aliceblue;
+  border-radius: 1.25vw;
+  transition: all 1s;
+}
+
+.sliderOnline.active .buttonSlide{
+  transition: all 1s;
+  top: 0.25vw;
+  left: 1.75vw;
+  background-color: #2a2f3b;
 }
 
 /**************/
@@ -1186,3 +1208,283 @@ form{
 }
 
 /****************FANCY HALFTONE********************/
+
+@media (orientation: portrait) {
+
+  /******Slider********/
+
+
+.sliderOnline{
+  position: fixed;
+  bottom: 1vh;
+  left: 1vh;
+  width: 9vh;
+  height: 4.5vh;
+  background-color:#2a2f3b;
+  box-shadow: 0vh 0vh 1vh black;
+  border-radius: 2.25vh;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.sliderOnline.active{
+  background-color:aliceblue;
+  transition: all 1s;
+}
+
+.buttonSlide{
+  top: 0.75vh;
+  left: 0.75vh;
+  position: absolute;
+  width: 3vh;
+  height: 3vh;
+  background-color:aliceblue;
+  border-radius: 1.5vh;
+  transition: all 1s;
+}
+
+.sliderOnline.active .buttonSlide{
+  transition: all 1s;
+  top: 0.75vh;
+  left: 5.25vh;
+  background-color: #2a2f3b;
+}
+
+ /******Slider********/
+
+ #filmTabDivRow5 {
+  padding-top: 0%;
+  margin-bottom: 5vh;
+}
+
+  .filmTab {
+    position: relative;
+    padding-top: 5%;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: hidden;
+    perspective: 900px;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.filmCase {
+  width: 90%;
+  height: 25vw;
+  position: relative;
+  margin: 2vh;
+  background-color: rgb(12, 12, 12);
+  background-image: url(https://resize-europe1.lanmedia.fr/img/var/europe1/storage/images/media/images/leon/15796682-1-fre-FR/Leon_reference.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0px 0px 2vh black;
+  transition: all 0.5s;
+  cursor: pointer;
+  overflow: hidden;
+  animation: come 1s;
+}
+
+
+.filmCase.active {
+  pointer-events: none;
+  position: relative;
+  transition: all 1s;
+  width: 90%;
+  height: 60vw;
+  background-image: none;
+  cursor: auto;
+  z-index: 100;
+}
+.percentOfLikePreview {
+  overflow: hidden;
+  display: block;
+  line-height: 1.5vw;
+  pointer-events: none;
+  width: 100%;
+  height: 4vh;
+  position: relative;
+  text-align: center;
+  color: aliceblue;
+  padding-top: 8vw;
+  transform: translateY(-15vw);
+  z-index: 212121212221211464546468468468648;
+  font-size: 10vw;
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.25vh 1vh black);
+  text-shadow: 0px 0.3vh 0.1vh rgb(0 0 0 / 51%);
+}
+.filmCase .titleMovie {
+  position: absolute;
+  top: 1vh;
+  left: 1.5vh;
+  font-size: 2vh;
+  color: white;
+  transition: all 2s;
+  z-index: 854848454;
+}
+.filmCase.active .titleMovie {
+  opacity: 100%;
+  position: absolute;
+  top: 1vh;
+  left: 1.5vh;
+  font-size: 2vh;
+  color: white;
+  transition: all 2s;
+  z-index: 854848454;
+}
+.titleMovie span {
+  font-size: 1.5vh;
+  margin: 0;
+}
+.titleMovie .Category {
+  font-size: 1;
+}
+.embedYT {
+  pointer-events: none;
+  opacity: 0%;
+  display: none;
+  position: absolute;
+  width: 32vw;
+  height: 17vw;
+  right: 2vw;
+  top: 2vw;
+}
+.filmCase .titleMoviePrev {
+  position: absolute;
+  text-align: center;
+  opacity: 100;
+  color: white;
+  text-shadow: 0 0 1vh #2a2f3b;
+  width: 100%;
+  transform: translateY(-180%);
+  transition: all 1s;
+  font-size: 2vh;
+  margin-bottom: 4vh;
+}
+.filmCase.active .descriptionMovie {
+  opacity: 100%;
+  position: absolute;
+  bottom: 1vh;
+  width: 40%;
+  right: 1.5vh;
+  transition: all 2s;
+  text-align: right;
+  color: white;
+  z-index: 854848454;
+}
+
+.descriptionMovie {
+  width: 40%;
+}
+
+/************iconInCase*************/
+
+.deleteButton {
+  bottom: 1.3vh;
+  left: 10vh;
+  width: 3vh;
+  height: 3vh;
+}
+.modifyButtonIn {
+  bottom: 1.3vh;
+  left: 14vh;
+  width: 3vh;
+  height: 3vh;
+}
+
+.dislikeButton {
+  width: 3.5vh;
+  height: 3.5vh;
+  left: 5.5vh;
+}
+
+.addToCollection {
+  left: 18vh;
+  width: 3.5vh;
+  height: 3.5vh;
+}
+
+.filmCase.active .dislikeButton {
+  left: 5.5vh;
+}
+
+.likeButton {
+  width: 3.5vh;
+  height: 3.5vh;
+}
+
+
+.percentOfLike {
+  bottom: 5vh;
+  font-size: 3vh;
+  width: 10vh;
+  text-align: center;
+  color: white;
+  opacity: 0;
+}
+
+/************iconInCase*************/
+
+.searchBar {
+  left: 10vw;
+  width: 80vw;
+  height: 14vw;
+}
+
+#filmTabDivRow1{
+  padding-top: 0;
+}
+
+.logoTop {
+  margin-top: 16vw;
+  filter: invert(1) drop-shadow(0 0vh 1vh black);
+  width: 50vw;
+}
+
+/**************COLLECTION*******************/
+
+.collectionList {
+  transform: translateX(-100%);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  background-color: #334342;
+  left: 0%;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  overflow: visible;
+  transition: all 1s;
+  box-shadow: 0vh 0vh 1vw black;
+  z-index: 5648486648846468468684;
+}
+
+.frameColl .gradientFrame{
+  opacity: 100;
+  pointer-events: none;
+  transition: all 1s;
+  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+}
+
+.halftone1 {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  right: 0;
+  background-size: cover;
+  pointer-events: none;
+  transform: translateY(180deg);
+  background-image: url(../img/halftone/2.png);
+}
+
+/**************COLLECTION*******************/
+
+}
