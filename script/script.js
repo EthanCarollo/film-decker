@@ -479,13 +479,13 @@ const addFilm = () => {
         console.log(tempFilm);
         tabFilm.push(tempFilm);
         saveOfflineTab();
+        setTable()
         document.getElementById("filmTrailer").value = "";
         document.getElementById("filmDescToAdd").value = "";
         document.getElementById("filmCategory").value = "";
         document.getElementById("filmImage").value = "";
         document.getElementById("filmAuthor").value = "";
         document.getElementById("filmNameToAdd").value = "";
-
     }
 }
 
@@ -525,6 +525,7 @@ const addSubCategoryToCreateFilm = () => {
         let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
         Option3.value = categoryFilm[i].id;
         Option3.innerHTML = categoryFilm[i].name;
+        console.log(categoryFilm[i].name)
     }
 }
 
@@ -534,8 +535,8 @@ const addSubCategoryToCreateFilm = () => {
 
 const setRandomID = () => {
     let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let tempID;
-    for ( let i = 0; i < 20; i++ ) {
+    let tempID = "a";
+    for ( let i = 0; i < 19; i++ ) {
         tempID += characters.charAt(Math.floor(Math.random() * (characters.length-1)));
     }
     return tempID;
@@ -572,7 +573,31 @@ const ModifyFilm = () => {
             console.log(error);
         })
     }else{
-        
+        for(let i = 0;i<tabFilm.length;i++){
+            if(tabFilm[i].id === document.getElementById("filmIDToModify").value)
+            {
+                tabFilm[i]={
+                    id:document.getElementById("filmIDToModify").value,
+                    name: document.getElementById("filmNameToModify").value,
+                    author: document.getElementById("filmAuthorToModify").value,
+                    img: document.getElementById("filmImageToModify").value,
+                    category : document.getElementById("filmCategoryToModify").value,
+                    description: document.getElementById("filmDescToModify").value,
+                    video: document.getElementById("filmTrailerToModify").value,
+                    likes:tabFilm[i].likes,
+                    dislikes:tabFilm[i].dislikes,
+                }
+            }
+            document.getElementById("filmIDToModify").value= "";
+            document.getElementById("filmTrailerToModify").value = "";
+            document.getElementById("filmDescToModify").value = "";
+            document.getElementById("filmCategoryToModify").value = "";
+            document.getElementById("filmImageToModify").value = "";
+            document.getElementById("filmAuthorToModify").value = "";
+            document.getElementById("filmNameToModify").value = "";
+        }
+        saveOfflineTab();
+        setTable();
     }
 }
 
@@ -599,9 +624,8 @@ const openDelCategory = () => {
 
 const createCategory = () => {
     let newCat = document.getElementById("filmCategoryToAdd").value;
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories";
-        
-    console.log(typeof newCat)
+    if(onlineMode === true){ 
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories";
         axios.post(url, {
             name: newCat })
             .then(res => {
@@ -611,6 +635,15 @@ const createCategory = () => {
             .catch(error =>{
                 console.log(error);
             })
+        }else{
+            categoryFilm.push({
+                name: document.getElementById("filmCategoryToAdd").value,
+                id : setRandomID()
+            })
+            saveOfflineTab();
+            setTab();
+            addSubCategoryToCreateFilm();
+        }
     
     
 }
@@ -639,17 +672,29 @@ const checkDelCategory = () => {
 
 const delCategory = () => {
     let deletecat = document.getElementById("filmCategoryToDelete").value;
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + deletecat;
-    console.log(url);
-    axios.delete(url)
-        .then(e => {
-            document.getElementById("filmCategoryToDelete").value = " ";
-            fetchTable();
-            console.log("delete success");
-        })
-        .catch(error => {
-            console.log(error);
-        })
+    if(onlineMode === true){
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + deletecat;
+        console.log(url);
+        axios.delete(url)
+            .then(e => {
+                document.getElementById("filmCategoryToDelete").value = " ";
+                fetchTable();
+                console.log("delete success");
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }else{
+        for(let i = 0; i<categoryFilm.length;i++)
+        {
+            if(categoryFilm[i].id === deletecat){
+                categoryFilm.splice(i,1);
+            }
+        }
+        saveOfflineTab()
+        setTab()
+        addSubCategoryToCreateFilm();
+    }
 }
 
 const openModifyCat = () => {
@@ -924,7 +969,6 @@ const SearchCollection = (name) => {
 }
 
 const retireOfCollection = (i) => {
-    console.log("test");
     userCollection.splice(i,1);
     createCollection()
 }
@@ -957,7 +1001,11 @@ const setTab = () => {
 {
     categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
 }else{
-    categoryFilm = [...categoryTab];
+    if(localStorage.getItem("offlineCatTabAPI")===null)
+    {
+        localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryTab));
+    }
+    categoryFilm = JSON.parse(localStorage.getItem("offlineCatTabAPI"));
 }
 
 if(localStorage.getItem("likeTab")!==null){
@@ -981,6 +1029,7 @@ const setMode = () => {
 
 const saveOfflineTab = () => {
     localStorage.setItem("offlineTabAPI", JSON.stringify(tabFilm));
+    localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryFilm));
 }   
 
 document.getElementById("sliderOnline").addEventListener("click", () => {
