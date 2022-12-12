@@ -439,6 +439,63 @@ h1{
     font-size: 1vw;
   }
 
+  /*TODO TECHNIC BUTTON */
+
+  .filmCase .deleteButton{
+    display: none;
+    position: absolute;
+    bottom: 1.3vh;
+    left: 14vh;
+    width: 4vh;
+    height: 4vh;
+    filter: invert(1);
+    background-image: url(https://cdn-icons-png.flaticon.com/512/1017/1017479.png);
+    background-size: cover;
+    z-index: 1000000000;
+  }
+  
+  .filmCase .modifyButtonIn{
+    display: none;
+    position: absolute;
+    bottom: 1.3vh;
+    left: 19vh;
+    width: 4vh;
+    height: 4vh;
+    filter: invert(1);
+    background-image: url(http://cdn.onlinewebfonts.com/svg/img_548271.png);
+    background-size: cover;
+    z-index: 1000000000;
+  }
+
+  .filmCase .addToCollection{
+    display: none;
+    position: absolute;
+    bottom: 1.3vh;
+    left: 24vh;
+    width: 4vh;
+    height: 4vh;
+    filter: invert(1);
+    background-image: url(../img/59836.png);
+    background-size: cover;
+    z-index: 1000000000;
+    transform: scale(0.75) rotateZ(45deg);
+  }
+
+  .filmCase .deleteThisFilm{
+  
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0));
+    background-size: cover;
+    z-index: 545454545454545454545454545;
+    transition: all 0s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /*TODO TECHNIC BUTTON */
+
   /***FILM ACTIVE***/
 
 .filmCase.active{
@@ -527,6 +584,76 @@ h1{
     border-style: solid;
   }
 
+  /*TODO TECHNIC BUTTON */
+
+  .filmCase.active .deleteButton{
+    cursor: pointer;
+    pointer-events: all;
+    display: block;
+    z-index: 1000000000;
+  }
+  
+  .filmCase.active .modifyButtonIn{
+    cursor: pointer;
+    pointer-events: all;
+    display: block;
+    z-index: 1000000000;
+  }
+
+  .filmCase.active .addToCollection{
+    cursor: pointer;
+    pointer-events: all;
+    display: block;
+    z-index: 1000000000;
+  }
+
+  .filmCase.active .deleteThisFilm.active{
+    pointer-events: all;
+    transition: all 0.5s;
+    opacity: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-items: center;
+  }
+
+  /*!INSIDE DELETE MENU */
+    .deleteChoice{
+      display: flex;
+      justify-content: center;
+    }
+    .yesChoice{
+      padding: 1vh;
+      margin: 1vh;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      font-size: 3vh;
+      transition: all 1s;
+    }
+    .yesChoice:hover{
+      transition: all 1s;
+      background-color: white;
+      color: black;
+    }
+    .noChoice{
+      padding: 1vh;
+      margin: 1vh;
+      cursor: pointer;
+      background-color: black;
+      color: white;
+      font-size: 3vh;
+      transition: all 1s;
+    }
+    .noChoice:hover{
+      transition: all 1s;
+      background-color: white;
+      color: black;
+    }
+  /*!INSIDE DELETE MENU */
+
+  /*TODO TECHNIC BUTTON */
 
    /***FILM HOVER***/
 
@@ -596,128 +723,6 @@ h1{
 }
 
   /*? ANIM COME CASE */
-
-/*DELETE MODIFY*/
-
-.deleteButton{
-  display: none;
-  position: absolute;
-  bottom: 1.3vh;
-  left: 14vh;
-  width: 4vh;
-  height: 4vh;
-  filter: invert(1);
-  background-image: url(https://cdn-icons-png.flaticon.com/512/1017/1017479.png);
-  background-size: cover;
-  z-index: 1000000000;
-}
-
-.modifyButtonIn{
-  display: none;
-  position: absolute;
-  bottom: 1.3vh;
-  left: 19vh;
-  width: 4vh;
-  height: 4vh;
-  filter: invert(1);
-  background-image: url(http://cdn.onlinewebfonts.com/svg/img_548271.png);
-  background-size: cover;
-  z-index: 1000000000;
-}
-
-.filmCase.active .deleteButton{
-  cursor: pointer;
-  pointer-events: all;
-  display: block;
-  z-index: 1000000000;
-}
-
-.filmCase.active .modifyButtonIn{
-  cursor: pointer;
-  pointer-events: all;
-  display: block;
-  z-index: 1000000000;
-}
-
-.addToCollection{
-  display: none;
-  position: absolute;
-  bottom: 1.3vh;
-  left: 24vh;
-  width: 4vh;
-  height: 4vh;
-  filter: invert(1);
-  background-image: url(../img/59836.png);
-  background-size: cover;
-  z-index: 1000000000;
-  transform: scale(0.75) rotateZ(45deg);
-}
-
-.filmCase.active .addToCollection{
-  cursor: pointer;
-  pointer-events: all;
-  display: block;
-  z-index: 1000000000;
-}
-
-/*DELETE MODIFY*/
-
-.deleteThisFilm{
-  
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgb(0, 0, 0));
-  background-size: cover;
-  z-index: 545454545454545454545454545;
-  transition: all 0s;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.filmCase.active .deleteThisFilm.active{
-  pointer-events: all;
-  transition: all 0.5s;
-  opacity: 100;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-items: center;
-}
-
-.deleteChoice{
-  display: flex;
-  justify-content: center;
-}
-.yesChoice{
-  padding: 1vh;
-  margin: 1vh;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  font-size: 3vh;
-  transition: all 1s;
-}
-.yesChoice:hover{
-  transition: all 1s;
-  background-color: white;
-  color: black;
-}
-.noChoice{
-  padding: 1vh;
-  margin: 1vh;
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  font-size: 3vh;
-  transition: all 1s;
-}
-.noChoice:hover{
-  transition: all 1s;
-  background-color: white;
-  color: black;
-}
 
 /**************************************************/
 /**********************FILMCASE********************/
