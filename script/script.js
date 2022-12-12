@@ -1,34 +1,51 @@
 "use strict"
 
+//? recurrent method
+
+//#region 
+
 window.onload=(event) => {
     document.getElementById("loadingPage").classList.add("disapear");
 };
 
-const strNoAccent = (a) => {
-    var b="áàâäãåçèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
-        c="aaaaaaceeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
-        d="";
-    for(var i = 0, j = a.length; i < j; i++) {
-      var e = a.substr(i, 1);
-      d += (b.indexOf(e) !== -1) ? c.substr(b.indexOf(e), 1) : e;
+const strNoAccent = (string) => {
+    let accent="áàâäãåçèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
+        noAccent="aaaaaaceeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
+        result="";
+    for(let i = 0; i < string.length; i++) {
+      let temp = string.substr(i, 1);
+      result += (accent.indexOf(temp) !== -1) ? noAccent.substr(accent.indexOf(temp), 1) : temp;
     }
-    return d;
-  }
+    return result;
+}
 
-const divTabFilm = document.getElementById("filmTabDivRow1")
-const divTabFilm2 = document.getElementById("filmTabDivRow2")
-const divTabFilm3 = document.getElementById("filmTabDivRow3")
-const divTabFilm4 = document.getElementById("filmTabDivRow4")
-const divTabFilm5 = document.getElementById("filmTabDivRow5")
+let clientOrientation = () => {
+    let clientWidth = document.body.clientWidth;
+    let clientHeight = document.body.clientHeight;
+    if(clientWidth >= clientHeight){
+        return "landscape"
+    }else{
+        return "portrait"
+    }
+}
+
+//#endregion
+
+//? recurrent method
+
+  const divTabFilm = document.getElementById("filmTabDivRow1"),
+        divTabFilm2 = document.getElementById("filmTabDivRow2"),
+        divTabFilm3 = document.getElementById("filmTabDivRow3"),
+        divTabFilm4 = document.getElementById("filmTabDivRow4"),
+        divTabFilm5 = document.getElementById("filmTabDivRow5")
+
+let tabDiv = [];
 
 let onlineMode = false;
 
+
+
 let tabFilm = [];
-
-
-let tabDiv = [
-    
-];
 let categoryFilm = [
 
 ];
@@ -41,19 +58,10 @@ let userCollection = [
     
 ];
 
-// Tableau qui sera affiché dans 99% des cas
+// Tableau qui sera affiché dans 100% des cas
 let displayTab = []
-// Tableau qui sera affiché dans 99% des cas
+// Tableau qui sera affiché dans 100% des cas
 
-let clientOrientation = () => {
-    let clientWidth = document.body.clientWidth;
-    let clientHeight = document.body.clientHeight;
-    if(clientWidth > clientHeight){
-        return "landscape"
-    }else{
-        return "portrait"
-    }
-}
 
 // ! *****************************************
 // !!!! // FILM CREATION *********************
