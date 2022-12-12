@@ -12,6 +12,9 @@
 }
 
 
+
+/*********************/
+
 body{
   min-height: 100vh;
   background-image: linear-gradient(#2a2f3b, #334342);
@@ -23,6 +26,14 @@ body{
   background-image: linear-gradient(#c3cfeb, #e7fffd);
   transition: all 1s;
 }
+
+/*********************/
+
+
+
+/**************************************************/
+/*****************TOP OF PAGE**********************/
+/**************************************************/
 
 .centering{
   display: flex;
@@ -56,7 +67,62 @@ h1{
     color: black;
     transition: all 1s;
 }
-/**************/
+
+/**************************************************/
+/*****************TOP OF PAGE**********************/
+/**************************************************/
+
+
+
+/********LoadingPage*********/
+
+.loadingPage{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  transition: all 2s;
+  z-index: 545454968486546848646848649875757575755454;
+}
+
+.loadingPage.disapear{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  transition: all 2s;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/********LoadingPage*********/
+
+
+
+/**************************************************/
+/****************FANCY HALFTONE********************/
+/**************************************************/
+
+.halftone1{
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  right: 0;
+  background-size: cover;
+  pointer-events: none;
+  transform: translateY(180deg);
+  background-image: url(../img/halftone/2.png);
+}
+
+/**************************************************/
+/****************FANCY HALFTONE********************/
+/**************************************************/
+
+
+
+/**************************************************/
+/************************SLIDER********************/
+/**************************************************/
 
 
 .sliderOnline{
@@ -95,7 +161,16 @@ h1{
   background-color: #2a2f3b;
 }
 
-/**************/
+/**************************************************/
+/************************SLIDER********************/
+/**************************************************/
+
+
+
+/**************************************************/
+/***********************FILMDIV********************/
+/**************************************************/
+
 .filmTab{
   position: relative;
   padding-top: 5%;
@@ -125,7 +200,15 @@ h1{
   margin-bottom:10%;
 }
 
-/*****FILM CASE*****/
+/**************************************************/
+/***********************FILMDIV********************/
+/**************************************************/
+
+
+
+/**************************************************/
+/**********************FILMCASE********************/
+/**************************************************/
 
 .filmCase{
   position: relative;
@@ -143,7 +226,6 @@ h1{
   overflow: hidden;
   animation: come 1s;
 }
-
 
 .filmCase:hover{
   transition: all 3s;
@@ -624,7 +706,15 @@ form{
   color: black;
 }
 
-/**********ADD**********/
+/**************************************************/
+/**********************FILMCASE********************/
+/**************************************************/
+
+
+
+/**************************************************/
+/**********************ADDCASE*********************/
+/**************************************************/
 
 .buttonDiv{
   position: fixed;
@@ -727,9 +817,15 @@ form{
   font-size: 2.5vh;
 }
 
-/**********ADD**********/
+/**************************************************/
+/**********************ADDCASE*********************/
+/**************************************************/
 
-/**********SEARCH SPECIFIC MENU**********/
+
+
+/**************************************************/
+/******************SEARCHSPECMENU******************/
+/**************************************************/
 
 .specificSearch{
   width: 7vh;
@@ -806,9 +902,15 @@ form{
   font-size: 2.5vh;
 }
 
-/**********SEARCH SPECIFIC MENU**********/
+/**************************************************/
+/******************SEARCHSPECMENU******************/
+/**************************************************/
 
-/**********MODIFY MENU**********/
+
+
+/**************************************************/
+/******************MODIFYMENU**********************/
+/**************************************************/
 
 .modifyFilm{
   width: 7vh;
@@ -877,9 +979,15 @@ form{
   font-size: 2.5vh;
 }
 
-/**********MODIFY MENU**********/
+/**************************************************/
+/******************MODIFYMENU**********************/
+/**************************************************/
 
-/**********CATEGORY MENU**********/
+
+
+/**************************************************/
+/******************CATEGORYMENU********************/
+/**************************************************/
 
 .addCategory{
   width: 7vh;
@@ -935,10 +1043,15 @@ form{
   font-size: 2.5vh;
 }
 
+/**************************************************/
+/******************CATEGORYMENU********************/
+/**************************************************/
 
-/**********CATEGORY MENU**********/
 
-/**********DELETE CAT MENU**********/
+
+/**************************************************/
+/******************DELETECATMENU*******************/
+/**************************************************/
 
 .deleteCategory{
   width: 7vh;
@@ -994,8 +1107,15 @@ form{
   font-size: 2.5vh;
 }
 
+/**************************************************/
+/******************DELETECATMENU*******************/
+/**************************************************/
 
-/**********DELETE CAT MENU**********/
+
+
+/**************************************************/
+/******************RESULTTEXT**********************/
+/**************************************************/
 
 .noResultText{
   transition: all 1s;
@@ -1053,26 +1173,15 @@ form{
   color: white;
 }
 
-.loadingPage{
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  transition: all 2s;
-  z-index: 545454968486546848646848649875757575755454;
-}
+/**************************************************/
+/******************RESULTTEXT**********************/
+/**************************************************/
 
-.loadingPage.disapear{
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  transition: all 2s;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0);
-}
 
-/****************/
+
+/**************************/
+/********NAVIGATION********/
+/**************************/
 
 .NumberPage{
   position: absolute;
@@ -1112,12 +1221,6 @@ form{
   fill: #2a2f3b;
 }
 
-.goPage.disappear{
-  opacity: 0;
-  pointer-events: none;
-  cursor:auto;
-}
-
 .goPage{
   width: 2vh;
   fill: white;
@@ -1126,11 +1229,25 @@ form{
   margin-top: 1.5vh;
 }
 
+.goPage.disappear{
+  opacity: 0;
+  pointer-events: none;
+  cursor:auto;
+}
+
 .light .goPage{
   fill: #2a2f3b;
 }
 
-/****************COLLECTION********************/
+/**************************/
+/********NAVIGATION********/
+/**************************/
+
+
+
+/**********************************************/
+/****************COLLECTIONDIV********************/
+/**********************************************/
 
 .collectionList{
   transform: translateX(-100%);
@@ -1169,6 +1286,39 @@ form{
   width: 100%;
   height: 100%;
   overflow-y: auto;
+}
+
+.showColl{
+  position: absolute;
+  width: 5vh;
+  height: 6vh;
+  top: 38vh;
+  right: -5vh;
+  border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;
+  background-color: aliceblue;
+  overflow: hidden;
+  z-index: -1;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.collectionList.active .showColl{
+  background-color: #334342;
+  transition: all 1s;
+}
+
+.arrowCollection{
+  width: 5vh;
+  height: 6vh;
+  pointer-events: none;
+  transition: all 1s;
+}
+
+.collectionList.active .arrowCollection{
+  transform: rotateZ(180deg) translateX(0.25vh);
+  transition: all 1s;
+  fill: white;
 }
 
 .frameColl{
@@ -1224,58 +1374,15 @@ form{
   z-index: 51545465464646;
 }
 
-.showColl{
-  position: absolute;
-  width: 5vh;
-  height: 6vh;
-  top: 38vh;
-  right: -5vh;
-  border-top-right-radius: 2vw;
-  border-bottom-right-radius: 2vw;
-  background-color: aliceblue;
-  overflow: hidden;
-  z-index: -1;
-  cursor: pointer;
-  transition: all 1s;
-}
-
-.collectionList.active .showColl{
-  background-color: #334342;
-  transition: all 1s;
-}
-
-.collectionList.active .arrowCollection{
-  transform: rotateZ(180deg) translateX(0.25vh);
-  transition: all 1s;
-  fill: white;
-}
-
-.arrowCollection{
-  width: 5vh;
-  height: 6vh;
-  pointer-events: none;
-  transition: all 1s;
-}
+/**********************************************/
+/****************COLLECTIONDIV********************/
+/**********************************************/
 
 
-/****************COLLECTION********************/
 
-/****************FANCY HALFTONE********************/
-
-.halftone1{
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  right: 0;
-  background-size: cover;
-  pointer-events: none;
-  transform: translateY(180deg);
-  background-image: url(../img/halftone/2.png);
-}
-
-/****************FANCY HALFTONE********************/
-
-/****************GOUPTOSEARCH********************/
+/**********************************************/
+/****************GOUPINPAGE********************/
+/**********************************************/
 
 .goUpToSearch{
   width: 100%;
@@ -1287,11 +1394,15 @@ form{
 }
 
 .light .goUpToSearch{
-  fill: black;
+  fill: #334342;
   transition: all 1s;
 }
 
-/****************GOUPTOSEARCH********************/
+/**********************************************/
+/****************GOUPINPAGE********************/
+/**********************************************/
+
+
 
 @media (orientation: portrait) {
 
@@ -1539,6 +1650,8 @@ form{
 
 /************iconInCase*************/
 
+/********************************/
+
 .searchBar {
   left: 10vw;
   width: 80vw;
@@ -1554,6 +1667,33 @@ form{
   filter: invert(1) drop-shadow(0 0vh 1vh black);
   width: 50vw;
 }
+
+#resultText {
+  position: absolute;
+  top: 30vw;
+  font-size: 5vw;
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+.noResultText {
+  top: 30vw;
+  width: 100%;
+  pointer-events: none;
+  display: none;
+  font-size: 5vw;
+}
+
+#createYourOwn {
+  font-size: 5vw;
+}
+
+.light .logoTop {
+  width: 50vw;
+}
+
+/********************************/
 
 /**************COLLECTION*******************/
 

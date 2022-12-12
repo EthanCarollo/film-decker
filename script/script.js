@@ -1017,36 +1017,36 @@ createCollection();
 //#region 
 
 const setTab = () => {
-    if(localStorage.getItem("tabAPI")!==null && onlineMode === true)
-{
-    tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
-    displayTab = [...tabFilm];
-}else{
-    if(localStorage.getItem("offlineTabAPI")===null)
+        if(localStorage.getItem("tabAPI")!==null && onlineMode === true)
     {
-        localStorage.setItem("offlineTabAPI", JSON.stringify(offlineTab));
-    }
-    tabFilm=JSON.parse(localStorage.getItem("offlineTabAPI"));
-    displayTab = [...tabFilm];
-}
+        tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
+        displayTab = [...tabFilm];
+        }else{
+            if(localStorage.getItem("offlineTabAPI")===null)
+            {
+                localStorage.setItem("offlineTabAPI", JSON.stringify(offlineTab));
+            }
+            tabFilm=JSON.parse(localStorage.getItem("offlineTabAPI"));
+            displayTab = [...tabFilm];
+        }
 
-    if(localStorage.getItem("categoryAPI")!==null && onlineMode === true)
-{
-    categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
-}else{
-    if(localStorage.getItem("offlineCatTabAPI")===null)
+        if(localStorage.getItem("categoryAPI")!==null && onlineMode === true)
     {
-        localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryTab));
-    }
-    categoryFilm = JSON.parse(localStorage.getItem("offlineCatTabAPI"));
-}
+        categoryFilm=JSON.parse(localStorage.getItem("categoryAPI"));
+        }else{
+        if(localStorage.getItem("offlineCatTabAPI")===null)
+        {
+            localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryTab));
+        }
+        categoryFilm = JSON.parse(localStorage.getItem("offlineCatTabAPI"));
+        }
 
-if(localStorage.getItem("likeTab")!==null){
-    likedFilm=JSON.parse(localStorage.getItem("likeTab"));
-}
-if(localStorage.getItem("dislikeTab")!==null){
-    dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
-}
+        if(localStorage.getItem("likeTab")!==null){
+            likedFilm=JSON.parse(localStorage.getItem("likeTab"));
+        }
+        if(localStorage.getItem("dislikeTab")!==null){
+            dislikedFilm=JSON.parse(localStorage.getItem("dislikeTab"));
+        }
 
 createTable(displayTab);
 
