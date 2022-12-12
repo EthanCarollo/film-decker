@@ -45,8 +45,21 @@ let userCollection = [
 let displayTab = []
 // Tableau qui sera affiché dans 99% des cas
 
+let clientOrientation = () => {
+    let clientWidth = document.body.clientWidth;
+    let clientHeight = document.body.clientHeight;
+    if(clientWidth > clientHeight){
+        return "landscape"
+    }else{
+        return "portrait"
+    }
+}
 
-//#region  // ? Creation de la liste de film
+// ! *****************************************
+// !!!! // FILM CREATION *********************
+// ! *****************************************
+
+//#region 
 
 const createTable = (tab) => {
     divTabFilm.innerHTML = "";
@@ -54,7 +67,6 @@ const createTable = (tab) => {
     divTabFilm3.innerHTML = "";
     divTabFilm4.innerHTML = "";
     divTabFilm5.innerHTML = "";
-    refreshNavpage();
     tabDiv = [];
     checkDelCategory();
     for(let i = 0+(25*actualPage); i < 5+(25*actualPage); i++)
@@ -115,6 +127,7 @@ const refreshNavpage = () => {
 
 const goNextPage = () => {
     if(displayTab.length>(25+(25*actualPage))){
+        console.log("test");
         actualPage += 1;
         createTable(displayTab);
         document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
@@ -285,7 +298,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
         filmCard.classList.add("filmCase");
         filmCard.style.backgroundImage = "url(" + tabMovie.img + ")";
         filmCard.addEventListener('mousemove', (e) => {
-            if(!filmCard.classList.contains("active")){
+            if(!filmCard.classList.contains("active") && clientOrientation === "landscape"){
                 let offYTemp = filmCard.getBoundingClientRect().top
                 let offXTemp = filmCard.getBoundingClientRect().left
                 let filmCardWidth = filmCard.clientWidth;
@@ -427,9 +440,17 @@ const AddInRow=(tabMovie, i, divTab)=>{
 
 }
 
-//#endregion // ? Creation de la liste de film
+//#endregion
 
-//#region // ! AddFilm
+// ! *****************************************
+// !!!! // FILM CREATION *********************
+// ! *****************************************
+
+// *******************************************
+// **** // ADD FILM **************************
+// *******************************************
+
+//#region 
 
 const addFilm = () => {
 
@@ -531,9 +552,17 @@ const addSubCategoryToCreateFilm = () => {
     }
 }
 
-//#endregion // ! AddFilm
+//#endregion
 
-//#region // Modify Film
+// *******************************************
+// **** // ADD FILM **************************
+// *******************************************
+
+// ? *****************************************
+// ???? // MODIFY FILM ***********************
+// ? *****************************************
+
+//#region 
 
 const setRandomID = () => {
     let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -714,11 +743,17 @@ document.getElementById("openDeleteCategoryMenu").addEventListener("click",openD
 document.getElementById("submitCategory").addEventListener("click", createCategory);
 document.getElementById("deleteCategory").addEventListener("click", delCategory);
 
+//#endregion
 
+// ? *****************************************
+// ???? // MODIFY FILM ***********************
+// ? *****************************************
 
-//#endregion // Modify Film
+// TODO **************************************
+// TODO // SEARCH BEAR ***********************
+// TODO **************************************
 
-//#region // TODO search bar
+//#region 
 
 const sortArrayByRatio = (array) => {
     return array.sort((a, b) => {
@@ -852,9 +887,17 @@ document.querySelector("form").addEventListener("submit", (e) => {
     Search();
 })
 
-//#endregion // TODO search bar
+//#endregion
 
-//#region // ! set the tab in the local storage 
+// TODO **************************************
+// TODO // SEARCH BEAR ***********************
+// TODO **************************************
+
+// ! *****************************************
+// !!!! // LOCAL STORAGE TABLE ***************
+// ! *****************************************
+
+//#region 
 
 const fetchTable = () => {
     fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies")
@@ -868,7 +911,7 @@ const fetchTable = () => {
         })
         .catch(error => {
             console.log(error);
-            getFileJSON();
+            setOfflineApi();
         })
     fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories")
         .then(res => res.json())
@@ -897,38 +940,17 @@ const setTable = () => {
     createTable(displayTab);
 }
 
-let fileURL = "./json/movies.json";
+//#endregion
 
-const readFileJSON = () => {
-    let arrayPromise = [];
-    const testString = JSON.stringify({
-        id:"Yzr28IxMyqdPEOC4Ez4r",
-        description:"Le tyrannique Lancelot-du-Lac et ses mercenaires saxons font régner la terreur sur le royaume de Logres.",
-        category :"qWvkRkXKisovrRkQWEaQ",
-        img:"https://fr.web.img3.acsta.net/pictures/21/06/29/12/45/0400641.jpg",
-        name: "Kaamelott (2021)",
-        likes :48,
-        video:"https://www.youtube.com/watch?v=j7RrsdP-WuM",
-        dislikes:2,
-        author:"Alexandre Astierr"
-    })
+// ! *****************************************
+// !!!! // LOCAL STORAGE TABLE ***************
+// ! *****************************************
 
-    axios.get(fileURL)
-        .then(res => {
-            return res.data;
-        })
-        .then(res => {
-            tabFilm = JSON.parse(res);
-        })
-        .catch(error => {
-            console.log("error")
-        })  
-}
+// *******************************************
+// **** // Collection Function ***************
+// *******************************************
 
-//#endregion // ! set the tab in the local storage 
-
-//#region // * Collection
-
+//#region 
 
 const createCollection = () => {
     let displayColl = document.getElementById("collectionContent");
@@ -982,9 +1004,17 @@ document.getElementById("showColl").addEventListener("click", ()=>{
 
 createCollection();
 
-//#endregion // * Collection
+//#endregion
 
-//#region // Init Void
+// *******************************************
+// **** // Collection Function ***************
+// *******************************************
+
+// TODO **************************************
+// TODO // ALL ABOUT OFFLINE & ONLINE MOD SWAP
+// TODO **************************************
+
+//#region 
 
 const setTab = () => {
     if(localStorage.getItem("tabAPI")!==null && onlineMode === true)
@@ -1037,22 +1067,42 @@ const saveOfflineTab = () => {
     localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryFilm));
 }   
 
-document.getElementById("sliderOnline").addEventListener("click", () => {
+const swapModeApi = () => {
     if(onlineMode === true){
         onlineMode = false;
-        setTab()
+        refreshNavpage();
+        setTab();
+        goPage1();
     }else{
         onlineMode = true;
+        refreshNavpage();
         fetchTable();
+        goPage1();
     }
+}
+
+const setOfflineApi = () => {
+    onlineMode = false;
+    refreshNavpage();
+    setTab();
+    goPage1();
+    setMode()
+}
+
+document.getElementById("sliderOnline").addEventListener("click", () => {
+    swapModeApi();
     setMode()
 })
 
-setTab();
+//#endregion
 
+// TODO **************************************
+// TODO // ALL ABOUT OFFLINE & ONLINE MOD SWAP
+// TODO **************************************
+
+setTab();
 addSubCategoryToCreateFilm();
 refreshNavpage();
 
-//#endregion // Init Void
 
 
