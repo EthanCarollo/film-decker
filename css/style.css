@@ -120,10 +120,75 @@ h1{
 
 
 
+/**************************/
+/********NAVIGATION********/
+/**************************/
+
+.NumberPage{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  align-content: center ;
+  justify-content: center;
+  width: 100%;
+  z-index: 15;
+  top: 5vw;
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
+}
+
+.NumberPage2{
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-content: center ;
+  justify-content: center;
+  width: 100%;
+  z-index: 15;
+  top: 5vw;
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
+}
+
+.light .NumberPage{
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
+  fill: #2a2f3b;
+}
+
+.light .NumberPage2{
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
+  fill: #2a2f3b;
+}
+
+.goPage{
+  width: 2vh;
+  fill: white;
+  cursor: pointer;
+  margin: 1vh;
+  margin-top: 1.5vh;
+}
+
+.goPage.disappear{
+  opacity: 0;
+  pointer-events: none;
+  cursor:auto;
+}
+
+.light .goPage{
+  fill: #2a2f3b;
+}
+
+/**************************/
+/********NAVIGATION********/
+/**************************/
+
+
+
 /**************************************************/
 /************************SLIDER********************/
 /**************************************************/
-
 
 .sliderOnline{
   position: fixed;
@@ -138,12 +203,7 @@ h1{
   transition: all 1s;
 }
 
-.sliderOnline.active{
-  background-color:aliceblue;
-  transition: all 1s;
-}
-
-.buttonSlide{
+  .sliderOnline .buttonSlide{
   top: 0.25vw;
   left: 0.25vw;
   position: absolute;
@@ -152,14 +212,19 @@ h1{
   background-color:aliceblue;
   border-radius: 1.25vw;
   transition: all 1s;
+  }
+
+.sliderOnline.active{
+  background-color:aliceblue;
+  transition: all 1s;
 }
 
-.sliderOnline.active .buttonSlide{
-  transition: all 1s;
-  top: 0.25vw;
-  left: 1.75vw;
-  background-color: #2a2f3b;
-}
+  .sliderOnline.active .buttonSlide{
+    transition: all 1s;
+    top: 0.25vw;
+    left: 1.75vw;
+    background-color: #2a2f3b;
+  }
 
 /**************************************************/
 /************************SLIDER********************/
@@ -186,19 +251,19 @@ h1{
   align-content: center;
 }
 
-#filmTabDivRow2{
-  padding-top: 0%;
-}
-#filmTabDivRow3{
-  padding-top: 0%;
-}
-#filmTabDivRow4{
-  padding-top: 0%;
-}
-#filmTabDivRow5{
-  padding-top: 0%;
-  margin-bottom:10%;
-}
+  #filmTabDivRow2{
+    padding-top: 0%;
+  }
+  #filmTabDivRow3{
+    padding-top: 0%;
+  }
+  #filmTabDivRow4{
+    padding-top: 0%;
+  }
+  #filmTabDivRow5{
+    padding-top: 0%;
+    margin-bottom:10%;
+  }
 
 /**************************************************/
 /***********************FILMDIV********************/
@@ -227,72 +292,84 @@ h1{
   animation: come 1s;
 }
 
-.filmCase:hover{
-  transition: all 3s;
-  background-size: 130% 130%;
-}
-
-.filmCase:hover .gradient{
-  opacity: 100%;
-  position: absolute;
-  transition: all 1s;
-  background: linear-gradient(rgba(0, 0, 255, 0), rgb(0, 0, 0));
-  pointer-events:none;
-  z-index: 101212;
-}
-
-.filmCase.active:hover .gradient{
-  opacity: 100%;
-  position: absolute;
-  width: 120%;
-  height: 120%;
-  transition: all 1s;
-  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
-  pointer-events:none;
-  z-index: 101212;
-}
-
-.titleMoviePrev{
-  pointer-events: none;
-  opacity: 0;
-  position: absolute;
-  text-align: center;
-  width: 10vw;
-  bottom: 1vh;
-  left: 0;
-  transition: all 1s;
-  font-size: 2vh;
-}
-
-.filmCase.active{
-  background-size: cover;
-}
-
-.filmCase.active .titleMoviePrev{
-  display: none;
-}
-
-.filmCase:hover .titleMoviePrev{
-  opacity: 100%;
-  position: absolute;
-  color: white;
-  bottom: 3vh;
-  transition: all 2s;
-  z-index: 854848454;
-}
-
-@keyframes come {
-  from{
-    transform: translateY(-5vh);
+  .filmCase .titleMoviePrev{
+    pointer-events: none;
     opacity: 0;
-  }to{
-    opacity: 100;
+    position: absolute;
+    text-align: center;
+    width: 10vw;
+    bottom: 1vh;
+    left: 0;
+    transition: all 1s;
+    font-size: 2vh;
   }
-}
 
-.filmCase:hover{
-  transition: all 0.5s;
-}
+  .filmCase .gradient{
+    pointer-events: none;
+    opacity: 0%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+    background-size: cover;
+    transition: all 1s;
+    z-index: 101212;
+  }
+
+  .filmCase .titleMovie{
+    opacity: 0%;
+    pointer-events: none;
+    position: absolute;
+    top: 1vh;
+    left: 1.5vh;
+    font-size: 1.5vw;
+    color: white;
+    filter: drop-shadow(0px 0.33vh 0px rgba(0, 0, 0, 0.466)) drop-shadow(0px 0px 5vh black);
+  }
+
+  .filmCase .descriptionMovie{
+    pointer-events: none;
+    opacity: 0%;
+    position: absolute;
+    bottom: 1vh;
+    width: 70%;
+    right: 1.5vh;
+    font-size: 1.5vh;
+    color: white;
+  }
+
+  .filmCase .titleMovie span{
+    font-size: 2vh;
+    margin: 0;
+  }
+  
+  .filmCase .titleMovie .Category{
+    font-size: 1.5vh;
+  }
+
+  .filmCase .percentOfLike{
+    pointer-events: none;
+    position: absolute;
+    bottom: 6.5vh;
+    font-size: 3.5vh;
+    width: 14vh;
+    text-align: center;
+    color: white;
+    opacity: 0;
+  }
+  
+  .filmCase .embedYT{
+    pointer-events: none;
+    opacity: 0%;
+    display: none;
+    position: absolute;
+    width: 15vw;
+    height: 8vw;
+    right: 2vh;
+    top: 2vh;
+  }
+
+  /***FILM ACTIVE***/
 
 .filmCase.active{
   pointer-events: none;
@@ -301,83 +378,152 @@ h1{
   width: 35vw;
   height: 20vw;
   background-image: none;
+  background-size: cover;
   cursor:auto;
   z-index: 100;
 }
 
-.gradient{
-  pointer-events: none;
-  opacity: 0%;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+  .filmCase.active .gradient{
+    opacity: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all 1s;
+    pointer-events:none;
+    z-index: 101212;
+  }
+
+  .filmCase.active .titleMovie{
+    opacity: 100%;
+    position: absolute;
+    top: 1vh;
+    left: 1.5vh;
+    color: white;
+    transition: all 2s;
+    z-index: 854848454;
+  }
+
+  .filmCase.active .titleMoviePrev{
+    display: none;
+  }
+
+  .filmCase.active .descriptionMovie{
+    opacity: 100%;
+    position: absolute;
+    bottom: 1vh;
+    width: 50%;
+    right: 1.5vh;
+    transition: all 2s;
+    text-align: right;
+    color: white;
+    z-index: 854848454;
+  }
+
+  .filmCase.active .likeButton{
+    pointer-events: all;
+    opacity: 100;
+    transition: all 1s;
+    cursor: pointer;
+    bottom: 1vh;
+    left: 1vh;
+  }
+
+  .filmCase.active .dislikeButton{
+    pointer-events: all;
+    cursor: pointer;
+    opacity: 100;
+    transition: all 1s;
+    bottom: 1vh;
+    left: 8vh;
+  }
+
+  .filmCase.active .percentOfLikePreview{
+    display: none;
+  }
+
+  .filmCase.active .percentOfLike{
+    opacity: 100;
+    transition: all 1s;
+    z-index: 1002151;
+  }
+
+  .filmCase.active .embedYT{
+    pointer-events: all;
+    display: block;
+    opacity: 100;
+    transition: all 1s;
+    z-index: 1002151;
+    box-shadow: 0vh 0vh 1vh black;
+    border-style: solid;
+  }
+
+
+   /***FILM HOVER***/
+
+.filmCase:hover{
+  transition: all 0.5s;
+  background-size: 130% 130%;
+}
+
+  .filmCase:hover .gradient{
+    opacity: 100%;
+    position: absolute;
+    transition: all 1s;
+    background: linear-gradient(rgba(0, 0, 255, 0), rgb(0, 0, 0));
+    pointer-events:none;
+    z-index: 101212;
+  }
+
+  .filmCase:hover .titleMoviePrev{
+    opacity: 100%;
+    position: absolute;
+    color: white;
+    bottom: 3vh;
+    transition: all 2s;
+    z-index: 854848454;
+  }
+
+  .filmCase:hover .percentOfLikePreview span{
+    display: block;
+    font-size: 1vw;
+  }
+  
+  .filmCase:hover .percentOfLikePreview{
+    width: 10vw;
+    height: 15vw;
+    padding-top: 2vw;
+    transition: all 1s;
+    transform: translateY(0vw);
+  }
+
+  /***FILM ACTIVE HOVER***/
+
+.filmCase.active:hover{
+  transition: all 0.5s;
   background-size: cover;
-  transition: all 1s;
-  z-index: 101212;
 }
 
-.filmCase.active .gradient{
-  opacity: 100%;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transition: all 1s;
-  pointer-events:none;
-  z-index: 101212;
-}
+  .filmCase.active:hover .gradient{
+    opacity: 100%;
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    transition: all 1s;
+    background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+    pointer-events:none;
+    z-index: 101212;
+  }
 
-.titleMovie{
-  opacity: 0%;
-  pointer-events: none;
-  position: absolute;
-  top: 1vh;
-  left: 1.5vh;
-  font-size: 1.5vw;
-  color: white;
-  filter: drop-shadow(0px 0.33vh 0px rgba(0, 0, 0, 0.466)) drop-shadow(0px 0px 5vh black);
-}
 
-.filmCase.active .titleMovie{
-  opacity: 100%;
-  position: absolute;
-  top: 1vh;
-  left: 1.5vh;
-  color: white;
-  transition: all 2s;
-  z-index: 854848454;
-}
 
-.descriptionMovie{
-  pointer-events: none;
-  opacity: 0%;
-  position: absolute;
-  bottom: 1vh;
-  width: 70%;
-  right: 1.5vh;
-  font-size: 1.5vh;
-  color: white;
-}
 
-.titleMovie span{
-  font-size: 2vh;
-  margin: 0;
-}
-
-.titleMovie .Category{
-  font-size: 1.5vh;
-}
-
-.filmCase.active .descriptionMovie{
-  opacity: 100%;
-  position: absolute;
-  bottom: 1vh;
-  width: 50%;
-  right: 1.5vh;
-  transition: all 2s;
-  text-align: right;
-  color: white;
-  z-index: 854848454;
+@keyframes come {
+  from{
+    transform: translateY(-5vh);
+    opacity: 0;
+  }to{
+    opacity: 100;
+  }
 }
 
 .likeButton{
@@ -398,14 +544,6 @@ h1{
   filter: drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
 }
 
-.filmCase.active .likeButton{
-  pointer-events: all;
-  opacity: 100;
-  transition: all 1s;
-  cursor: pointer;
-  bottom: 1vh;
-  left: 1vh;
-}
 
 .likeButton.active{
   filter: drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
@@ -435,15 +573,6 @@ h1{
   filter: hue-rotate(125deg) drop-shadow(0vh 0vh 0.5vh rgb(255, 255, 255));
 }
 
-.filmCase.active .dislikeButton{
-  pointer-events: all;
-  cursor: pointer;
-  opacity: 100;
-  transition: all 1s;
-  bottom: 1vh;
-  left: 8vh;
-}
-
 .percentOfLike{
   pointer-events: none;
   position: absolute;
@@ -453,12 +582,6 @@ h1{
   text-align: center;
   color: white;
   opacity: 0;
-}
-
-.filmCase.active .percentOfLike{
-  opacity: 100;
-  transition: all 1s;
-  z-index: 1002151;
 }
 
 .embedYT{
@@ -472,15 +595,6 @@ h1{
   top: 2vh;
 }
 
-.filmCase.active .embedYT{
-  pointer-events: all;
-  display: block;
-  opacity: 100;
-  transition: all 1s;
-  z-index: 1002151;
-  box-shadow: 0vh 0vh 1vh black;
-  border-style: solid;
-}
 
 .percentOfLikePreview{
   overflow: hidden;
@@ -504,84 +618,6 @@ h1{
 .percentOfLikePreview span{
   display: none;
   font-size: 1vw;
-}
-
-.filmCase:hover .percentOfLikePreview span{
-  display: block;
-  font-size: 1vw;
-}
-
-.filmCase:hover .percentOfLikePreview{
-  width: 10vw;
-  height: 15vw;
-  padding-top: 2vw;
-  transition: all 1s;
-  transform: translateY(0vw);
-}
-
-.filmCase.active .percentOfLikePreview{
-  display: none;
-}
-
-.searchBar{
-  position: fixed;
-  top: 0%;
-  left: 10%;
-  width: 40vh;
-  height: 7.5vh;
-  border-bottom-right-radius: 6vh;
-  border-bottom-left-radius: 6vh;
-  background-color: #334342;
-  display: flex;
-  overflow: hidden;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  z-index: 15454684686888678767868677867868776766768787687;
-  padding-bottom: 1vh;
-  box-shadow: 0px 0px 1vh black;
-}
-
-form{
-  margin-top: 1vh;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-}
-
-#searchValue{
-  font-size: 1.5vh;
-  padding: 1vh;
-  margin-right: 1.5vh;
-}
-
-.searchIcon{
-  cursor: pointer;
-  width: 5vh;
-  height: 5vh;
-  filter: invert(1);
-}
-
-.exitButton{
-  display: none;
-  position: absolute;
-  background-color: wheat;
-  top: 10%;
-  left: 10%;
-  width: 10vh;
-  height: 10vh;
-}
-
-.exitButton:hover{
-  background-color: aqua;
-}
-
-.filmCase.active .exitButton{
-  display: block;
-  cursor: pointer;
-  pointer-events: all;
-  z-index: 10000000000000000;
 }
 
 /*DELETE MODIFY*/
@@ -909,6 +945,56 @@ form{
 
 
 /**************************************************/
+/******************SEARCHMENU**********************/
+/**************************************************/
+
+.searchBar{
+  position: fixed;
+  top: 0%;
+  left: 10%;
+  width: 40vh;
+  height: 7.5vh;
+  border-bottom-right-radius: 6vh;
+  border-bottom-left-radius: 6vh;
+  background-color: #334342;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  z-index: 15454684686888678767868677867868776766768787687;
+  padding-bottom: 1vh;
+  box-shadow: 0px 0px 1vh black;
+}
+
+form{
+  margin-top: 1vh;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+#searchValue{
+  font-size: 1.5vh;
+  padding: 1vh;
+  margin-right: 1.5vh;
+}
+
+.searchIcon{
+  cursor: pointer;
+  width: 5vh;
+  height: 5vh;
+  filter: invert(1);
+}
+
+/**************************************************/
+/******************SEARCHMENU**********************/
+/**************************************************/
+
+
+
+/**************************************************/
 /******************MODIFYMENU**********************/
 /**************************************************/
 
@@ -1176,72 +1262,6 @@ form{
 /**************************************************/
 /******************RESULTTEXT**********************/
 /**************************************************/
-
-
-
-/**************************/
-/********NAVIGATION********/
-/**************************/
-
-.NumberPage{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  align-content: center ;
-  justify-content: center;
-  width: 100%;
-  z-index: 15;
-  top: 5vw;
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
-}
-
-.NumberPage2{
-  position: relative;
-  display: flex;
-  align-items: center;
-  align-content: center ;
-  justify-content: center;
-  width: 100%;
-  z-index: 15;
-  top: 5vw;
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
-}
-
-.light .NumberPage{
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
-  fill: #2a2f3b;
-}
-
-.light .NumberPage2{
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
-  fill: #2a2f3b;
-}
-
-.goPage{
-  width: 2vh;
-  fill: white;
-  cursor: pointer;
-  margin: 1vh;
-  margin-top: 1.5vh;
-}
-
-.goPage.disappear{
-  opacity: 0;
-  pointer-events: none;
-  cursor:auto;
-}
-
-.light .goPage{
-  fill: #2a2f3b;
-}
-
-/**************************/
-/********NAVIGATION********/
-/**************************/
 
 
 
