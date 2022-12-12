@@ -454,6 +454,137 @@ const AddInRow=(tabMovie, i, divTab)=>{
 // !!!! // FILM CREATION *********************
 // ! *****************************************
 
+// TODO **************************************
+// TODO // CATEGORY FUNC *********************
+// TODO **************************************
+
+//#region 
+
+const addSubCategoryToCreateFilm = () => {
+    checkDelCategory();
+    let filmCategorOption = document.getElementById("filmCategory");
+    let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
+    let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
+    filmCategorOption.innerHTML = "";
+    filmCategorOptionSearch.innerHTML = "";
+    filmCategorOptionModify.innerHTML = "";
+    let OptionAll2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
+    OptionAll2.value = "all";
+    OptionAll2.innerHTML = "Everything";
+    for(let i = 0; i< categoryFilm.length;i++)
+    {
+        let Option = filmCategorOption.appendChild(document.createElement("option"));
+        Option.value = categoryFilm[i].id;
+        Option.innerHTML = categoryFilm[i].name;
+        let Option2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
+        Option2.value = categoryFilm[i].id;
+        Option2.innerHTML = categoryFilm[i].name;
+        let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
+        Option3.value = categoryFilm[i].id;
+        Option3.innerHTML = categoryFilm[i].name;
+    }
+}
+
+const createCategory = () => {
+    let newCat = document.getElementById("filmCategoryToAdd").value;
+    if(onlineMode === true){ 
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories";
+        axios.post(url, {
+            name: newCat })
+            .then(res => {
+                fetchTable();
+                document.getElementById("filmCategoryToAdd").value = " ";
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+        }else{
+            categoryFilm.push({
+                name: document.getElementById("filmCategoryToAdd").value,
+                id : setRandomID()
+            })
+            saveOfflineTab();
+            setTab();
+            addSubCategoryToCreateFilm();
+        }
+    
+    
+}
+
+const openModifyCat = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+}
+
+const checkDelCategory = () => {
+    let filmCategoryToDeleteSelector = document.getElementById("filmCategoryToDelete");
+    filmCategoryToDeleteSelector.innerHTML = " ";
+    let categoryUsed = [];
+    for(let k = 0;k<tabFilm.length;k++)
+    {
+        if(!categoryUsed.includes(tabFilm[k].category)){
+            categoryUsed.push(tabFilm[k].category)
+        }
+    }
+    for(let i = 0;i<categoryFilm.length;i++)
+    {
+        if(!categoryUsed.some((e) => e === categoryFilm[i].id)){
+            let deleteCat = filmCategoryToDeleteSelector.appendChild(document.createElement("option"));
+            deleteCat.value = categoryFilm[i].id;
+            deleteCat.innerHTML = categoryFilm[i].name;
+        }
+    }
+}
+
+const delCategory = () => {
+    let deletecat = document.getElementById("filmCategoryToDelete").value;
+    if(onlineMode === true){
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + deletecat;
+        console.log(url);
+        axios.delete(url)
+            .then(e => {
+                document.getElementById("filmCategoryToDelete").value = " ";
+                fetchTable();
+                console.log("delete success");
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }else{
+        for(let i = 0; i<categoryFilm.length;i++)
+        {
+            if(categoryFilm[i].id === deletecat){
+                categoryFilm.splice(i,1);
+            }
+        }
+        saveOfflineTab()
+        setTab()
+        addSubCategoryToCreateFilm();
+    }
+}
+
+const openDelCategory = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.toggle("active");
+}
+
+document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
+document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
+document.getElementById("submitCategory").addEventListener("click", createCategory);
+document.getElementById("deleteCategory").addEventListener("click", delCategory);
+
+//#endregion
+
+// TODO **************************************
+// TODO // CATEGORY FUNC *********************
+// TODO **************************************
+
 // *******************************************
 // **** // ADD FILM **************************
 // *******************************************
@@ -534,31 +665,6 @@ document.getElementById("createYourOwn").addEventListener("click", (e)=>{
     document.getElementById("deleteCategoryMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
 })
-
-const addSubCategoryToCreateFilm = () => {
-    checkDelCategory();
-    let filmCategorOption = document.getElementById("filmCategory");
-    let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
-    let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
-    filmCategorOption.innerHTML = "";
-    filmCategorOptionSearch.innerHTML = "";
-    filmCategorOptionModify.innerHTML = "";
-    let OptionAll2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
-    OptionAll2.value = "all";
-    OptionAll2.innerHTML = "Everything";
-    for(let i = 0; i< categoryFilm.length;i++)
-    {
-        let Option = filmCategorOption.appendChild(document.createElement("option"));
-        Option.value = categoryFilm[i].id;
-        Option.innerHTML = categoryFilm[i].name;
-        let Option2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
-        Option2.value = categoryFilm[i].id;
-        Option2.innerHTML = categoryFilm[i].name;
-        let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
-        Option3.value = categoryFilm[i].id;
-        Option3.innerHTML = categoryFilm[i].name;
-    }
-}
 
 //#endregion
 
@@ -655,101 +761,8 @@ const openModify2 = () => {
     document.getElementById("addCategoryMenu").classList.remove("active");
 }
 
-const openDelCategory = () => {
-    document.getElementById("addFilmMenu").classList.remove("active");
-    document.getElementById("specificSearchMenu").classList.remove("active");
-    document.getElementById("modifyFilmMenu").classList.remove("active");
-    document.getElementById("addCategoryMenu").classList.remove("active");
-    document.getElementById("deleteCategoryMenu").classList.toggle("active");
-}
-
-const createCategory = () => {
-    let newCat = document.getElementById("filmCategoryToAdd").value;
-    if(onlineMode === true){ 
-        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories";
-        axios.post(url, {
-            name: newCat })
-            .then(res => {
-                fetchTable();
-                document.getElementById("filmCategoryToAdd").value = " ";
-            })
-            .catch(error =>{
-                console.log(error);
-            })
-        }else{
-            categoryFilm.push({
-                name: document.getElementById("filmCategoryToAdd").value,
-                id : setRandomID()
-            })
-            saveOfflineTab();
-            setTab();
-            addSubCategoryToCreateFilm();
-        }
-    
-    
-}
-
-const checkDelCategory = () => {
-    let filmCategoryToDeleteSelector = document.getElementById("filmCategoryToDelete");
-    filmCategoryToDeleteSelector.innerHTML = " ";
-    let categoryUsed = [];
-    for(let k = 0;k<tabFilm.length;k++)
-    {
-        if(!categoryUsed.includes(tabFilm[k].category)){
-            categoryUsed.push(tabFilm[k].category)
-        }
-    }
-    for(let i = 0;i<categoryFilm.length;i++)
-    {
-        if(!categoryUsed.some((e) => e === categoryFilm[i].id)){
-            let deleteCat = filmCategoryToDeleteSelector.appendChild(document.createElement("option"));
-            deleteCat.value = categoryFilm[i].id;
-            deleteCat.innerHTML = categoryFilm[i].name;
-        }
-    }
-}
-
-const delCategory = () => {
-    let deletecat = document.getElementById("filmCategoryToDelete").value;
-    if(onlineMode === true){
-        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + deletecat;
-        console.log(url);
-        axios.delete(url)
-            .then(e => {
-                document.getElementById("filmCategoryToDelete").value = " ";
-                fetchTable();
-                console.log("delete success");
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }else{
-        for(let i = 0; i<categoryFilm.length;i++)
-        {
-            if(categoryFilm[i].id === deletecat){
-                categoryFilm.splice(i,1);
-            }
-        }
-        saveOfflineTab()
-        setTab()
-        addSubCategoryToCreateFilm();
-    }
-}
-
-const openModifyCat = () => {
-    document.getElementById("addFilmMenu").classList.remove("active");
-    document.getElementById("specificSearchMenu").classList.remove("active");
-    document.getElementById("modifyFilmMenu").classList.remove("active");
-    document.getElementById("addCategoryMenu").classList.toggle("active");
-    document.getElementById("deleteCategoryMenu").classList.remove("active");
-}
-
-document.getElementById("submitModify").addEventListener("click", ModifyFilm)
-document.getElementById("openModifyMenu").addEventListener("click", openModify)
-document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
-document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
-document.getElementById("submitCategory").addEventListener("click", createCategory);
-document.getElementById("deleteCategory").addEventListener("click", delCategory);
+document.getElementById("submitModify").addEventListener("click", ModifyFilm);
+document.getElementById("openModifyMenu").addEventListener("click", openModify);
 
 //#endregion
 
@@ -758,7 +771,7 @@ document.getElementById("deleteCategory").addEventListener("click", delCategory)
 // ? *****************************************
 
 // TODO **************************************
-// TODO // SEARCH BEAR ***********************
+// TODO // SEARCH BAR ************************
 // TODO **************************************
 
 //#region 
@@ -898,7 +911,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
 //#endregion
 
 // TODO **************************************
-// TODO // SEARCH BEAR ***********************
+// TODO // SEARCH BAR ************************
 // TODO **************************************
 
 // ! *****************************************
