@@ -150,18 +150,6 @@ h1{
   filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
 }
 
-.light .NumberPage{
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
-  fill: #2a2f3b;
-}
-
-.light .NumberPage2{
-  transition: all 1s;
-  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
-  fill: #2a2f3b;
-}
-
 .goPage{
   width: 2vh;
   fill: white;
@@ -174,6 +162,18 @@ h1{
   opacity: 0;
   pointer-events: none;
   cursor:auto;
+}
+
+.light .NumberPage{
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
+  fill: #2a2f3b;
+}
+
+.light .NumberPage2{
+  transition: all 1s;
+  filter: drop-shadow(0vh 0.6vh 0vh rgba(255, 255, 255, 0.5));
+  fill: #2a2f3b;
 }
 
 .light .goPage{
@@ -1405,6 +1405,7 @@ form{
 /**********************************************/
 
 
+/*! SCREEN ORIENTATION PORTRAIT (SMARTPHONE-LIKE) */
 
 @media (orientation: portrait) {
 
@@ -1738,3 +1739,5 @@ form{
 /**************COLLECTION*******************/
 
 }
+
+/*! SCREEN ORIENTATION PORTRAIT (SMARTPHONE-LIKE) */
