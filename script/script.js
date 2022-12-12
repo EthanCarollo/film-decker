@@ -64,7 +64,7 @@ let displayTab = []
 
 
 // ! *****************************************
-// !!!! // FILM CREATION *********************
+// !!!! // FILM TAB CREATION *****************
 // ! *****************************************
 
 //#region 
@@ -119,62 +119,62 @@ const createTable = (tab) => {
     }
 }
 
-//#region //* Navigation
+    //#region //* Navigation
 
-const refreshNavpage = () => {
-    actualPage = 0;
-    if(displayTab.length>25)
-    {
-        document.getElementById("goNextPage").classList.remove("disappear")
-        document.getElementById("goBackPage").classList.add("disappear")
-    }else{
-        document.getElementById("goNextPage").classList.add("disappear")
-        document.getElementById("goBackPage").classList.add("disappear")
-    }
-}
-
-const goNextPage = () => {
-    if(displayTab.length>(25+(25*actualPage))){
-        console.log("test");
-        actualPage += 1;
-        createTable(displayTab);
-        document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
-        document.getElementById("goBackPage").classList.remove("disappear")
-        if(displayTab.length<(25+(25*actualPage))){
+    const refreshNavpage = () => {
+        actualPage = 0;
+        if(displayTab.length>25)
+        {
+            document.getElementById("goNextPage").classList.remove("disappear")
+            document.getElementById("goBackPage").classList.add("disappear")
+        }else{
             document.getElementById("goNextPage").classList.add("disappear")
-            document.getElementById("goBackPage").classList.remove("disappear")
+            document.getElementById("goBackPage").classList.add("disappear")
         }
-    }else{
-        document.getElementById("goNextPage").classList.add("disappear")
     }
-}
 
-const goBackPage = () => {
-    actualPage -= 1;
-    if(actualPage<=0){
+    const goNextPage = () => {
+        if(displayTab.length>(25+(25*actualPage))){
+            console.log("test");
+            actualPage += 1;
+            createTable(displayTab);
+            document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+            document.getElementById("goBackPage").classList.remove("disappear")
+            if(displayTab.length<(25+(25*actualPage))){
+                document.getElementById("goNextPage").classList.add("disappear")
+                document.getElementById("goBackPage").classList.remove("disappear")
+            }
+        }else{
+            document.getElementById("goNextPage").classList.add("disappear")
+        }
+    }
+
+    const goBackPage = () => {
+        actualPage -= 1;
+        if(actualPage<=0){
+            actualPage = 0;
+            document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+            createTable(displayTab);
+            document.getElementById("goBackPage").classList.add("disappear")
+            document.getElementById("goNextPage").classList.remove("disappear")
+        }else{
+            document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
+            createTable(displayTab);
+            document.getElementById("goNextPage").classList.remove("disappear")
+        }
+
+    }
+
+    const goPage1 = () => {
         actualPage = 0;
         document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
-        createTable(displayTab);
-        document.getElementById("goBackPage").classList.add("disappear")
-        document.getElementById("goNextPage").classList.remove("disappear")
-    }else{
-        document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
-        createTable(displayTab);
-        document.getElementById("goNextPage").classList.remove("disappear")
+        refreshNavpage();
     }
 
-}
+    document.getElementById("goNextPage").addEventListener("click", goNextPage);
+    document.getElementById("goBackPage").addEventListener("click", goBackPage);
 
-const goPage1 = () => {
-    actualPage = 0;
-    document.getElementById("numberPageTxT").innerHTML = "Page " + (actualPage+1);
-    refreshNavpage();
-}
-
-document.getElementById("goNextPage").addEventListener("click", goNextPage);
-document.getElementById("goBackPage").addEventListener("click", goBackPage);
-
-//#endregion //* Navigation
+    //#endregion //* Navigation
 
 const urlEmbed = (i) => {
     let newUrl = displayTab[i].video.slice(tabFilm[i].video.length-11,tabFilm[i].video.length);
@@ -238,68 +238,68 @@ const deleteFilm = (tabMovie) => {
    
 }
 
-//#region // * Like Region
+    //#region // * Like Region
 
-const likeFilm = (movieID) => {
-    likedFilm.push(movieID);
-    if(onlineMode === true){
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID+"/like";
-    axios.patch(url)
-        .then(res => {
-            fetchTable();
-        })
-        .catch(error =>{
-            console.log(error);
-          })
-    }else{
-        for(let k = 0; k<tabFilm.length ;k++)
-        {
-            if(tabFilm[k].id === movieID){
-                tabFilm[k].likes++;
+    const likeFilm = (movieID) => {
+        likedFilm.push(movieID);
+        if(onlineMode === true){
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID+"/like";
+        axios.patch(url)
+            .then(res => {
+                fetchTable();
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+        }else{
+            for(let k = 0; k<tabFilm.length ;k++)
+            {
+                if(tabFilm[k].id === movieID){
+                    tabFilm[k].likes++;
+                }
             }
+            setTable();
+            saveOfflineTab();
         }
-        setTable();
-        saveOfflineTab();
+        localStorage.setItem("likeTab", JSON.stringify(likedFilm))
     }
-    localStorage.setItem("likeTab", JSON.stringify(likedFilm))
-}
 
-const dislikeFilm = (movieID) => {
-    dislikedFilm.push(movieID);
-    if(onlineMode === true){
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID +"/dislike";
-    axios.patch(url)
-        .then(res => {
-            fetchTable();
-        })
-        .catch(error =>{
-            console.log(error);
-          })
-    }else{
-        for(let k = 0; k<tabFilm.length ;k++)
-        {
-            if(tabFilm[k].id === movieID){
-                tabFilm[k].dislikes++;
+    const dislikeFilm = (movieID) => {
+        dislikedFilm.push(movieID);
+        if(onlineMode === true){
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + movieID +"/dislike";
+        axios.patch(url)
+            .then(res => {
+                fetchTable();
+            })
+            .catch(error =>{
+                console.log(error);
+            })
+        }else{
+            for(let k = 0; k<tabFilm.length ;k++)
+            {
+                if(tabFilm[k].id === movieID){
+                    tabFilm[k].dislikes++;
+                }
             }
+            setTable();
+            saveOfflineTab();
         }
-        setTable();
-        saveOfflineTab();
+        localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
     }
-    localStorage.setItem("dislikeTab", JSON.stringify(dislikedFilm))
-}
 
-const setLikeRatio = (like, dislike) => {
-    if(like>dislike){
-        return Math.floor((like - dislike)/like*100);
-    }else if(like<dislike){
-        let temp = Math.floor(((dislike - like)/dislike)*100);
-        temp = -temp;
-        return temp;
+    const setLikeRatio = (like, dislike) => {
+        if(like>dislike){
+            return Math.floor((like - dislike)/like*100);
+        }else if(like<dislike){
+            let temp = Math.floor(((dislike - like)/dislike)*100);
+            temp = -temp;
+            return temp;
+        }
+        return 0   
     }
-    return 0   
-}
 
-//#endregion // * Like Region
+    //#endregion // * Like Region
 
 const AddInRow=(tabMovie, i, divTab)=>{
     let filmCard = divTab.appendChild(document.createElement("div"));
@@ -451,7 +451,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
 //#endregion
 
 // ! *****************************************
-// !!!! // FILM CREATION *********************
+// !!!! // FILM TAB CREATION *****************
 // ! *****************************************
 
 // TODO **************************************
