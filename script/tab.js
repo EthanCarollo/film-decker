@@ -160,5 +160,5 @@ let categoryTab = [
             {id:"orRu5VNNYl8KdltlfHTg",name:"Film Policier"},
             {id:"qANEaYdxU0Ia3c4SYTW1",name:" Pépites du far west"},
             {id:"qWvkRkXKisovrRkQWEaQ",name:"Comédie"}
-        ]
+        ];
       
