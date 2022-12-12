@@ -170,9 +170,9 @@ const obtainCategory = (tab) => {
     }
 }
 
-// Special factorisation Monsieur LaGoutte industry
+// Special factorisation LaGoutte industry
 let durationAnim = 750;
-// Special factorisation Monsieur LaGoutte industry
+// Special factorisation LaGoutte industry
 
 const setActiveTab = (filmCard, i) => {
     let limit = document.documentElement.clientHeight;
@@ -1025,8 +1025,10 @@ createTable(displayTab);
 const setMode = () => {
     if(onlineMode === true){
         document.getElementById("sliderOnline").classList.add("active");
+        document.body.classList.remove("light");
     }else{
         document.getElementById("sliderOnline").classList.remove("active");
+        document.body.classList.add("light");
     }
 }
 
