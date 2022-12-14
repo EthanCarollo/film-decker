@@ -1280,6 +1280,7 @@ form{
   overflow: hidden;
   font-size: 3vh;
   height: 6vh;
+  color: white;
 }
 
 .collectionList .collection{
@@ -1409,48 +1410,90 @@ form{
 
 @media (orientation: portrait) {
 
-  /******Slider********/
+    /***********************************************************************/
+    /********************************TOP************************************/
+    /***********************************************************************/
+
+    .logoTop {
+      margin-top: 16vw;
+      filter: invert(1) drop-shadow(0 0vh 1vh black);
+      width: 50vw;
+    }
+    
+    .light .logoTop {
+      width: 50vw;
+    }
+
+    .halftone1 {
+      position: absolute;
+      width: 100%;
+      height: 60%;
+      right: 0;
+      background-size: cover;
+      pointer-events: none;
+      transform: translateY(180deg);
+      background-image: url(../img/halftone/2.png);
+    }
+
+    /***********************************************************************/
+    /********************************TOP************************************/
+    /***********************************************************************/
 
 
-  .sliderOnline{
-    position: fixed;
-    bottom: 1vh;
-    left: 1vh;
-    width: 9vh;
-    height: 4.5vh;
-    background-color:#2a2f3b;
-    box-shadow: 0vh 0vh 1vh black;
-    border-radius: 2.25vh;
-    cursor: pointer;
-    transition: all 1s;
-  }
 
-  .sliderOnline.active{
-    background-color:aliceblue;
-    transition: all 1s;
-  }
 
-  .buttonSlide{
-    top: 0.75vh;
-    left: 0.75vh;
-    position: absolute;
-    width: 3vh;
-    height: 3vh;
-    background-color:aliceblue;
-    border-radius: 1.5vh;
-    transition: all 1s;
-  }
 
-  .sliderOnline.active .buttonSlide{
-    transition: all 1s;
-    top: 0.75vh;
-    left: 5.25vh;
-    background-color: #2a2f3b;
-  }
+    /***********************************************************************/
+    /*********************************SLIDER********************************/
+    /***********************************************************************/
 
-  /******Slider********/
 
-   /******filmCase********/
+    .sliderOnline{
+      position: fixed;
+      bottom: 1vh;
+      left: 1vh;
+      width: 9vh;
+      height: 4.5vh;
+      background-color:#2a2f3b;
+      box-shadow: 0vh 0vh 1vh black;
+      border-radius: 2.25vh;
+      cursor: pointer;
+      transition: all 1s;
+    }
+
+    .sliderOnline.active{
+      background-color:aliceblue;
+      transition: all 1s;
+    }
+
+    .sliderOnline .buttonSlide{
+      top: 0.75vh;
+      left: 0.75vh;
+      position: absolute;
+      width: 3vh;
+      height: 3vh;
+      background-color:aliceblue;
+      border-radius: 1.5vh;
+      transition: all 1s;
+    }
+
+    .sliderOnline.active .buttonSlide{
+      transition: all 1s;
+      top: 0.75vh;
+      left: 5.25vh;
+      background-color: #2a2f3b;
+    }
+
+    /***********************************************************************/
+    /*********************************SLIDER********************************/
+    /***********************************************************************/
+
+
+
+
+    /***********************************************************************/
+    /********************************FILMCASE*******************************/
+    /***********************************************************************/
 
   #filmTabDivRow5 {
     padding-top: 0%;
@@ -1518,14 +1561,14 @@ form{
     cursor: auto;
     z-index: 100;
   }
-  .percentOfLikePreview {
+  .filmCase .percentOfLikePreview {
     overflow: hidden;
     display: block;
     line-height: 1.5vw;
     pointer-events: none;
     width: 100%;
     height: 4vh;
-    position: relative;
+    position: absolute;
     text-align: center;
     color: aliceblue;
     padding-top: 8vw;
@@ -1558,14 +1601,14 @@ form{
     transition: all 2s;
     z-index: 854848454;
   }
-  .titleMovie span {
+  .filmCase .titleMovie span {
     font-size: 1.5vh;
     margin: 0;
   }
-  .titleMovie .Category {
+  .filmCase .titleMovie .Category {
     font-size: 1;
   }
-  .embedYT {
+  .filmCase .embedYT {
     pointer-events: none;
     opacity: 0%;
     display: none;
@@ -1599,13 +1642,20 @@ form{
     z-index: 854848454;
   }
 
-  .descriptionMovie {
+  .filmCase .descriptionMovie {
     width: 40%;
   }
 
- /******filmCase********/
+  /***********************************************************************/
+  /********************************FILMCASE*******************************/
+  /***********************************************************************/
 
-/************iconInCase*************/
+
+
+
+  /***********************************************************************/
+  /********************************ICONINCASE*****************************/
+  /***********************************************************************/
 
 .deleteButton {
   bottom: 1.3vh;
@@ -1651,9 +1701,16 @@ form{
   opacity: 0;
 }
 
-/************iconInCase*************/
+  /***********************************************************************/
+  /********************************ICONINCASE*****************************/
+  /***********************************************************************/
 
-/********************************/
+
+
+
+  /***********************************************************************/
+  /******************************SEARCH & ROW*****************************/
+  /***********************************************************************/
 
 .searchBar {
   left: 10vw;
@@ -1663,12 +1720,6 @@ form{
 
 #filmTabDivRow1{
   padding-top: 0;
-}
-
-.logoTop {
-  margin-top: 16vw;
-  filter: invert(1) drop-shadow(0 0vh 1vh black);
-  width: 50vw;
 }
 
 #resultText {
@@ -1692,51 +1743,45 @@ form{
   font-size: 5vw;
 }
 
-.light .logoTop {
-  width: 50vw;
-}
+   /***********************************************************************/
+  /******************************SEARCH & ROW*****************************/
+  /***********************************************************************/
 
-/********************************/
 
-/**************COLLECTION*******************/
 
-.collectionList {
-  transform: translateX(-100%);
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  height: 80%;
-  top: 10%;
-  background-color: #334342;
-  left: 0%;
-  border-top-right-radius: 2vw;
-  border-bottom-right-radius: 2vw;
-  overflow: visible;
-  transition: all 1s;
-  box-shadow: 0vh 0vh 1vw black;
-  z-index: 5648486648846468468684;
-}
 
-.frameColl .gradientFrame{
-  opacity: 100;
-  pointer-events: none;
-  transition: all 1s;
-  background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
-}
+  /***********************************************************************/
+  /********************************COLLECTION*****************************/
+  /***********************************************************************/
 
-.halftone1 {
-  position: absolute;
-  width: 100%;
-  height: 60%;
-  right: 0;
-  background-size: cover;
-  pointer-events: none;
-  transform: translateY(180deg);
-  background-image: url(../img/halftone/2.png);
-}
+  .collectionList {
+    transform: translateX(-100%);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    background-color: #334342;
+    left: 0%;
+    border-top-right-radius: 2vw;
+    border-bottom-right-radius: 2vw;
+    overflow: visible;
+    transition: all 1s;
+    box-shadow: 0vh 0vh 1vw black;
+    z-index: 5648486648846468468684;
+  }
 
-/**************COLLECTION*******************/
+  .frameColl .gradientFrame{
+    opacity: 100;
+    pointer-events: none;
+    transition: all 1s;
+    background: linear-gradient(rgba(7, 7, 7, 0.432), rgb(0, 0, 0));
+  }
+
+  /***********************************************************************/
+  /********************************COLLECTION*****************************/
+  /***********************************************************************/
 
 }
 
