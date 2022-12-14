@@ -468,9 +468,11 @@ const addSubCategoryToCreateFilm = () => {
     let filmCategorOption = document.getElementById("filmCategory");
     let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
     let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
+    let categorOptionModify = document.getElementById("CategoryToModify");
     filmCategorOption.innerHTML = "";
     filmCategorOptionSearch.innerHTML = "";
     filmCategorOptionModify.innerHTML = "";
+    categorOptionModify.innerHTML = "";
     let OptionAll2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
     OptionAll2.value = "all";
     OptionAll2.innerHTML = "Everything";
@@ -485,6 +487,9 @@ const addSubCategoryToCreateFilm = () => {
         let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
         Option3.value = categoryFilm[i].id;
         Option3.innerHTML = categoryFilm[i].name;
+        let Option4 = categorOptionModify.appendChild(document.createElement("option"));
+        Option4.value = categoryFilm[i].id;
+        Option4.innerHTML = categoryFilm[i].name;
     }
 }
 
@@ -577,10 +582,19 @@ const openDelCategory = () => {
     document.getElementById("deleteCategoryMenu").classList.toggle("active");
 }
 
+const openModifyCatName = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+}
+
 document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
 document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
 document.getElementById("submitCategory").addEventListener("click", createCategory);
 document.getElementById("deleteCategory").addEventListener("click", delCategory);
+document.getElementById("openModifyCategoryMenu").addEventListener("click", openModifyCatName);
 
 //#endregion
 
