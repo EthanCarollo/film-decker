@@ -463,6 +463,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
 
 //#region 
 
+//Create selection slide
 const addSubCategoryToCreateFilm = () => {
     checkDelCategory();
     let filmCategorOption = document.getElementById("filmCategory");
@@ -493,6 +494,7 @@ const addSubCategoryToCreateFilm = () => {
     }
 }
 
+
 const createCategory = () => {
     let newCat = document.getElementById("filmCategoryToAdd").value;
     if(onlineMode === true){ 
@@ -517,14 +519,6 @@ const createCategory = () => {
         }
     
     
-}
-
-const openModifyCat = () => {
-    document.getElementById("addFilmMenu").classList.remove("active");
-    document.getElementById("specificSearchMenu").classList.remove("active");
-    document.getElementById("modifyFilmMenu").classList.remove("active");
-    document.getElementById("addCategoryMenu").classList.toggle("active");
-    document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
 const checkDelCategory = () => {
@@ -574,6 +568,42 @@ const delCategory = () => {
     }
 }
 
+const modifNameCategory = () => {
+    if(onlineMode === true)
+    {
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + document.getElementById("CategoryToModify").value;
+        console.log(url);
+        axios.put(url, {
+            name : document.getElementById("filmCategoryToModifyName").value
+        })
+        .then(res => {
+            console.log("easy");
+        })
+        .then(res => {
+            fetchCategory();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        
+    }else{
+        for(let i = 0; i < categoryFilm.length; i++)
+        {
+            if(document.getElementById("CategoryToModify").value === categoryFilm[i].id)
+            {
+                console.log(document.getElementById("CategoryToModify").value)
+                console.log(categoryFilm[i].name)
+                categoryFilm[i].name = document.getElementById("filmCategoryToModifyName").value
+            }
+        }
+        saveOfflineTab();
+        refreshTab();
+    }
+}
+
+//?OpenUI
+//#region 
+
 const openDelCategory = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
@@ -590,11 +620,25 @@ const openModifyCatName = () => {
     document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
+const openModifyCat = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+}
+
+//#endregion
+//?OpenUI
+
 document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
 document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
+document.getElementById("openModifyCategoryMenu").addEventListener("click", openModifyCatName);
+
+
 document.getElementById("submitCategory").addEventListener("click", createCategory);
 document.getElementById("deleteCategory").addEventListener("click", delCategory);
-document.getElementById("openModifyCategoryMenu").addEventListener("click", openModifyCatName);
+document.getElementById("submitModifyCategory").addEventListener("click", modifNameCategory);
 
 //#endregion
 
@@ -975,6 +1019,23 @@ const fetchTable = () => {
         })
 }
 
+const fetchCategory = () => {
+    fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories")
+        .then(res => res.json())
+        .then(res => JSON.stringify(res))
+       .then(res => 
+        {
+            localStorage.setItem("categoryAPI", res);
+        })
+        .then(res => {
+            setTab();
+        })
+        .then(res => {
+            addSubCategoryToCreateFilm();
+            checkDelCategory();
+        })
+}
+
 const setTable = () => {
     if(onlineMode === true){
         let tempTab = JSON.parse(localStorage.getItem("tabAPI"));
@@ -1110,6 +1171,11 @@ const setMode = () => {
         document.getElementById("sliderOnline").classList.remove("active");
         document.body.classList.add("light");
     }
+}
+
+const refreshTab = () => {
+    addSubCategoryToCreateFilm();
+    createTable(displayTab);
 }
 
 const saveOfflineTab = () => {
