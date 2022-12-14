@@ -68,6 +68,16 @@
 
         <div class = "buttonDiv">
 
+            <div class = "modifyCategory" id ="modifyCategoryMenu">
+                <div class ="crossAdd" id="openModifyCategoryMenu"></div>
+                <div id="formModifyCategoryFilm">
+                    <input type="text"name="filmCategoryToModifyName"id="filmCategoryToModifyName" class = "filmTextInput" placeholder="NEW CAT NAME" maxLength = 40/>
+                    <select name="filmCategory" id="CategoryToModify" class = "filmCategory">        
+                    </select>
+                    <button id = "submitModifyCategory">MODIFY CATEGORY</button>
+                </div>
+            </div>
+
             <div class = "deleteCategory" id ="deleteCategoryMenu">
                 <div class ="crossAdd" id="openDeleteCategoryMenu"></div>
                 <div id="formDeleteCategoryFilm">
@@ -80,7 +90,7 @@
             <div class = "addCategory" id ="addCategoryMenu">
                 <div class ="crossAdd" id="openCategoryMenu"></div>
                 <div id="formCategoryFilm">
-                    <input type="text"name="filmCategoryToAdd"id="filmCategoryToAdd" class = "filmTextInput" placeholder="FILM ID" maxLength = 40/>
+                    <input type="text"name="filmCategoryToAdd"id="filmCategoryToAdd" class = "filmTextInput" placeholder="FILM CATEGORY TO ADD" maxLength = 40/>
                     <button id = "submitCategory">ADD CATEGORY</button>
                 </div>
             </div>

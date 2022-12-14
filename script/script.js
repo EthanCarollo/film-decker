@@ -63,6 +63,7 @@ let displayTab = []
 // Tableau qui sera affiché dans 100% des cas
 
 
+
 // ! *****************************************
 // !!!! // FILM TAB CREATION *****************
 // ! *****************************************
@@ -444,20 +445,25 @@ const AddInRow=(tabMovie, i, divTab)=>{
 // !!!! // FILM TAB CREATION *****************
 // ! *****************************************
 
+
+
 // TODO **************************************
 // TODO // CATEGORY FUNC *********************
 // TODO **************************************
 
 //#region 
 
+//Create selection slide
 const addSubCategoryToCreateFilm = () => {
     checkDelCategory();
     let filmCategorOption = document.getElementById("filmCategory");
     let filmCategorOptionSearch = document.getElementById("filmCategoryToSearch");
     let filmCategorOptionModify = document.getElementById("filmCategoryToModify");
+    let categorOptionModify = document.getElementById("CategoryToModify");
     filmCategorOption.innerHTML = "";
     filmCategorOptionSearch.innerHTML = "";
     filmCategorOptionModify.innerHTML = "";
+    categorOptionModify.innerHTML = "";
     let OptionAll2 = filmCategorOptionSearch.appendChild(document.createElement("option"));
     OptionAll2.value = "all";
     OptionAll2.innerHTML = "Everything";
@@ -472,8 +478,12 @@ const addSubCategoryToCreateFilm = () => {
         let Option3 = filmCategorOptionModify.appendChild(document.createElement("option"));
         Option3.value = categoryFilm[i].id;
         Option3.innerHTML = categoryFilm[i].name;
+        let Option4 = categorOptionModify.appendChild(document.createElement("option"));
+        Option4.value = categoryFilm[i].id;
+        Option4.innerHTML = categoryFilm[i].name;
     }
 }
+
 
 const createCategory = () => {
     let newCat = document.getElementById("filmCategoryToAdd").value;
@@ -499,14 +509,6 @@ const createCategory = () => {
         }
     
     
-}
-
-const openModifyCat = () => {
-    document.getElementById("addFilmMenu").classList.remove("active");
-    document.getElementById("specificSearchMenu").classList.remove("active");
-    document.getElementById("modifyFilmMenu").classList.remove("active");
-    document.getElementById("addCategoryMenu").classList.toggle("active");
-    document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
 const checkDelCategory = () => {
@@ -556,6 +558,42 @@ const delCategory = () => {
     }
 }
 
+const modifNameCategory = () => {
+    if(onlineMode === true)
+    {
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories/" + document.getElementById("CategoryToModify").value;
+        console.log(url);
+        axios.put(url, {
+            name : document.getElementById("filmCategoryToModifyName").value
+        })
+        .then(res => {
+            console.log("easy");
+        })
+        .then(res => {
+            fetchCategory();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        
+    }else{
+        for(let i = 0; i < categoryFilm.length; i++)
+        {
+            if(document.getElementById("CategoryToModify").value === categoryFilm[i].id)
+            {
+                console.log(document.getElementById("CategoryToModify").value)
+                console.log(categoryFilm[i].name)
+                categoryFilm[i].name = document.getElementById("filmCategoryToModifyName").value
+            }
+        }
+        saveOfflineTab();
+        refreshTab();
+    }
+}
+
+//?OpenUI
+//#region 
+
 const openDelCategory = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
@@ -564,16 +602,41 @@ const openDelCategory = () => {
     document.getElementById("deleteCategoryMenu").classList.toggle("active");
 }
 
+const openModifyCatName = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+}
+
+const openModifyCat = () => {
+    document.getElementById("addFilmMenu").classList.remove("active");
+    document.getElementById("specificSearchMenu").classList.remove("active");
+    document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.toggle("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+}
+
+//#endregion
+//?OpenUI
+
 document.getElementById("openCategoryMenu").addEventListener("click",openModifyCat);
 document.getElementById("openDeleteCategoryMenu").addEventListener("click",openDelCategory);
+document.getElementById("openModifyCategoryMenu").addEventListener("click", openModifyCatName);
+
+
 document.getElementById("submitCategory").addEventListener("click", createCategory);
 document.getElementById("deleteCategory").addEventListener("click", delCategory);
+document.getElementById("submitModifyCategory").addEventListener("click", modifNameCategory);
 
 //#endregion
 
 // TODO **************************************
 // TODO // CATEGORY FUNC *********************
 // TODO **************************************
+
+
 
 // *******************************************
 // **** // ADD FILM **************************
@@ -661,6 +724,8 @@ document.getElementById("createYourOwn").addEventListener("click", (e)=>{
 // *******************************************
 // **** // ADD FILM **************************
 // *******************************************
+
+
 
 // ? *****************************************
 // ???? // MODIFY FILM ***********************
@@ -759,6 +824,8 @@ document.getElementById("openModifyMenu").addEventListener("click", openModify);
 // ? *****************************************
 // ???? // MODIFY FILM ***********************
 // ? *****************************************
+
+
 
 // TODO **************************************
 // TODO // SEARCH BAR ************************
@@ -904,6 +971,8 @@ document.querySelector("form").addEventListener("submit", (e) => {
 // TODO // SEARCH BAR ************************
 // TODO **************************************
 
+
+
 // ! *****************************************
 // !!!! // LOCAL STORAGE TABLE ***************
 // ! *****************************************
@@ -940,6 +1009,23 @@ const fetchTable = () => {
         })
 }
 
+const fetchCategory = () => {
+    fetch("https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/categories")
+        .then(res => res.json())
+        .then(res => JSON.stringify(res))
+       .then(res => 
+        {
+            localStorage.setItem("categoryAPI", res);
+        })
+        .then(res => {
+            setTab();
+        })
+        .then(res => {
+            addSubCategoryToCreateFilm();
+            checkDelCategory();
+        })
+}
+
 const setTable = () => {
     if(onlineMode === true){
         let tempTab = JSON.parse(localStorage.getItem("tabAPI"));
@@ -956,6 +1042,8 @@ const setTable = () => {
 // ! *****************************************
 // !!!! // LOCAL STORAGE TABLE ***************
 // ! *****************************************
+
+
 
 // *******************************************
 // **** // Collection Function ***************
@@ -1021,6 +1109,8 @@ createCollection();
 // **** // Collection Function ***************
 // *******************************************
 
+
+
 // TODO **************************************
 // TODO // ALL ABOUT OFFLINE & ONLINE MOD SWAP
 // TODO **************************************
@@ -1073,6 +1163,11 @@ const setMode = () => {
     }
 }
 
+const refreshTab = () => {
+    addSubCategoryToCreateFilm();
+    createTable(displayTab);
+}
+
 const saveOfflineTab = () => {
     localStorage.setItem("offlineTabAPI", JSON.stringify(tabFilm));
     localStorage.setItem("offlineCatTabAPI", JSON.stringify(categoryFilm));
@@ -1110,6 +1205,8 @@ document.getElementById("sliderOnline").addEventListener("click", () => {
 // TODO **************************************
 // TODO // ALL ABOUT OFFLINE & ONLINE MOD SWAP
 // TODO **************************************
+
+
 
 setTab();
 addSubCategoryToCreateFilm();
