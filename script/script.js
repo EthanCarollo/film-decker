@@ -215,28 +215,18 @@ const setActiveTab = (filmCard, i) => {
             
 }
 
-const deleteFilm = (tabMovie) => {
-    if(onlineMode === true){
-    let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/" + tabMovie.id;
-    axios.delete(url)
-        .then(res => {
-            fetchTable();
-        })
-        .catch(error =>{
-            console.log(error);
-          })
-    }else{
-        for(let i = 0; i<tabFilm.length;i++){
-            if(tabFilm[i].id === tabMovie.id){
-                    tabFilm.splice(i,1);
-            }
+const unsetActiveTab =()=>{
+    for(let j = 0; j<tabDiv.length;j++){
+        if(j !== i){
+            tabDiv[j].classList.remove("active")
         }
-        saveOfflineTab();
-        setTab();
     }
-
-   
 }
+
+document.body.addEventListener("click", (e) => {
+    console.log(e.target);
+})
+
 
     //#region // * Like Region
 

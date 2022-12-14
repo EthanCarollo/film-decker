@@ -499,15 +499,15 @@ h1{
   /***FILM ACTIVE***/
 
 .filmCase.active{
-  pointer-events: none;
+  pointer-events: all;
   position: relative;
   transition: all 1s;
   width: 35vw;
   height: 20vw;
   background-image: none;
   background-size: cover;
-  cursor:auto;
-  z-index: 100;
+  cursor: pointer;
+  z-index: 100000000000;
 }
 
   .filmCase.active .gradient{
