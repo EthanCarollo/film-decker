@@ -310,7 +310,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
                 mouseY = mouseY - 50;
                 filmCard.style.transition = "transform 0s all 1s";
                 
-                filmCard.style.transform = "rotateY("+mouseY/4+"deg)" + " rotateX("+mouseX/4+"deg)";
+                filmCard.style.transform = "rotateX("+mouseY/4+"deg)" + " rotateY("+mouseX/4+"deg)";
             }
         });
         filmCard.addEventListener('mouseout', (event) => {

@@ -1583,9 +1583,14 @@ to {
   filter: drop-shadow(0 0 1vh white);
   width: 5vh;
   z-index: 454545;
-
+  transition: all 1s;
   cursor:pointer;
   mix-blend-mode: difference;
+}
+
+.reloadRecommend:hover{
+  transition: all 1s;
+  filter: drop-shadow(0 0 1vh rgb(255, 255, 255)) invert(1);
 }
 
 @keyframes reload{
