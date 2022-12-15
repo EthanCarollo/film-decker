@@ -595,6 +595,27 @@ const sortArrayByCount  = (array) => {
       });
     }
 
+//! Reload Recommandation
+
+//#region 
+
+let isReloading = false;
+
+    document.getElementById("recommendReload").addEventListener("click", function Reload(){
+        if(!isReloading){
+            isReloading = true;
+            createRecommandationTab();
+            document.getElementById("recommendReload").style.animation = "reload 1s"
+            setTimeout(() => {
+                document.getElementById("recommendReload").style.animation = "none 1s ";
+                isReloading = false;
+            }, 1000);
+        }
+    })
+    
+//#endregion
+
+//! Reload Recommandation
 
 //#endregion
 
@@ -933,6 +954,7 @@ const ModifyFilm = () => {
         for(let i = 0;i<tabFilm.length;i++){
             if(tabFilm[i].id === document.getElementById("filmIDToModify").value)
             {
+                console.log("CEST LE FILM" + tabFilm[i])
                 tabFilm[i]={
                     id:document.getElementById("filmIDToModify").value,
                     name: document.getElementById("filmNameToModify").value,
@@ -945,14 +967,15 @@ const ModifyFilm = () => {
                     dislikes:tabFilm[i].dislikes,
                 }
             }
-            document.getElementById("filmIDToModify").value= "";
-            document.getElementById("filmTrailerToModify").value = "";
-            document.getElementById("filmDescToModify").value = "";
-            document.getElementById("filmCategoryToModify").value = "";
-            document.getElementById("filmImageToModify").value = "";
-            document.getElementById("filmAuthorToModify").value = "";
-            document.getElementById("filmNameToModify").value = "";
         }
+        document.getElementById("filmIDToModify").value= "";
+        document.getElementById("filmTrailerToModify").value = "";
+        document.getElementById("filmDescToModify").value = "";
+        document.getElementById("filmCategoryToModify").value = "";
+        document.getElementById("filmImageToModify").value = "";
+        document.getElementById("filmAuthorToModify").value = "";
+        document.getElementById("filmNameToModify").value = "";
+        console.log(tabFilm);
         saveOfflineTab();
         setTable();
     }
