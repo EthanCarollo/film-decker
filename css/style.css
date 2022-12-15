@@ -137,7 +137,7 @@ h1{
   align-content: center ;
   justify-content: center;
   width: 100%;
-  top: 1.5vw;
+  margin-top: 1.5vw;
   transition: all 1s;
   filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
 }
@@ -1482,6 +1482,16 @@ form{
   transition: all 1s;
 }
 
+a{
+  fill: white;
+  text-decoration: none;
+}
+
+.light a{
+  fill: black;
+  text-decoration: none;
+}
+
 /**********************************************/
 /****************GOUPINPAGE********************/
 /**********************************************/
@@ -1500,7 +1510,63 @@ form{
   overflow: visible;
 }
 
+.propositionMovies::before{
+  content: "";
+  position: absolute;
+  width: 105%;
+  height: 105%;
+  bottom: 2.5%;
+  inset: 0;
+  z-index: -15;
+  pointer-events: none;
+  opacity: 10%;
+  background: linear-gradient(
+    90deg,
+    #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000,
+      #fb0094,
+      #0000ff,
+      #00ff00,
+      #ffff00,
+      #ff0000,
+      #fb0094
+  );
+  background-size: 500%;
+  filter: blur(10vh);
+  animation: anim 20s linear infinite;
+}
+
+.light .propositionMovies::before{
+  background: linear-gradient(
+    90deg,
+    #241e22,
+    #979396,
+      #555561,
+      #d2d6d2,
+      #8d8d8c,
+      #c0bebe,
+      #241e22,
+      #555561,
+      #d2d6d2,
+      #8d8d8c,
+      #c0bebe,
+      #241e22
+  );
+  filter: blur(10vh) grayscale(0%);
+  animation: anim 20s linear infinite;
+}
+
+@keyframes anim {
+to {
+  background-position: 500% 0;
+}
+}
+
 .light .propositionMovies{
+  
   box-shadow: 0 0 2vh white;
 }
 
@@ -1508,7 +1574,7 @@ form{
   position: absolute;
   right: 2vh;
   top: 2vh;
-  filter: invert(1);
+  filter: drop-shadow(0 0 1vh white);
   width: 5vh;
   z-index: 454545;
 
@@ -1634,7 +1700,7 @@ form{
   font-size: 6vh;
   overflow: visible;
   text-align: center;
-  
+  filter: drop-shadow(0 0 2vh rgba(0, 0, 0, 0.267));
 }
 
 .categoryDivReco{

@@ -20,8 +20,8 @@ const strNoAccent = (string) => {
 }
 
 let clientOrientation = () => {
-    let clientWidth = document.body.clientWidth;
-    let clientHeight = document.body.clientHeight;
+    let clientWidth = window.innerWidth;
+    let clientHeight = window.innerHeight;
     if(clientWidth >= clientHeight){
         return "landscape"
     }else{
@@ -299,7 +299,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
         filmCard.classList.add("filmCase");
         filmCard.style.backgroundImage = "url(" + tabMovie.img + ")";
         filmCard.addEventListener('mousemove', (e) => {
-            if(!filmCard.classList.contains("active") && clientOrientation === "landscape"){
+            if(!filmCard.classList.contains("active") && clientOrientation() === "landscape"){
                 let offYTemp = filmCard.getBoundingClientRect().top
                 let offXTemp = filmCard.getBoundingClientRect().left
                 let filmCardWidth = filmCard.clientWidth;
