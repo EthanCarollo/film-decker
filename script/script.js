@@ -518,25 +518,82 @@ const slideCaroussel = () => {
 }
 slideCaroussel()
 
+
 const createRecommandationTab = () => {
     tabRecommend = [];
 
+    
+
     if(userCollection.length > 0)
     {
-        let categoryTemp = []
-        for(let j = 0 ;j<userCollection.length;j++)
-        {
-            categoryTemp.push(obtainCategory(userCollection[j]));
-        }
-        console.log(categoryTemp);
-    }
+        let dominantCategory = domCategoryInCollection()[0].category;
+        let tempTabSpec = []
 
-    for(let i = 0; i < 5; i++)
-    {
-        tabRecommend.push(tabFilm[Math.floor(Math.random() * tabFilm.length)])
+        for(let k = 0; k < 5; k++)
+        {
+            
+            for(let p = 0; p< tabFilm.length;p++){
+                if(obtainCategory(tabFilm[p]) === dominantCategory){
+                    tempTabSpec.push(tabFilm[p]);
+                }
+            }
+            let rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
+            if(tempTabSpec.includes(rdmTempFilm)){
+                rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
+            }
+            tabRecommend.push(rdmTempFilm)
+            
+        }
+
+    }else{
+        for(let i = 0; i < 5; i++)
+        {
+            tabRecommend.push(tabFilm[Math.floor(Math.random() * tabFilm.length)])
+        }
     }
     createRecommandation()
 }
+
+const domCategoryInCollection = () => {
+    let categoryTemp = []
+        for(let j = 0 ;j<userCollection.length;j++)
+        {
+            let tempCanAdd = true;
+            let tempID;
+
+            if(categoryTemp.length > 0){
+                for(let k = 0; k < categoryTemp.length;k++)
+                {
+                    if(categoryTemp[k].category === obtainCategory(userCollection[j]))
+                    {
+                        tempCanAdd = false;
+                        tempID = k;
+                    }
+                }
+            }
+
+            if(tempCanAdd){
+                categoryTemp.push({
+                    category : obtainCategory(userCollection[j]),
+                    count : 1
+                });
+            }else{
+                categoryTemp[tempID].count ++;
+            }
+        }
+        console.log(categoryTemp);
+        return categoryTemp = sortArrayByCount(categoryTemp);
+}
+
+const sortArrayByCount  = (array) => {
+    return array.sort((a, b) => {
+        if (a.count < b.count)
+           return 1;
+        if (a.count > b.count )
+           return -1;
+        return 0;
+      });
+    }
 
 
 //#endregion
