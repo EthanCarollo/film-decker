@@ -367,6 +367,20 @@ const AddInRow=(tabMovie, i, divTab)=>{
         percentOfLikePreview.classList.add("percentOfLikePreview");
         percentOfLikePreview.innerHTML = setLikeRatio(tabMovie.likes, tabMovie.dislikes) +" % <br><span>LIKE RATIO</span>";
 
+        if(likedFilm.includes(tabMovie.id) === true)
+            {
+                likeButton.classList.add("active");
+            }else{
+                likeButton.addEventListener("click", (e)=>{
+                    if(dislikedFilm.includes(tabMovie.id) === true)
+                    {
+                        return;
+                    }
+                    likeButton.classList.add("active");
+                    likeFilm(tabMovie.id);
+                })
+            }
+
         if(dislikedFilm.includes(tabMovie.id) === true)
             {
                 dislikeButton.classList.add("active");
@@ -1379,11 +1393,13 @@ const swapModeApi = () => {
         refreshNavpage();
         setTab();
         goPage1();
+        createRecommandationTab();
     }else{
         onlineMode = true;
         refreshNavpage();
         fetchTable();
         goPage1();
+        
     }
 }
 
@@ -1392,7 +1408,7 @@ const setOfflineApi = () => {
     refreshNavpage();
     setTab();
     goPage1();
-    setMode()
+    setMode();
 }
 
 document.getElementById("sliderOnline").addEventListener("click", () => {
