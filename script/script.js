@@ -292,31 +292,6 @@ document.body.addEventListener("click", (e) => {
 
     //#endregion // * Like Region
 
-const deleteFilm = (movie) => {
-    if(onlineMode){
-        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/"+movie.id
-        axios.delete(url)
-        .then(res => {
-            console.log("okay");
-            fetchTable();
-        })
-        .catch(error => {
-            console.log("error")
-        })
-    }else{
-        for(let i =0;i<tabFilm.length;i++){
-            console.log("boucle")
-            if(tabFilm[i].id === movie.id)
-            {
-                console.log("boucle encore")
-                tabFilm.splice(i,1);
-                saveOfflineTab();
-                setTab();
-            }
-        }
-    }
-}
-
 const AddInRow=(tabMovie, i, divTab)=>{
     let filmCard = divTab.appendChild(document.createElement("div"));
         filmCard.classList.add("filmCase");
@@ -823,6 +798,31 @@ const ModifyFilm = () => {
         }
         saveOfflineTab();
         setTable();
+    }
+}
+
+const deleteFilm = (movie) => {
+    if(onlineMode){
+        let url = "https://europe-west3-gobelins-9079b.cloudfunctions.net/api/v1/movies/"+movie.id
+        axios.delete(url)
+        .then(res => {
+            console.log("okay");
+            fetchTable();
+        })
+        .catch(error => {
+            console.log("error")
+        })
+    }else{
+        for(let i =0;i<tabFilm.length;i++){
+            console.log("boucle")
+            if(tabFilm[i].id === movie.id)
+            {
+                console.log("boucle encore")
+                tabFilm.splice(i,1);
+                saveOfflineTab();
+                setTab();
+            }
+        }
     }
 }
 
