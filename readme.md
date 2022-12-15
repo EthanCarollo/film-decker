@@ -34,6 +34,7 @@
 #   - Appuyer sur le bouton rechercher pour obtenir la case du film apparaissant dans les recommandations
 
 # Divers
+#   - La barre de recherche permet de mettre en évidence le premier element qui a été trouvé dans les films (c'est le texte au dessus des affiches)
 #   - La flèche tout en bas permet de remonter en haut de la page, elle apparait uniquement si + de 15 films sont affiché.
 #   - Le offline et online mode peuvent etre considérer comme un light et un dark mode.
 #       - PS : la div des Recommandations possède un before qui permet de faire un effet glow qui se à une animation infini qui tourne

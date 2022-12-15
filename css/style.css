@@ -444,6 +444,24 @@ h1{
     font-size: 1vw;
   }
 
+  .filmCase .infoSearch{
+    pointer-events: none;
+    position: absolute;
+    display: block;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 1vh black;
+    filter: drop-shadow(0 0 1vh black);
+    transition: 1s all;
+  }
+  
+  .filmCase:hover .infoSearch{
+    transition: 0.75s all;
+    opacity: 0;
+  }
+
   /*TODO TECHNIC BUTTON */
 
   .filmCase .deleteButton{
@@ -587,6 +605,10 @@ h1{
     z-index: 1002151;
     box-shadow: 0vh 0vh 1vh black;
     border-style: solid;
+  }
+
+  .filmCase.active .infoSearch{
+    display: none;
   }
 
   /*TODO TECHNIC BUTTON */

@@ -447,6 +447,13 @@ const AddInRow=(tabMovie, i, divTab)=>{
             addInColl(tabMovie);
         })
 
+        if(tabMovie.actualInfo)
+        {
+            let infoSearch = filmCard.appendChild(document.createElement("div"));
+            infoSearch.classList.add("infoSearch");
+            infoSearch.innerHTML = tabMovie.actualInfo;
+        }
+
 }
 
 //#endregion
@@ -1072,7 +1079,19 @@ const Search = () => {
             || tabFilm[i].author.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
             || tabFilm[i].description.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
             ){
-                tempTab.push(tabFilm[i]);
+                let newFilm = {
+                    id: tabFilm[i].id,
+                    name: tabFilm[i].name,
+                    description:tabFilm[i].description,
+                    author: tabFilm[i].author,
+                    video:tabFilm[i].video,
+                    category:tabFilm[i].category,
+                    img:tabFilm[i].img,
+                    likes:tabFilm[i].likes,
+                    dislikes:tabFilm[i].dislikes,
+                    actualInfo: setSearchInfoForFilm(tabFilm[i])
+                }
+                tempTab.push(newFilm);
             }
         }
         goPage1();
@@ -1092,6 +1111,16 @@ const Search = () => {
         }
         refreshNavpage();
         createTable(displayTab);
+}
+
+const setSearchInfoForFilm = (film) => {
+    if(film.name.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())){
+            return "Name"
+    }else if(film.author.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())){
+            return "Author"
+    }else if(film.description.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())){
+            return  "Description"
+    }
 }
 
 const SpecificSearch = () => {
