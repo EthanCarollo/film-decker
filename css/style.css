@@ -711,6 +711,11 @@ h1{
     z-index: 101212;
   }
 
+
+  .deleteThisFilm h1{
+    color: white;
+  }
+
   /*? ANIM COME CASE */
 
 @keyframes come {
