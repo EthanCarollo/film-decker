@@ -137,7 +137,6 @@ h1{
   align-content: center ;
   justify-content: center;
   width: 100%;
-  z-index: 15;
   top: 1.5vw;
   transition: all 1s;
   filter: drop-shadow(0vh 0.6vh 0vh rgba(0, 0, 0, 0.5));
@@ -770,6 +769,7 @@ h1{
 }
 
 .crossAdd{
+  z-index: 190112;
   background-image: url(../img/59836.png);
   width: 7vh;
   background-size: 50%;
@@ -802,6 +802,7 @@ h1{
   transition: all 1s;
   margin-top: 1.5vh;
   margin-left: 1.5vh;
+  z-index: 190112;
   transform: rotateZ(0deg);
   transition: all 1s;
   right:1vh;
@@ -1498,15 +1499,34 @@ form{
   overflow: visible;
 }
 
+.reloadRecommend{
+  position: absolute;
+  right: 2vh;
+  top: 2vh;
+  filter: invert(1);
+  width: 5vh;
+  z-index: 454545;
+  cursor:pointer;
+  mix-blend-mode: difference;
+}
+
+@keyframes reload{
+  from{
+
+  }to{
+    transform: rotateZ(360deg);
+  }
+}
+
 .propositionMovies h1{
   font-family: Akira;
   z-index: 1515515;
   color: white;
   position: absolute;
   filter: drop-shadow(0 0 1vh black);
-  left: 3%;
-  top: 1%;
-  padding: 2%;
+  left: 0;
+  top: 0;
+  padding: 3vh;
   text-shadow: -0.5vh 0vh 0vh rgba(0, 0, 0, 0.418);
 }
 
