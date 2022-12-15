@@ -8,6 +8,15 @@ window.onload=(event) => {
     document.getElementById("loadingPage").classList.add("disapear");
 };
 
+window.addEventListener("scroll", ()=> {
+    console.log(window.scrollY );
+    if(window.scrollY < 10 && clientOrientation() === "landscape"){
+        document.getElementById("searchBarSpec").style.top = "1.45vw";
+    }else{
+        document.getElementById("searchBarSpec").style.top = "0%";
+    }
+} )
+
 const strNoAccent = (string) => {
     let accent="áàâäãåçèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
         noAccent="aaaaaaceeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
@@ -357,27 +366,7 @@ const AddInRow=(tabMovie, i, divTab)=>{
         let percentOfLikePreview = filmCard.appendChild(document.createElement("div"));
         percentOfLikePreview.classList.add("percentOfLikePreview");
         percentOfLikePreview.innerHTML = setLikeRatio(tabMovie.likes, tabMovie.dislikes) +" % <br><span>LIKE RATIO</span>";
-        if(setLikeRatio(tabMovie.likes, tabMovie.dislikes) < 0){
-            percentOfLikePreview.style.color = "rgb(255,100,100)";
-        }else if(setLikeRatio(tabMovie.likes, tabMovie.dislikes) > 0){
-            percentOfLikePreview.style.color = "rgb(80,80,255)";
-        }else{
-            percentOfLikePreview.style.color = "rgb(255,255,255)";
-        }
 
-        if(likedFilm.includes(tabMovie.id) === true)
-        {
-            likeButton.classList.add("active");
-        }else {
-            likeButton.addEventListener("click", (e)=>{
-                if(dislikedFilm.includes(tabMovie.id) === true)
-                {
-                    return;
-                }
-                likeButton.classList.add("active");
-                likeFilm(tabMovie.id);
-            })
-        }
         if(dislikedFilm.includes(tabMovie.id) === true)
             {
                 dislikeButton.classList.add("active");
@@ -1059,7 +1048,9 @@ const sortArray = (array) => {
 
 const Search = () => {
     let tempTab = [];
-    document.getElementById("homeMovie").style.display = "none"
+    if(document.getElementById("searchValue").value !== ""){
+        document.getElementById("homeMovie").style.display = "none"
+    }
         for(let i = 0; i < tabFilm.length;i++){
             if(tabFilm[i].name.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase()) 
             || tabFilm[i].author.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
@@ -1414,8 +1405,6 @@ document.getElementById("sliderOnline").addEventListener("click", () => {
 // TODO **************************************
 // TODO // ALL ABOUT OFFLINE & ONLINE MOD SWAP
 // TODO **************************************
-
-
 
 setTab();
 addSubCategoryToCreateFilm();

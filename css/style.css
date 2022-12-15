@@ -48,7 +48,7 @@ body{
 }
 
 .logoTop{
-  margin: 2vh;
+  margin: 1vw;
   filter: invert(1) drop-shadow(0 0vh 1vh black);
   width: 18vw;
   background-image: url(../img/FilmDecker\ logo2\ online.png);
@@ -243,7 +243,7 @@ h1{
 
 .filmTab{
   position: relative;
-  padding-top: 2.5%;
+  padding-top: 1%;
   top: 0%;
   left: 0%;
   width: 100%;
@@ -435,7 +435,7 @@ h1{
     z-index: 212121212221211464546468468468648;
     font-size: 2vw;
     transition: all 1s;
-    filter: drop-shadow(0vh 0.25vh 1vh black);
+    filter: drop-shadow(0vh 0.25vh 1vh black) drop-shadow(0vh 0.25vh 1vh black);
     text-shadow: 0px 0.3vh 0.1vh rgba(0, 0, 0, 0.514);
   }
   
@@ -944,13 +944,9 @@ h1{
 
 .searchBar{
   position: fixed;
-  top: 0%;
-  left: 10%;
-  width: 40vh;
+  top: 1.45vw;
+  left: 2%;
   height: 7.5vh;
-  border-bottom-right-radius: 6vh;
-  border-bottom-left-radius: 6vh;
-  background-color: #334342;
   display: flex;
   overflow: hidden;
   align-items: center;
@@ -958,11 +954,12 @@ h1{
   justify-content: center;
   z-index: 15454684686888678767868677867868776766768787687;
   padding-bottom: 1vh;
-  box-shadow: 0px 0px 1vh black;
+  overflow: visible;
+  transition: all 1s;
 }
 
 form{
-  margin-top: 1vh;
+  overflow: visible;
   display: flex;
   align-items: center;
   align-content: center;
@@ -970,16 +967,19 @@ form{
 }
 
 #searchValue{
+  border-radius: 0.5vh;
+  width: 40vh;
   font-size: 1.5vh;
   padding: 1vh;
   margin-right: 1.5vh;
 }
 
 .searchIcon{
+  overflow: visible;
   cursor: pointer;
-  width: 5vh;
-  height: 5vh;
-  filter: invert(1);
+  width: 4vh;
+  height: 4vh;
+  filter: invert(1) drop-shadow(0 0vh 1vh black);
 }
 
 /**************************************************/
@@ -1603,15 +1603,16 @@ to {
 
 .propositionMovies h1{
   font-family: Akira;
-  
+  width: 100%;
   z-index: 1515515;
   color: white;
   position: absolute;
   filter: drop-shadow(0 0 1vh black);
   left: 0;
+  font-size: 2vh;
   top: 0;
-  padding: 3vh;
-  text-shadow: -0.5vh 0vh 0vh rgba(0, 0, 0, 0.418);
+  padding-top: 1.5vh;
+  text-shadow: -0vh 0.5vh 0vh rgba(0, 0, 0, 0.418);
 }
 
 .recommendedTable{
@@ -1699,7 +1700,8 @@ to {
   position: absolute;
   left:30%;
   width: 40%;
-  height: 95%;
+  top: 11.25%;
+  height: 80%;
   filter: drop-shadow(0vh 0vh 1vh black);
   color:white;
   text-shadow: 0vh 0.5vh rgba(0, 0, 0, 0.473);
@@ -2252,9 +2254,9 @@ to {
     align-items: center;
     justify-content: center;
     position: absolute;
-    left:10%;
-    width: 40%;
-    height: 92%;
+    left:5%;
+    width: 55%;
+    height: 60%;
     margin-top: 5%;
     filter: drop-shadow(0vh 0vh 1vh black);
     color:white;
@@ -2264,9 +2266,10 @@ to {
   }
   
   .nameDivReco{
-    font-size: 6.5vw;
+    font-size: 5vw;
     overflow: visible;
     text-align: center;
+    width: 100%;
     
   }
   
@@ -2291,6 +2294,7 @@ to {
     cursor: pointer;
     box-shadow: 0 0 1vh black;
     transition: all 1s;
+    overflow: visible;
   }
   
   .buttonSearchSpec:hover{
