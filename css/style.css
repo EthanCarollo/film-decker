@@ -747,6 +747,7 @@ h1{
 .buttonDiv{
   position: fixed;
   display: flex;
+  z-index: 10000000000000;
   flex-direction: column;
   right: 1%;
   bottom: 1%;
@@ -1341,8 +1342,8 @@ form{
   top: 10%;
   background-color: #334342;
   left: 0%;
-  border-top-right-radius: 2vw;
-  border-bottom-right-radius: 2vw;
+  /*border-top-right-radius: 2vw;
+  border-bottom-right-radius: 2vw;*/
   overflow: visible;
   transition: all 1s;
   box-shadow: 0vh 0vh 0vw black;
@@ -1649,7 +1650,7 @@ to {
   width: 22.5vh;
   height: 30vh;
   right: 25%;
-  top: 5vh;
+  top: 7.5vh;
   transform: rotateY(-5deg) rotateX(4deg);
   background-size: cover;
   background-position: center;
@@ -1665,7 +1666,7 @@ to {
   width: 22.5vh;
   height: 30vh;
   left: 25%;
-  top: 5vh;
+  top: 7.5vh;
   transform: rotateY(5deg) rotateX(4deg);
   transition: all 1s;
   background-size: cover;

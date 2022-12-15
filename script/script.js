@@ -67,10 +67,15 @@ let userCollection = [
     
 ];
 
+
 // Tableau qui sera affiché dans 100% des cas
 let displayTab = []
 // Tableau qui sera affiché dans 100% des cas
 
+
+let tabRecommend = []
+let tabCarousselDivRecommend = [];
+let countCaroussel = 0;
 
 
 // ! *****************************************
@@ -453,14 +458,10 @@ const AddInRow=(tabMovie, i, divTab)=>{
 
 
 // ? *****************************************
-// ???? // FILM TAB CREATION *****************
+// ???? // FILM TAB RECOMMEND ****************
 // ? *****************************************
 
 //#region 
-
-let tabRecommend = []
-let tabCarousselDivRecommend = [];
-let countCaroussel = 0;
 
 const createRecommandation = () => {
     let getCaroussel = document.getElementById("carousselRecommend");
@@ -514,8 +515,8 @@ const slideCaroussel = () => {
         slideCaroussel();
     }, 5000);
 }
-slideCaroussel()
 
+slideCaroussel()
 
 const createRecommandationTab = () => {
     tabRecommend = [];
@@ -536,7 +537,8 @@ const createRecommandationTab = () => {
                 }
             }
             let rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
-            if(tempTabSpec.includes(rdmTempFilm)){
+            if(tabRecommend.includes(rdmTempFilm)){
+                console.log("case hebs");
                 rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
             }
             tabRecommend.push(rdmTempFilm)
@@ -618,7 +620,7 @@ let isReloading = false;
 //#endregion
 
 // ? *****************************************
-// ???? // FILM TAB CREATION *****************
+// ???? // FILM TAB RECOMMEND ****************
 // ? *****************************************
 
 
