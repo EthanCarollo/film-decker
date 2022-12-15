@@ -1345,12 +1345,13 @@ form{
   border-bottom-right-radius: 2vw;
   overflow: visible;
   transition: all 1s;
-  box-shadow: 0vh 0vh 1vw black;
+  box-shadow: 0vh 0vh 0vw black;
   z-index: 5648486648846468468684;
 }
 
 .collectionList.active{
   transform: translateX(00%);
+  box-shadow: 0vh 0vh 1.5vw black;
   transition: all 1s;
 }
 
@@ -1499,6 +1500,10 @@ form{
   overflow: visible;
 }
 
+.light .propositionMovies{
+  box-shadow: 0 0 2vh white;
+}
+
 .reloadRecommend{
   position: absolute;
   right: 2vh;
@@ -1506,6 +1511,7 @@ form{
   filter: invert(1);
   width: 5vh;
   z-index: 454545;
+
   cursor:pointer;
   mix-blend-mode: difference;
 }
@@ -1520,6 +1526,7 @@ form{
 
 .propositionMovies h1{
   font-family: Akira;
+  
   z-index: 1515515;
   color: white;
   position: absolute;
@@ -1546,6 +1553,7 @@ form{
   perspective: 500px;
   background-size: cover;
   background-position: center;
+  overflow-y: hidden;
 }
 
 .specBGReco{
@@ -1570,6 +1578,8 @@ form{
   background-position: center;
   filter: none;
   box-shadow: 0 0 2vh white;
+  transition: all 1s;
+  animation: comingTopRecommended 1s;
 }
 
 .imageRecommend2{
@@ -1580,10 +1590,28 @@ form{
   left: 25%;
   top: 5vh;
   transform: rotateY(5deg) rotateX(4deg);
+  transition: all 1s;
   background-size: cover;
   background-position: center;
   filter: none;
   box-shadow: 0 0 2vh white;
+  animation: comingTopRecommended2 1s;
+}
+
+@keyframes comingTopRecommended {
+  from{
+    transform: translateY(10vh);
+  }to{
+    transform: translateY(0) rotateY(-5deg) rotateX(4deg);
+  }
+}
+
+@keyframes comingTopRecommended2 {
+  from{
+    transform: translateY(10vh);
+  }to{
+    transform: translateY(0) rotateY(5deg) rotateX(4deg);
+  }
 }
 
 .textDiv{
@@ -1613,6 +1641,7 @@ form{
   font-size: 4vh;
   overflow: visible;
   filter: none;
+  text-align: center;
 }
 
 .buttonSearchSpec{
@@ -2007,7 +2036,12 @@ form{
     border-bottom-right-radius: 2vw;
     overflow: visible;
     transition: all 1s;
-    box-shadow: 0vh 0vh 1vw black;
+    box-shadow: 0vh 0vh 0vw black;
+    z-index: 5648486648846468468684;
+  }
+
+  .collectionList.active {
+    box-shadow: 0vh 0vh 3vw black;
     z-index: 5648486648846468468684;
   }
 
@@ -2022,9 +2056,178 @@ form{
   /********************************COLLECTION*****************************/
   /***********************************************************************/
 
+  /**********************************************/
+  /****************PROPOSITIONFILM***************/
+  /**********************************************/
+
   .propositionMovies{
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    margin-top: 1.75vh;
+    background-color: #2a2f3b8c;
+    box-shadow: 0 0 2vh black;
+    overflow: visible;
+  }
+  
+  .light .propositionMovies{
+    box-shadow: 0 0 2vh white;
+  }
+  
+  .reloadRecommend{
+    position: absolute;
     display: none;
   }
+  
+  @keyframes reload{
+    from{
+  
+    }to{
+      transform: rotateZ(360deg);
+    }
+  }
+  
+  .propositionMovies h1{
+    font-family: Akira;
+    
+    z-index: 1515515;
+    color: white;
+    position: absolute;
+    filter: drop-shadow(0 0 1vh black);
+    left: 0;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    padding-top: 1vh;
+    font-size: 5vw;
+    text-shadow: -0.5vh 0vh 0vh rgba(0, 0, 0, 0.418);
+  }
+  
+  .recommendedTable{
+    position: absolute;
+    top: 0;
+    bottom: 0%;
+    width: 100%;
+    height: 100%;
+    overflow-x: visible;
+    transition: all 1s;
+    overflow: visible;
+  }
+  
+  .slideCar{
+    transition: all 1s;
+    perspective: 500px;
+    background-size: cover;
+    background-position: center;
+    overflow-y: hidden;
+  }
+  
+  .specBGReco{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    filter: blur(2vh);
+    overflow: visible;
+  }
+  
+  .imageRecommend{
+    background-color: #2a2f3b;
+    position: absolute;
+    width: 15vh;
+    height: 20vh;
+    right: 5%;
+    top: 5vh;
+    transform: rotateY(-5deg) rotateX(4deg);
+    background-size: cover;
+    background-position: center;
+    filter: none;
+    box-shadow: 0 0 2vh white;
+    transition: all 1s;
+    animation: comingTopRecommended 1s;
+  }
+  
+  .imageRecommend2{
+    display: none;
+  }
+  
+  @keyframes comingTopRecommended {
+    from{
+      transform: translateY(10vh);
+    }to{
+      transform: translateY(0) rotateY(-5deg) rotateX(4deg);
+    }
+  }
+  
+  @keyframes comingTopRecommended2 {
+    from{
+      transform: translateY(10vh);
+    }to{
+      transform: translateY(0) rotateY(5deg) rotateX(4deg);
+    }
+  }
+  
+  .textDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left:10%;
+    width: 40%;
+    height: 92%;
+    margin-top: 5%;
+    filter: drop-shadow(0vh 0vh 1vh black);
+    color:white;
+    text-shadow: 0vh 0.5vh rgba(0, 0, 0, 0.473);
+  
+    overflow: visible;
+  }
+  
+  .nameDivReco{
+    font-size: 6.5vw;
+    overflow: visible;
+    text-align: center;
+    
+  }
+  
+  .categoryDivReco{
+    font-size: 4.5vw;
+    margin-top: 0.5vw;
+    overflow: visible;
+    filter: none;
+  }
+  
+  .buttonSearchSpec{
+    font-size: 4.5vw;
+    padding: 2vw;
+    margin-top: 4vw;
+    padding-top: 1.5vw;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+    background-color: #2a2f3b;
+    color: white;
+    border-radius: 1vh;
+    text-shadow: 0vh 0.4vh 0vh black;
+    cursor: pointer;
+    box-shadow: 0 0 1vh black;
+    transition: all 1s;
+  }
+  
+  .buttonSearchSpec:hover{
+    color:#2a2f3b;
+    background-color: white;
+    transition: all 1s;
+    text-shadow: 0 0 0 white;
+    box-shadow: 0 0.5vh 1vh white;
+    transform: translateY(-0.5vh);
+  }
+
+  /**********************************************/
+  /****************PROPOSITIONFILM***************/
+  /**********************************************/
 
 }
 

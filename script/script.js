@@ -230,10 +230,6 @@ const unsetActiveTab =()=>{
     }
 }
 
-document.body.addEventListener("click", (e) => {
-    console.log(e.target);
-})
-
 
     //#region // * Like Region
 
@@ -489,7 +485,7 @@ const createRecommandation = () => {
         bgPage.classList.add("specBGReco");
 
         let nameCaroussel = textDiv.appendChild(document.createElement("div")) 
-        nameCaroussel.innerHTML = tabRecommend[i].name;
+        nameCaroussel.innerHTML = strNoAccent(tabRecommend[i].name);
         nameCaroussel.classList.add("nameDivReco")
         let categoryCaroussel = textDiv.appendChild(document.createElement("div")) 
         categoryCaroussel.innerHTML = obtainCategory(tabRecommend[i]) 
@@ -512,7 +508,6 @@ const slideCaroussel = () => {
         }
         Caroussel.style.transform = "translateX("+100*countCaroussel+"%)";
         countCaroussel++;
-        console.log("yey")
         slideCaroussel();
     }, 5000);
 }
@@ -612,7 +607,7 @@ let isReloading = false;
             }, 1000);
         }
     })
-    
+
 //#endregion
 
 //! Reload Recommandation
