@@ -1518,6 +1518,7 @@ a{
   bottom: 2.5%;
   inset: 0;
   z-index: -15;
+  transition: all 1s;
   pointer-events: none;
   opacity: 10%;
   background: linear-gradient(
@@ -1540,6 +1541,8 @@ a{
 }
 
 .light .propositionMovies::before{
+  content: "";
+  inset: 0;
   background: linear-gradient(
     90deg,
     #241e22,
@@ -1550,11 +1553,14 @@ a{
       #c0bebe,
       #241e22,
       #555561,
-      #d2d6d2,
+      #8270e9,
       #8d8d8c,
       #c0bebe,
       #241e22
   );
+  opacity: 75%;
+  transition: all 1s;
+  background-size: 500%;
   filter: blur(10vh) grayscale(0%);
   animation: anim 20s linear infinite;
 }
