@@ -78,6 +78,11 @@ const createTable = (tab) => {
     divTabFilm5.innerHTML = "";
     tabDiv = [];
     checkDelCategory();
+    document.getElementById("numberPageShow").style.display = "flex"
+    document.getElementById("goUpInPage").style.display = "none"
+    if(tab.length<1){
+        document.getElementById("numberPageShow").style.display = "none"
+    }
     for(let i = 0+(25*actualPage); i < 5+(25*actualPage); i++)
     {
         if(tab[i]!==undefined){
@@ -98,6 +103,7 @@ const createTable = (tab) => {
     {
         if(tab[l]!==undefined){
             AddInRow(tab[l], l, divTabFilm3);
+            document.getElementById("goUpInPage").style.display = "flex"
         }else{
             break;
         }
@@ -444,6 +450,100 @@ const AddInRow=(tabMovie, i, divTab)=>{
 // ! *****************************************
 // !!!! // FILM TAB CREATION *****************
 // ! *****************************************
+
+
+
+// ? *****************************************
+// ???? // FILM TAB CREATION *****************
+// ? *****************************************
+
+//#region 
+
+let tabRecommend = []
+let tabCarousselDivRecommend = [];
+let countCaroussel = 0;
+
+const createRecommandation = () => {
+    let getCaroussel = document.getElementById("carousselRecommend");
+    getCaroussel.innerHTML = "";
+    for(let i = 0;i<tabRecommend.length;i++)
+    {
+        let actualPageCaroussel = getCaroussel.appendChild(document.createElement("div")) 
+        actualPageCaroussel.classList.add("slideCar");
+        actualPageCaroussel.style.position = "absolute";
+        actualPageCaroussel.style.width = "100%"
+        actualPageCaroussel.style.height = "100%"
+        actualPageCaroussel.style.right = (100*i)+"%";
+        let imgCaroussel = actualPageCaroussel.appendChild(document.createElement("div")) 
+        imgCaroussel.classList.add("imageRecommend");
+        imgCaroussel.style.backgroundImage = "url("+tabRecommend[i].img+")"
+        let imgCaroussel2 = actualPageCaroussel.appendChild(document.createElement("div")) 
+        imgCaroussel2.classList.add("imageRecommend2");
+        imgCaroussel2.style.backgroundImage = "url("+tabRecommend[i].img+")"
+
+        let textDiv = actualPageCaroussel.appendChild(document.createElement("div")) ;
+        textDiv.classList.add("textDiv");
+
+        let bgPage = actualPageCaroussel.appendChild(document.createElement("div"));
+        bgPage.style.backgroundImage = "url("+tabRecommend[i].img+")"
+        bgPage.classList.add("specBGReco");
+
+        let nameCaroussel = textDiv.appendChild(document.createElement("div")) 
+        nameCaroussel.innerHTML = tabRecommend[i].name;
+        nameCaroussel.classList.add("nameDivReco")
+        let categoryCaroussel = textDiv.appendChild(document.createElement("div")) 
+        categoryCaroussel.innerHTML = obtainCategory(tabRecommend[i]) 
+        categoryCaroussel.classList.add("categoryDivReco")
+        let buttonSearchCaroussel = textDiv.appendChild(document.createElement("div")) 
+        buttonSearchCaroussel.classList.add("buttonSearchSpec")
+        buttonSearchCaroussel.innerHTML = "RECHERCHER"
+        buttonSearchCaroussel.addEventListener("click", ()=>{
+            document.getElementById("searchValue").value = tabRecommend[i].name;
+            Search();
+        })
+    }
+}
+
+const slideCaroussel = () => {
+    let Caroussel = document.getElementById("carousselRecommend");
+    setTimeout(() => {
+        if(countCaroussel > 4){
+            countCaroussel = 0
+        }
+        Caroussel.style.transform = "translateX("+100*countCaroussel+"%)";
+        countCaroussel++;
+        console.log("yey")
+        slideCaroussel();
+    }, 5000);
+}
+slideCaroussel()
+
+const createRecommandationTab = () => {
+    tabRecommend = [];
+
+    if(userCollection.length > 0)
+    {
+        let categoryTemp = []
+        for(let j = 0 ;j<userCollection.length;j++)
+        {
+            categoryTemp.push(obtainCategory(userCollection[j]));
+        }
+        console.log(categoryTemp);
+    }
+
+    for(let i = 0; i < 5; i++)
+    {
+        tabRecommend.push(tabFilm[Math.floor(Math.random() * tabFilm.length)])
+    }
+    createRecommandation()
+}
+
+
+//#endregion
+
+// ? *****************************************
+// ???? // FILM TAB CREATION *****************
+// ? *****************************************
 
 
 
@@ -884,6 +984,7 @@ const sortArray = (array) => {
 
 const Search = () => {
     let tempTab = [];
+    document.getElementById("homeMovie").style.display = "none"
         for(let i = 0; i < tabFilm.length;i++){
             if(tabFilm[i].name.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase()) 
             || tabFilm[i].author.toLowerCase().includes(document.getElementById("searchValue").value.toLowerCase())
@@ -981,6 +1082,11 @@ document.getElementById("openSearchMenu").addEventListener("click", (e)=>{
 
 document.getElementById("searchValue").addEventListener("input", () => {
     Search();
+    if(document.getElementById("searchValue").value !== ""){
+        document.getElementById("homeMovie").style.display = "none"
+    }else{
+        document.getElementById("homeMovie").style.display = "block"
+    }
 })
 
 document.getElementById("submitSearchSpec").addEventListener("click", SpecificSearch)
@@ -1013,6 +1119,7 @@ const fetchTable = () => {
             localStorage.setItem("tabAPI", res);
             setTab();
             setTable();
+            createRecommandationTab();
         })
         .catch(error => {
             console.log(error);
@@ -1110,6 +1217,7 @@ const addInColl = (array) => {
         userCollection.push(array);
         createCollection()
     }
+    createRecommandationTab();
 }
 
 const SearchCollection = (name) => {
@@ -1120,6 +1228,7 @@ const SearchCollection = (name) => {
 const retireOfCollection = (i) => {
     userCollection.splice(i,1);
     createCollection()
+    createRecommandationTab();
 }
 
 document.getElementById("showColl").addEventListener("click", ()=>{
@@ -1236,6 +1345,7 @@ document.getElementById("sliderOnline").addEventListener("click", () => {
 setTab();
 addSubCategoryToCreateFilm();
 refreshNavpage();
+createRecommandationTab();
 
 
 
