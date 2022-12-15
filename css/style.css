@@ -1503,7 +1503,7 @@ a{
 .propositionMovies{
   position: relative;
   width: 100%;
-  height: 40vh;
+  height: 45vh;
   margin-top: 1.75vh;
   background-color: #2a2f3b8c;
   box-shadow: 0 0 2vh black;
@@ -1618,9 +1618,8 @@ to {
 .recommendedTable{
   position: absolute;
   top: 0;
-  bottom: 0%;
   width: 100%;
-  height: 40vh;
+  height: 45vh;
   overflow-x: visible;
   transition: all 1s;
   overflow: visible;
