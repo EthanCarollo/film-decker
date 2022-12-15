@@ -78,6 +78,7 @@ let tabCarousselDivRecommend = [];
 let countCaroussel = 0;
 
 
+
 // ! *****************************************
 // !!!! // FILM TAB CREATION *****************
 // ! *****************************************
