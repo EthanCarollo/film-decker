@@ -2065,6 +2065,14 @@ to {
   height: 14vw;
 }
 
+#searchValue {
+  border-radius: 0.5vh;
+  width: 75vw;
+  font-size: 1.5vh;
+  padding: 1vh;
+  margin-right: 1.5vh;
+}
+
 #filmTabDivRow1{
   padding-top: 0;
 }

@@ -9,7 +9,6 @@ window.onload=(event) => {
 };
 
 window.addEventListener("scroll", ()=> {
-    console.log(window.scrollY );
     if(window.scrollY < 10 && clientOrientation() === "landscape"){
         document.getElementById("searchBarSpec").style.top = "1.45vw";
     }else{

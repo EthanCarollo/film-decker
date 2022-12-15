@@ -1,7 +1,7 @@
 # FilmDecker Doc
 
 # FilmDecker est une plateforme de partage et de notation de films en tout genre, connecté à une api faite par "TheDropIndustry".
-# Le slider en bas à gauche permet de switch entre le mode Offline et Online de l'api.
+# Le slider en bas à gauche permet de switch entre le mode Offline et Online de l'api (+100 films).
 
 # Les films - Comment ca marche
 #   - Un film contient : un nom, une description, un auteur, une catégorie, une image, une vidéo youtube (bande annonce)
@@ -31,3 +31,12 @@
 #   - Au lancement, si vous n'avez rien dans votre "User Collection", les "Recommandations" seront purement aléatoire
 #   - Lorsque vous avez des films dans votre "User Collection", les "Recommandations" se baseront sur la catégorie dominante de votre "User Collection"
 #   - Si les "Recommandations" ne vous plaisent pas, vous pouvez toujours les actualisé avec l'icon en haut à droite qui se mettra à tourner au clic
+#   - Appuyer sur le bouton rechercher pour obtenir la case du film apparaissant dans les recommandations
+
+# Divers
+#   - La flèche tout en bas permet de remonter en haut de la page, elle apparait uniquement si + de 15 films sont affiché.
+#   - Le offline et online mode peuvent etre considérer comme un light et un dark mode.
+#       - PS : la div des Recommandations possède un before qui permet de faire un effet glow qui se à une animation infini qui tourne
+#   - Au hover, sur desktop, les films changent rotation dans l'espace (pas de three.js juste du css perspective)
+#   - Il y a une petite lumière en haut à droite avec des particules pour combler le vide, elle est marrante
+#   - Au changement de mode le logo change et on peut voir apparaitre un ".online" sur la version en ligne.
