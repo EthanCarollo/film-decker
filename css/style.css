@@ -774,6 +774,7 @@ h1{
   right: 1%;
   bottom: 1%;
   overflow-y: hidden;
+  overflow: visible;
   align-items: flex-end;
   justify-content: flex-end;
   align-items: flex-end;
@@ -885,7 +886,7 @@ h1{
   height: 7vh;
   border-radius: 3.5vh;
   background-color: aliceblue;
-  overflow: hidden;
+  overflow: visible;
   transition: all 1s;
   margin-top: 1vh;
 }
@@ -898,6 +899,7 @@ h1{
 .specificSearch.active{
   width: 35vh;
   height: 50vh;
+  overflow: visible;
   border-radius: 5vh;
   transition: all 1s;
   background-color: rgb(37, 37, 37);
