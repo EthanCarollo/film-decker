@@ -549,6 +549,7 @@ h1{
     top: 1vh;
     left: 1.5vh;
     color: white;
+    width: 17vw;
     transition: all 2s;
     z-index: 854848454;
   }
