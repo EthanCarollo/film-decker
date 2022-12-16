@@ -1968,6 +1968,7 @@ to {
     position: absolute;
     top: 1vh;
     left: 1.5vh;
+    width: 50vw;
     font-size: 2vh;
     color: white;
     transition: all 2s;
