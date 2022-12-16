@@ -669,7 +669,6 @@ const addSubCategoryToCreateFilm = () => {
     }
 }
 
-
 const createCategory = () => {
     let newCat = document.getElementById("filmCategoryToAdd").value;
     if(onlineMode === true){ 
@@ -785,12 +784,14 @@ const openDelCategory = () => {
     document.getElementById("modifyFilmMenu").classList.remove("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("deleteCategoryMenu").classList.toggle("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
 }
 
 const openModifyCatName = () => {
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("modifyCategoryMenu").classList.toggle("active");
     document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
@@ -801,6 +802,7 @@ const openModifyCat = () => {
     document.getElementById("modifyFilmMenu").classList.remove("active");
     document.getElementById("addCategoryMenu").classList.toggle("active");
     document.getElementById("deleteCategoryMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
 }
 
 //#endregion
@@ -894,6 +896,7 @@ document.getElementById("openAddMenu").addEventListener("click", (e)=>{
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("deleteCategoryMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
 })
 
 document.getElementById("createYourOwn").addEventListener("click", (e)=>{
@@ -902,6 +905,7 @@ document.getElementById("createYourOwn").addEventListener("click", (e)=>{
     document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("deleteCategoryMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
 })
 
 //#endregion
@@ -1019,6 +1023,7 @@ const openModify = () => {
     document.getElementById("modifyFilmMenu").classList.toggle("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
     document.getElementById("deleteCategoryMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
 }
 
 const openModify2 = () => {
@@ -1026,6 +1031,8 @@ const openModify2 = () => {
     document.getElementById("specificSearchMenu").classList.remove("active");
     document.getElementById("modifyFilmMenu").classList.add("active");
     document.getElementById("addCategoryMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
 }
 
 document.getElementById("submitModify").addEventListener("click", ModifyFilm);
@@ -1189,6 +1196,9 @@ document.getElementById("openSearchMenu").addEventListener("click", (e)=>{
     document.getElementById("addFilmMenu").classList.remove("active");
     document.getElementById("specificSearchMenu").classList.toggle("active");
     document.getElementById("modifyFilmMenu").classList.remove("active");
+    document.getElementById("modifyCategoryMenu").classList.remove("active");
+    document.getElementById("deleteCategoryMenu").classList.remove("active");
+    document.getElementById("addCategoryMenu").classList.remove("active");
 })
 
 document.getElementById("searchValue").addEventListener("input", () => {
