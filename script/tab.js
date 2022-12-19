@@ -11,33 +11,15 @@ let offlineTab = [
                 author:"Alexandre Astierr"
             },
             {
-                author
-: 
-"Edgar Wright",
-category
-: 
-"qWvkRkXKisovrRkQWEaQ",
-description
-: 
-"Gary King, quadragénaire, se souvient d'une des plus belles soirées de sa vie, celle du 22 juin 1999...",
-dislikes
-: 
-0,
-id
-: 
-"un6jXyacYEZEuWd3hikM",
-img
-: 
-"https://fr.web.img5.acsta.net/pictures/210/149/21014960_20130624181718377.jpg",
-likes
-: 
-1,
-name
-: 
-"Le dernier pub avant la fin du monde",
-video
-: 
-"https://www.youtube.com/watch?v=NWpurm6e-vY"
+                author : "Edgar Wright",
+                category: "qWvkRkXKisovrRkQWEaQ",
+                description: "Gary King, quadragénaire, se souvient d'une des plus belles soirées de sa vie, celle du 22 juin 1999...",
+                dislikes: 0,
+                id: "un6jXyacYEZEuWd3hikM",
+                img: "https://fr.web.img5.acsta.net/pictures/210/149/21014960_20130624181718377.jpg",
+                likes: 1,
+                name: "Le dernier pub avant la fin du monde",
+                video: "https://www.youtube.com/watch?v=NWpurm6e-vY"
             },
             {
                 id:"Yzr28IxsYbdPEOC4Ez4r",
@@ -130,7 +112,7 @@ video
             {
                 id:"Ylr254xsYb56EOC4Ez4r",
                 description:"Panda",
-                category :"qWvkRkXKisovrRkQWEaQ",
+                category :"R7njrf6DPHVvNRLpz4P0",
                 img:"https://fr.web.img6.acsta.net/pictures/17/06/12/09/47/493244.jpg",
                 name: "Clown",
                 likes :956,
@@ -141,7 +123,7 @@ video
             {
                 id:"Ylr254xsYb56EOC4Ez4r",
                 description:"Panda",
-                category :"qWvkRkXKisovrRkQWEaQ",
+                category :"R7njrf6DPHVvNRLpz4P0",
                 img:"https://fr.web.img4.acsta.net/pictures/19/08/13/10/05/4800587.jpg",
                 name: "American Horror Story (1984)",
                 likes :1520,

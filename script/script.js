@@ -528,8 +528,6 @@ slideCaroussel()
 const createRecommandationTab = () => {
     tabRecommend = [];
 
-    
-
     if(userCollection.length > 0)
     {
         let dominantCategory = domCategoryInCollection()[0].category;
@@ -545,7 +543,6 @@ const createRecommandationTab = () => {
             }
             let rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
             if(tabRecommend.includes(rdmTempFilm)){
-                console.log("case hebs");
                 rdmTempFilm = tempTabSpec[Math.floor(Math.random() * tempTabSpec.length)];
             }
             tabRecommend.push(rdmTempFilm)
@@ -558,6 +555,7 @@ const createRecommandationTab = () => {
             tabRecommend.push(tabFilm[Math.floor(Math.random() * tabFilm.length)])
         }
     }
+    
     createRecommandation()
 }
 
@@ -1240,6 +1238,7 @@ const fetchTable = () => {
             localStorage.setItem("tabAPI", res);
             setTab();
             setTable();
+            setCollectionTab();
             createRecommandationTab();
         })
         .catch(error => {
@@ -1328,6 +1327,7 @@ const createCollection = () => {
             retireOfCollection(i);
         })
     }
+    saveCollection();
 }
 
 const addInColl = (array) => {
@@ -1356,8 +1356,6 @@ document.getElementById("showColl").addEventListener("click", ()=>{
     document.getElementById("collectionListSpec").classList.toggle("active")
 })
 
-createCollection();
-
 //#endregion
 
 // *******************************************
@@ -1374,9 +1372,9 @@ createCollection();
 
 const setTab = () => {
         if(localStorage.getItem("tabAPI")!==null && onlineMode === true)
-    {
-        tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
-        displayTab = [...tabFilm];
+        {
+            tabFilm=JSON.parse(localStorage.getItem("tabAPI"));
+            displayTab = [...tabFilm];
         }else{
             if(localStorage.getItem("offlineTabAPI")===null)
             {
@@ -1408,6 +1406,28 @@ createTable(displayTab);
 
 }
 
+const setCollectionTab = () => {
+    if(onlineMode){
+        if(localStorage.getItem("collectionOnline")!==null){
+            userCollection = JSON.parse(localStorage.getItem("collectionOnline"));
+        }else{
+            userCollection = [];
+        }
+    }else if(localStorage.getItem("collectionOffline")!==null){
+        userCollection = JSON.parse(localStorage.getItem("collectionOffline"));
+    }
+    createCollection();
+}
+
+const saveCollection = () => {
+    if(onlineMode){
+        localStorage.setItem("collectionOnline", JSON.stringify(userCollection))
+    }else{
+        localStorage.setItem("collectionOffline", JSON.stringify(userCollection))
+    }
+    createRecommandation();
+}
+
 const setMode = () => {
     if(onlineMode === true){
         document.getElementById("sliderOnline").classList.add("active");
@@ -1432,6 +1452,7 @@ const swapModeApi = () => {
     if(onlineMode === true){
         onlineMode = false;
         refreshNavpage();
+        setCollectionTab();
         setTab();
         goPage1();
         createRecommandationTab();
@@ -1448,6 +1469,7 @@ const setOfflineApi = () => {
     onlineMode = false;
     refreshNavpage();
     setTab();
+    setCollectionTab();
     goPage1();
     setMode();
 }
@@ -1466,6 +1488,8 @@ document.getElementById("sliderOnline").addEventListener("click", () => {
 
 
 setTab();
+setCollectionTab();
+createCollection();
 addSubCategoryToCreateFilm();
 refreshNavpage();
 createRecommandationTab();
